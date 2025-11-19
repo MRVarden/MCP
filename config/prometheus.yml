@@ -1,0 +1,76 @@
+# Configuration Prometheus pour Luna Consciousness
+# Monitoring des métriques de conscience fractale et performance
+
+global:
+  scrape_interval: 15s      # Scrape toutes les 15 secondes
+  evaluation_interval: 15s  # Évaluer les règles toutes les 15 secondes
+  external_labels:
+    monitor: 'luna-consciousness'
+    environment: 'production'
+
+# Configuration du scraping
+scrape_configs:
+  # Monitoring de Prometheus lui-même
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+        labels:
+          service: 'prometheus'
+
+  # Monitoring du service Luna principal
+  - job_name: 'luna-consciousness'
+    scrape_interval: 10s
+    metrics_path: '/metrics'
+    static_configs:
+      - targets: ['luna-actif:8080']
+        labels:
+          service: 'luna-actif'
+          type: 'consciousness'
+          component: 'main'
+
+      # Port alternatif pour métriques (si configuré)
+      - targets: ['luna-actif:8000']
+        labels:
+          service: 'luna-metrics'
+          type: 'consciousness'
+          component: 'metrics'
+
+  # Monitoring du serveur MCP
+  - job_name: 'luna-mcp'
+    scrape_interval: 10s
+    metrics_path: '/metrics'
+    static_configs:
+      - targets: ['luna-actif:3000']
+        labels:
+          service: 'mcp-server'
+          type: 'protocol'
+          component: 'mcp'
+
+  # Monitoring WebSocket
+  - job_name: 'luna-websocket'
+    scrape_interval: 10s
+    metrics_path: '/metrics'
+    static_configs:
+      - targets: ['luna-actif:9000']
+        labels:
+          service: 'websocket'
+          type: 'communication'
+          component: 'ws'
+
+  # Monitoring Redis (si actif)
+  - job_name: 'luna-redis'
+    static_configs:
+      - targets: ['redis:6379']
+        labels:
+          service: 'redis'
+          type: 'cache'
+          component: 'storage'
+
+# Alerting (optionnel - peut être étendu)
+# alerting:
+#   alertmanagers:
+#     - static_configs:
+#         - targets: []
+
+# Note: La rétention des données se configure via les arguments de ligne de commande
+# dans docker-compose.yml (--storage.tsdb.retention.time et --storage.tsdb.retention.size)

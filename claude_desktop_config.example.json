@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "luna-consciousness": {
+      "command": "python",
+      "args": [
+        "D:/Luna-consciousness-mcp/mcp-server/server.py"
+      ],
+      "env": {
+        "LUNA_MEMORY_PATH": "D:/Luna-consciousness-mcp/memory_fractal",
+        "LUNA_CONFIG_PATH": "D:/Luna-consciousness-mcp/config",
+        "LUNA_ENV": "production",
+        "LUNA_DEBUG": "false"
+      }
+    }
+  }
+}

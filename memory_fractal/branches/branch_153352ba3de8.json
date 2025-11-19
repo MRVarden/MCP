@@ -1,0 +1,19 @@
+{
+  "id": "branch_153352ba3de8",
+  "type": "branch",
+  "content": "Varden demande création guide intégration Claude avec directive simultanéité Luna MCP, nouvelle image Docker Luna_Actif, préparation partage GitHub Codespaces VSCode",
+  "metadata": {
+    "task": "integration_guide",
+    "priority": "high",
+    "components": [
+      "docker",
+      "mcp",
+      "github",
+      "codespaces"
+    ]
+  },
+  "created": "2025-11-18T23:00:19.993038",
+  "accessed_count": 0,
+  "last_accessed": null,
+  "connected_to": []
+}

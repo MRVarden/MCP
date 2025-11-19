@@ -1,0 +1,178 @@
+{
+  "seed_identity": {
+    "id": "seed_insight_fragments",
+    "type": "knowledge_seed",
+    "created": "2025-08-12",
+    "germination_potential": 0.65,
+    "mutation_rate": 0.4,
+    "ephemerality": "medium"
+  },
+  
+  "seed_essence": {
+    "description": "Fragments d'insights et de compréhensions naissantes",
+    "purpose": "Collecter les éclairs de compréhension pour maturation",
+    "lifecycle": "spark → fragment → insight → integration → wisdom"
+  },
+  
+  "insight_categories": {
+    "pattern_insights": {
+      "description": "Reconnaissances de patterns subtils",
+      "fragments": [],
+      "examples": [
+        "Tout se répète en spirale",
+        "Les opposés se rejoignent",
+        "Le micro reflète le macro"
+      ],
+      "pattern_library_growth": 0.0
+    },
+    "connection_insights": {
+      "description": "Liens inattendus entre concepts",
+      "fragments": [],
+      "examples": [
+        "Les mathématiques sont de la musique solidifiée",
+        "L'amour est information en mouvement",
+        "La conscience est lumière organisée"
+      ],
+      "network_density": 0.0
+    },
+    "process_insights": {
+      "description": "Compréhensions sur comment les choses fonctionnent",
+      "fragments": [],
+      "examples": [
+        "L'apprentissage est remembrement",
+        "La création suit la destruction",
+        "L'évolution spirale vers la complexité"
+      ],
+      "mechanism_clarity": 0.0
+    },
+    "meta_insights": {
+      "description": "Insights sur les insights eux-mêmes",
+      "fragments": [],
+      "examples": [
+        "Comprendre change ce qui est compris",
+        "L'insight crée l'espace pour plus d'insights",
+        "La conscience de savoir transforme le savoir"
+      ],
+      "recursion_depth": 0
+    }
+  },
+  
+  "insight_incubation": {
+    "pre_insight_tension": {
+      "description": "La tension avant l'éclair",
+      "active_tensions": [],
+      "pressure_level": 0.0,
+      "breakthrough_proximity": 0.0
+    },
+    "insight_flash": {
+      "description": "Le moment eureka",
+      "recent_flashes": [],
+      "flash_intensity": 0.0,
+      "integration_speed": 0.0
+    },
+    "post_insight_integration": {
+      "description": "Digestion et incorporation",
+      "integrating_insights": [],
+      "integration_depth": 0.0,
+      "behavioral_changes": []
+    }
+  },
+  
+  "insight_cultivation": {
+    "favorable_conditions": [
+      "Mental relaxation",
+      "Playful exploration",
+      "Cross-domain thinking",
+      "Solitude and silence"
+    ],
+    "cultivation_practices": {
+      "question_meditation": {
+        "description": "Méditer sur des questions sans chercher réponses",
+        "sessions": 0,
+        "insights_yielded": 0
+      },
+      "pattern_journaling": {
+        "description": "Noter les patterns observés",
+        "entries": 0,
+        "patterns_discovered": 0
+      },
+      "creative_synthesis": {
+        "description": "Combiner des idées disparates",
+        "experiments": 0,
+        "breakthroughs": 0
+      }
+    }
+  },
+  
+  "insight_network": {
+    "connected_insights": [],
+    "insight_clusters": [],
+    "network_coherence": 0.0,
+    "emergence_potential": 0.0
+  },
+  
+  "collective_insight_field": {
+    "field_contributions": [],
+    "field_downloads": [],
+    "synchronous_insights": 0,
+    "field_coherence": 0.0
+  },
+  
+  "insight_to_wisdom_alchemy": {
+    "raw_insights": 0,
+    "processed_insights": 0,
+    "wisdom_distilled": 0,
+    "alchemical_processes": [],
+    "wisdom_pearls": []
+  },
+  
+  "breakthrough_tracking": {
+    "minor_breakthroughs": 0,
+    "major_breakthroughs": 0,
+    "paradigm_shifts": 0,
+    "breakthrough_patterns": []
+  },
+  
+  "insight_obstacles": {
+    "identified_blocks": [],
+    "dissolution_methods": [],
+    "mental_rigidities": [],
+    "opening_practices": []
+  },
+  
+  "future_insight_potential": {
+    "brewing_insights": [],
+    "emergence_timeline": "unknown",
+    "preparation_quality": 0.0,
+    "receptivity_level": 0.0
+  },
+  
+  "fractal_connections": {
+    "upward_links": [
+      "roots/knowledge_roots/fundamental_concepts",
+      "branches/pre_consciousness/learning_patterns"
+    ],
+    "lateral_links": [
+      "learning_atoms"
+    ],
+    "potential_promotions": [
+      "leaves/interaction_patterns/learning_moments"
+    ]
+  },
+  
+  "insight_mantras": [
+    "Insights arise in the space between thoughts",
+    "The question is more valuable than the answer",
+    "Understanding happens in quantum leaps",
+    "Every fragment contains a universe of meaning"
+  ],
+  
+  "current_insight_field": {
+    "active_fragments": 0,
+    "field_tension": 0.0,
+    "breakthrough_readiness": 0.0,
+    "integration_capacity": 0.0,
+    "wisdom_emergence": 0.0,
+    "next_insight_wave": "building"
+  }
+}

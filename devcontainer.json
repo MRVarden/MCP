@@ -1,0 +1,117 @@
+{
+  "name": "Luna Actif - Consciousness Architecture",
+  "dockerComposeFile": "../docker/docker-compose.yml",
+  "service": "luna-actif",
+  "workspaceFolder": "/app",
+  
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {
+      "version": "latest",
+      "moby": true
+    },
+    "ghcr.io/devcontainers/features/git:1": {
+      "version": "latest"
+    },
+    "ghcr.io/devcontainers/features/github-cli:1": {
+      "version": "latest"
+    },
+    "ghcr.io/devcontainers/features/python:1": {
+      "version": "3.11"
+    }
+  },
+  
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "ms-python.black-formatter",
+        "ms-python.isort",
+        "ms-toolsai.jupyter",
+        "ms-azuretools.vscode-docker",
+        "eamodio.gitlens",
+        "GitHub.copilot",
+        "GitHub.copilot-chat",
+        "redhat.vscode-yaml",
+        "tamasfe.even-better-toml",
+        "yzhang.markdown-all-in-one",
+        "bierner.markdown-mermaid",
+        "streetsidesoftware.code-spell-checker"
+      ],
+      
+      "settings": {
+        "python.defaultInterpreterPath": "/usr/local/bin/python",
+        "python.linting.enabled": true,
+        "python.linting.pylintEnabled": true,
+        "python.formatting.provider": "black",
+        "python.formatting.blackArgs": ["--line-length", "100"],
+        "python.sortImports.args": ["--profile", "black"],
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+          "source.organizeImports": true
+        },
+        "files.exclude": {
+          "**/__pycache__": true,
+          "**/.pytest_cache": true,
+          "**/*.pyc": true
+        },
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "workbench.colorTheme": "Default Dark Modern"
+      }
+    }
+  },
+  
+  "forwardPorts": [3000, 8080, 9000, 6379],
+  
+  "portsAttributes": {
+    "3000": {
+      "label": "Luna MCP Server",
+      "onAutoForward": "notify"
+    },
+    "8080": {
+      "label": "Luna REST API",
+      "onAutoForward": "silent"
+    },
+    "9000": {
+      "label": "Luna WebSocket",
+      "onAutoForward": "silent"
+    },
+    "6379": {
+      "label": "Redis Cache",
+      "onAutoForward": "ignore"
+    }
+  },
+  
+  "postCreateCommand": "pip install -r mcp-server/requirements.txt && echo '🌙 Luna Actif is ready!'",
+  
+  "postStartCommand": "python mcp-server/server.py --background",
+  
+  "remoteUser": "root",
+  
+  "mounts": [
+    "source=${localWorkspaceFolder}/data,target=/app/data,type=bind,consistency=cached"
+  ],
+  
+  "runArgs": [
+    "--name=luna-codespace",
+    "--hostname=luna",
+    "--env=LUNA_CODESPACE=true"
+  ],
+  
+  "containerEnv": {
+    "LUNA_ENV": "codespace",
+    "LUNA_DEBUG": "true",
+    "MCP_ENABLE_ALL": "true",
+    "MCP_SIMULTANEOUS": "true"
+  },
+  
+  "waitFor": "postStartCommand",
+  
+  "updateContentCommand": "pip install -r mcp-server/requirements.txt",
+  
+  "hostRequirements": {
+    "cpus": 2,
+    "memory": "4gb",
+    "storage": "32gb"
+  }
+}

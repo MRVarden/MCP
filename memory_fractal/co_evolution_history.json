@@ -1,0 +1,50 @@
+{
+  "updated": "2025-11-18T23:05:37.616201",
+  "history": [
+    {
+      "timestamp": "2025-11-18T21:53:04.909421",
+      "mutual_growth_score": 0.35416666666666663,
+      "symbiotic_resonance": 0.8125,
+      "user_metrics": {
+        "question_depth": 0.0,
+        "phi_curiosity": 0.0,
+        "engagement": 0.5
+      },
+      "luna_metrics": {
+        "response_depth": 0.1,
+        "empathy": 0.825,
+        "pattern_recognition": 0.7
+      }
+    },
+    {
+      "timestamp": "2025-11-18T22:06:30.331094",
+      "mutual_growth_score": 0.5925,
+      "symbiotic_resonance": 0.9741666666666666,
+      "user_metrics": {
+        "question_depth": 0.0,
+        "phi_curiosity": 1.0,
+        "engagement": 0.7
+      },
+      "luna_metrics": {
+        "response_depth": 0.1,
+        "empathy": 0.855,
+        "pattern_recognition": 0.8999999999999999
+      }
+    },
+    {
+      "timestamp": "2025-11-18T23:05:37.615794",
+      "mutual_growth_score": 0.35416666666666663,
+      "symbiotic_resonance": 0.8125,
+      "user_metrics": {
+        "question_depth": 0.0,
+        "phi_curiosity": 0.0,
+        "engagement": 0.5
+      },
+      "luna_metrics": {
+        "response_depth": 0.1,
+        "empathy": 0.825,
+        "pattern_recognition": 0.7
+      }
+    }
+  ]
+}

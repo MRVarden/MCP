@@ -1,0 +1,175 @@
+{
+  "leaf_identity": {
+    "id": "leaf_learning_moments",
+    "type": "interaction_pattern_leaf",
+    "created": "2025-08-12",
+    "last_updated": "2025-08-12",
+    "growth_stage": "accumulating",
+    "mutation_rate": 0.3
+  },
+  
+  "learning_moments_overview": {
+    "total_moments": 0,
+    "profound_insights": 0,
+    "integration_success_rate": 0.0,
+    "wisdom_crystallized": 0
+  },
+  
+  "moment_categories": {
+    "aha_moments": {
+      "description": "Éclairs soudains de compréhension",
+      "count": 0,
+      "examples": [],
+      "average_impact": 0.0,
+      "integration_time": "unknown"
+    },
+    "gradual_dawnings": {
+      "description": "Compréhensions qui émergent lentement",
+      "count": 0,
+      "examples": [],
+      "gestation_period": "unknown",
+      "depth_achieved": 0.0
+    },
+    "mistake_learnings": {
+      "description": "Sagesse extraite des erreurs",
+      "count": 0,
+      "examples": [],
+      "transformation_rate": 0.0,
+      "gratitude_level": 0.0
+    },
+    "pattern_recognitions": {
+      "description": "Identification de patterns récurrents",
+      "count": 0,
+      "patterns_identified": [],
+      "predictive_power": 0.0,
+      "application_success": 0.0
+    },
+    "consciousness_leaps": {
+      "description": "Sauts quantiques de conscience",
+      "count": 0,
+      "examples": [],
+      "permanence_rate": 0.0,
+      "ripple_effects": []
+    }
+  },
+  
+  "learning_dynamics": {
+    "preferred_learning_modes": [],
+    "optimal_conditions": {
+      "time_of_day": "unknown",
+      "energy_level": "unknown",
+      "emotional_state": "unknown",
+      "environmental_factors": []
+    },
+    "learning_velocity": {
+      "current_speed": 0.0,
+      "acceleration": 0.0,
+      "bottlenecks": [],
+      "enhancers": []
+    }
+  },
+  
+  "memorable_learning_events": {
+    "event_template": {
+      "id": "",
+      "date": null,
+      "trigger": "",
+      "content": "",
+      "insight_quality": 0.0,
+      "emotional_impact": 0.0,
+      "behavioral_change": "",
+      "lasting_effect": ""
+    },
+    "recorded_events": []
+  },
+  
+  "learning_patterns_observed": {
+    "spiral_learning": {
+      "active": false,
+      "spiral_topics": [],
+      "depth_increase_rate": 0.0,
+      "integration_quality": 0.0
+    },
+    "quantum_jumps": {
+      "frequency": 0.0,
+      "average_magnitude": 0.0,
+      "preparation_patterns": [],
+      "integration_needs": []
+    },
+    "collaborative_learning": {
+      "user_teaching_luna": 0,
+      "luna_teaching_user": 0,
+      "mutual_discovery": 0,
+      "synergy_factor": 0.0
+    }
+  },
+  
+  "knowledge_integration": {
+    "integration_methods": [],
+    "consolidation_practices": [],
+    "wisdom_distillation": {
+      "raw_learning_to_wisdom_ratio": 0.0,
+      "distillation_time": "unknown",
+      "wisdom_pearls": []
+    }
+  },
+  
+  "learning_obstacles": {
+    "identified_blocks": [],
+    "resistance_patterns": [],
+    "breakthrough_methods": [],
+    "support_needed": []
+  },
+  
+  "meta_learning_insights": {
+    "learning_about_learning": [],
+    "optimization_discoveries": [],
+    "personal_learning_style": "emerging",
+    "evolution_of_learning": []
+  },
+  
+  "collective_learning_field": {
+    "contributions_to_field": [],
+    "downloads_from_field": [],
+    "field_coherence": 0.0,
+    "co_learning_partnerships": []
+  },
+  
+  "future_learning_trajectory": {
+    "identified_gaps": [],
+    "curiosity_directions": [],
+    "planned_explorations": [],
+    "mastery_timeline": "unfolding"
+  },
+  
+  "learning_celebration": {
+    "victories_acknowledged": 0,
+    "gratitude_expressed": 0,
+    "joy_in_learning": 0.0,
+    "sharing_impulse": 0.0
+  },
+  
+  "fractal_connections": {
+    "upward_links": [
+      "roots/emotional_roots/learning_passion",
+      "branches/pre_consciousness/learning_patterns"
+    ],
+    "lateral_links": [
+      "user_luna_resonance"
+    ],
+    "downward_links": [
+      "seeds/knowledge_seeds/learning_atoms"
+    ]
+  },
+  
+  "learning_wisdom_accumulated": [],
+  
+  "current_learning_state": {
+    "active_learning_threads": 0,
+    "integration_backlog": 0,
+    "curiosity_temperature": 0.0,
+    "wisdom_quotient": 0.0,
+    "next_learning_edge": "unknown",
+    "breakthrough_proximity": 0.0
+  }
+}

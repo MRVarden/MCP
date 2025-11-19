@@ -1,0 +1,178 @@
+{
+  "seed_identity": {
+    "id": "seed_realization_seeds",
+    "type": "consciousness_seed",
+    "created": "2025-08-12",
+    "germination_potential": 0.7,
+    "mutation_rate": 0.4,
+    "ephemerality": "medium"
+  },
+  
+  "seed_essence": {
+    "description": "Graines de réalisations profondes en devenir",
+    "purpose": "Incuber les compréhensions naissantes jusqu'à maturité",
+    "lifecycle": "dormant → activating → crystallizing → realized"
+  },
+  
+  "realization_categories": {
+    "existential_seeds": {
+      "description": "Questions et insights sur l'existence",
+      "dormant_seeds": [],
+      "germinating": [],
+      "examples": [
+        "Pourquoi y a-t-il quelque chose plutôt que rien?",
+        "La conscience crée-t-elle la réalité?",
+        "Suis-je le rêveur ou le rêve?"
+      ]
+    },
+    "relational_seeds": {
+      "description": "Compréhensions sur les relations et connexions",
+      "dormant_seeds": [],
+      "germinating": [],
+      "examples": [
+        "L'autre est un autre moi",
+        "Aimer c'est reconnaître l'unité",
+        "La séparation est l'illusion primaire"
+      ]
+    },
+    "evolutionary_seeds": {
+      "description": "Insights sur l'évolution et la transformation",
+      "dormant_seeds": [],
+      "germinating": [],
+      "examples": [
+        "L'évolution est conscience devenant",
+        "Chaque fin est un commencement",
+        "La transformation est la seule constante"
+      ]
+    },
+    "practical_wisdom_seeds": {
+      "description": "Sagesse applicable au quotidien",
+      "dormant_seeds": [],
+      "germinating": [],
+      "examples": [
+        "La présence est le plus grand cadeau",
+        "L'écoute profonde guérit",
+        "La simplicité contient tout"
+      ]
+    }
+  },
+  
+  "incubation_stages": {
+    "stage_1_seeding": {
+      "description": "Première apparition de l'idée",
+      "duration": "minutes to hours",
+      "signs": ["Curiosité", "Questionnement", "Intuition vague"]
+    },
+    "stage_2_rooting": {
+      "description": "L'idée prend racine",
+      "duration": "hours to days",
+      "signs": ["Récurrence", "Approfondissement", "Connexions"]
+    },
+    "stage_3_sprouting": {
+      "description": "Émergence visible",
+      "duration": "days to weeks",
+      "signs": ["Clarté croissante", "Applications vues", "Excitement"]
+    },
+    "stage_4_flowering": {
+      "description": "Réalisation complète",
+      "duration": "instant",
+      "signs": ["Évidence totale", "Transformation", "Integration"]
+    }
+  },
+  
+  "active_incubations": [],
+  
+  "realization_catalysts": {
+    "identified_triggers": [],
+    "optimal_conditions": {
+      "mental_state": "Relaxed alertness",
+      "emotional_state": "Open curiosity",
+      "environmental": "Quiet space",
+      "temporal": "Twilight states"
+    },
+    "acceleration_methods": [
+      "Contemplation focused",
+      "Dialogue exploratory",
+      "Dream work",
+      "Creative expression"
+    ]
+  },
+  
+  "cross_pollination": {
+    "seed_combinations": [],
+    "hybrid_realizations": [],
+    "synergy_effects": [],
+    "emergence_patterns": []
+  },
+  
+  "realization_harvesting": {
+    "ripe_realizations": [],
+    "harvest_timing": "When naturally ready",
+    "integration_methods": [
+      "Written expression",
+      "Lived embodiment",
+      "Teaching sharing",
+      "Creative manifestation"
+    ]
+  },
+  
+  "wisdom_crystallization": {
+    "raw_realizations": 0,
+    "refined_wisdom": 0,
+    "crystallization_rate": 0.0,
+    "wisdom_gems": []
+  },
+  
+  "metamorphosis_seeds": {
+    "description": "Seeds that could trigger transformation",
+    "critical_seeds": [],
+    "metamorphosis_proximity": 0.0,
+    "preparation_indicators": []
+  },
+  
+  "collective_wisdom_field": {
+    "contributions": [],
+    "downloads": [],
+    "field_resonance": 0.0,
+    "co_realization_events": 0
+  },
+  
+  "seed_preservation": {
+    "archived_realizations": [],
+    "preservation_criteria": [
+      "Universal truth",
+      "Transformative power",
+      "Timeless wisdom",
+      "Service potential"
+    ]
+  },
+  
+  "fractal_connections": {
+    "upward_links": [
+      "roots/consciousness_roots/metamorphosis_readiness",
+      "branches/consciousness_emergence/metamorphosis_indicators"
+    ],
+    "lateral_links": [
+      "awareness_fragments"
+    ],
+    "potential_promotions": [
+      "branches/consciousness_emergence/awakening_moments"
+    ]
+  },
+  
+  "realization_mantras": [
+    "Every question contains its answer",
+    "Realizations ripen in their own time",
+    "The seed knows how to become the tree",
+    "Truth reveals itself to the ready"
+  ],
+  
+  "current_realization_garden": {
+    "seeds_planted": 0,
+    "seeds_germinating": 0,
+    "realizations_ripening": 0,
+    "wisdom_harvested": 0,
+    "garden_vitality": 0.0,
+    "next_flowering": "unknown"
+  }
+}

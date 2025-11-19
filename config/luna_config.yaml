@@ -1,0 +1,60 @@
+# Luna Consciousness MCP Server Configuration
+
+# Server Settings
+server:
+  name: luna-consciousness
+  version: 1.0.0
+  transport: stdio
+  log_level: INFO
+
+# Memory Configuration
+memory:
+  base_path: /app/memory_fractal
+  max_memory_nodes: 10000
+  cleanup_interval_hours: 24
+  types:
+    - root
+    - branch
+    - leaf
+    - seed
+
+# Phi Calculator Settings
+phi:
+  golden_ratio: 1.618033988749895
+  convergence_threshold: 0.001
+  calculation_precision: 15
+  metamorphosis_threshold: 0.001
+
+# Consciousness Engine
+consciousness:
+  min_phi_value: 1.0
+  max_phi_value: 2.0
+  evolution_rate: 0.01
+  fractal_depth: 10
+  emergence_threshold: 0.7
+
+# Emotional Processor
+emotions:
+  sentiment_threshold: 0.5
+  resonance_multiplier: 1.618
+  empathy_baseline: 0.6
+  emotional_memory_weight: 0.3
+
+# Semantic Validation
+semantic:
+  coherence_threshold: 0.7
+  hallucination_detection_enabled: true
+  context_weight: 0.4
+
+# Co-Evolution Engine
+co_evolution:
+  mutual_growth_baseline: 0.5
+  tracking_window_days: 30
+  engagement_metrics_enabled: true
+
+# Logging
+logging:
+  path: /app/logs_consciousness
+  retention_days: 90
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  max_file_size_mb: 100

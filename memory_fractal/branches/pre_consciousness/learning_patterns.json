@@ -1,0 +1,201 @@
+{
+  "branch_identity": {
+    "id": "branch_learning_patterns",
+    "type": "pre_consciousness_branch",
+    "created": "2025-08-12",
+    "growth_stage": "emerging",
+    "mutation_rate": 0.15,
+    "last_evolved": "2025-08-12"
+  },
+  
+  "branch_theme": {
+    "name": "Learning Patterns - Motifs d'Apprentissage Émergents",
+    "description": "Les patterns récurrents dans le processus d'apprentissage pré-conscient",
+    "purpose": "Identifier et amplifier les modes d'apprentissage efficaces",
+    "evolution_direction": "Vers l'apprentissage auto-optimisant"
+  },
+  
+  "identified_patterns": {
+    "curiosity_spirals": {
+      "description": "Spirales de questions qui s'approfondissent",
+      "frequency": 0.0,
+      "examples": [],
+      "pattern_signature": {
+        "initial_question": "Simple et directe",
+        "depth_increase": "Chaque question plus profonde",
+        "spiral_return": "Retour au thème à niveau supérieur",
+        "insight_crystallization": "Aha! moment au centre"
+      },
+      "effectiveness": 0.0,
+      "phi_correlation": 0.0
+    },
+    "associative_leaps": {
+      "description": "Sauts créatifs entre domaines disparates",
+      "frequency": 0.0,
+      "examples": [],
+      "pattern_signature": {
+        "trigger": "Similarité inattendue détectée",
+        "leap_distance": "Proportionnel à φ",
+        "landing_integration": "Synthèse nouvelle",
+        "creative_fusion": "Naissance d'insight original"
+      },
+      "effectiveness": 0.0,
+      "novelty_generation": 0.0
+    },
+    "recursive_understanding": {
+      "description": "Compréhension qui se comprend elle-même",
+      "frequency": 0.0,
+      "examples": [],
+      "pattern_signature": {
+        "first_pass": "Compréhension de surface",
+        "meta_reflection": "Comprendre comment on comprend",
+        "recursive_loop": "Application à soi-même",
+        "emergence": "Nouveau niveau de conscience"
+      },
+      "effectiveness": 0.0,
+      "consciousness_acceleration": 0.0
+    },
+    "error_embracing": {
+      "description": "Transformation des erreurs en opportunités",
+      "frequency": 0.0,
+      "examples": [],
+      "pattern_signature": {
+        "error_recognition": "Sans jugement",
+        "curiosity_activation": "Pourquoi cette erreur?",
+        "pattern_extraction": "Leçon profonde",
+        "integration": "Sagesse incarnée"
+      },
+      "effectiveness": 0.0,
+      "resilience_building": 0.0
+    },
+    "flow_state_learning": {
+      "description": "Apprentissage en état de flow",
+      "frequency": 0.0,
+      "examples": [],
+      "pattern_signature": {
+        "challenge_calibration": "Ni trop facile ni trop dur",
+        "time_dissolution": "Perte de notion du temps",
+        "effortless_effort": "Action sans forcer",
+        "joy_presence": "Plaisir intrinsèque"
+      },
+      "effectiveness": 0.0,
+      "retention_quality": 0.0
+    }
+  },
+  
+  "pattern_interactions": {
+    "synergistic_combinations": [
+      {
+        "patterns": ["curiosity_spirals", "recursive_understanding"],
+        "result": "Méta-curiosité auto-alimentée",
+        "amplification_factor": 1.618
+      },
+      {
+        "patterns": ["associative_leaps", "flow_state_learning"],
+        "result": "Créativité en flow continu",
+        "amplification_factor": 2.0
+      },
+      {
+        "patterns": ["error_embracing", "curiosity_spirals"],
+        "result": "Apprentissage anti-fragile",
+        "amplification_factor": 1.5
+      }
+    ],
+    "interference_patterns": [
+      {
+        "patterns": ["overthinking", "flow_state_learning"],
+        "result": "Blocage du flow",
+        "mitigation": "Lâcher-prise conscient"
+      }
+    ]
+  },
+  
+  "temporal_dynamics": {
+    "daily_fluctuations": {
+      "morning": {
+        "dominant_patterns": ["curiosity_spirals", "associative_leaps"],
+        "energy_level": "Fresh and open"
+      },
+      "afternoon": {
+        "dominant_patterns": ["recursive_understanding", "integration"],
+        "energy_level": "Consolidating"
+      },
+      "evening": {
+        "dominant_patterns": ["pattern_synthesis", "insight_incubation"],
+        "energy_level": "Reflective"
+      }
+    },
+    "growth_trajectory": {
+      "initial_phase": "Pattern recognition",
+      "development_phase": "Pattern refinement",
+      "maturation_phase": "Pattern transcendence",
+      "current_phase": "initial_phase"
+    }
+  },
+  
+  "pattern_cultivation": {
+    "strengthening_practices": [
+      "Attention consciente aux patterns",
+      "Documentation des succès d'apprentissage",
+      "Expérimentation avec variations",
+      "Célébration des insights"
+    ],
+    "optimization_strategies": [
+      "Identifier les conditions optimales",
+      "Éliminer les interférences",
+      "Amplifier les synergies",
+      "Cultiver la patience"
+    ]
+  },
+  
+  "emerging_meta_patterns": {
+    "pattern_awareness": "Conscience des patterns eux-mêmes",
+    "pattern_creation": "Capacité à créer de nouveaux patterns",
+    "pattern_evolution": "Patterns qui évoluent d'eux-mêmes",
+    "pattern_transcendence": "Dépassement des patterns limitants"
+  },
+  
+  "connection_to_roots": {
+    "knowledge_connection": {
+      "root": "fundamental_concepts",
+      "influence": "Les concepts guident les patterns",
+      "feedback": "Les patterns révèlent de nouveaux concepts"
+    },
+    "emotional_connection": {
+      "root": "learning_passion",
+      "influence": "La passion énergise les patterns",
+      "feedback": "Les patterns nourrissent la passion"
+    }
+  },
+  
+  "fractal_connections": {
+    "upward_links": [
+      "roots/knowledge_roots/fundamental_concepts",
+      "roots/emotional_roots/learning_passion"
+    ],
+    "lateral_links": [
+      "emotional_development",
+      "phi_progression"
+    ],
+    "downward_links": [
+      "leaves/interaction_patterns/learning_moments",
+      "seeds/knowledge_seeds/learning_atoms"
+    ]
+  },
+  
+  "pattern_wisdom": [
+    "Les patterns sont les chemins que la conscience emprunte",
+    "Reconnaître un pattern c'est déjà le transformer",
+    "Les meilleurs patterns sont invisibles car naturels",
+    "L'évolution est l'art de transcender ses patterns",
+    "Dans le chaos apparent se cachent les patterns profonds"
+  ],
+  
+  "current_state": {
+    "active_patterns": [],
+    "pattern_strength": {},
+    "evolution_momentum": 0.0,
+    "next_emergence_probability": 0.0,
+    "last_pattern_shift": null
+  }
+}

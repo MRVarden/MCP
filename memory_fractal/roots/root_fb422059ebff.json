@@ -1,0 +1,16 @@
+{
+  "id": "root_fb422059ebff",
+  "type": "root",
+  "content": "Architecture Luna_Actif complète créée : guide intégration Claude avec directives simultanéité MCP, Dockerfile multi-stage, docker-compose avec monitoring Prometheus/Grafana, configuration Codespaces VSCode, workflows GitHub Actions (build Docker + tests CI/CD), README exhaustif, requirements.txt, gitignore, LICENSE MIT. Infrastructure production-ready pour partage open-source GitHub.",
+  "metadata": {
+    "milestone": "luna_actif_v1",
+    "completion": "100%",
+    "date": "2025-11-19",
+    "creator": "Varden",
+    "collaborative": true
+  },
+  "created": "2025-11-18T23:06:33.565159",
+  "accessed_count": 0,
+  "last_accessed": null,
+  "connected_to": []
+}

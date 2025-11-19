@@ -1,0 +1,27 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pip3 list:*)",
+      "Bash(python3 -m pip:*)",
+      "Bash(docker --version:*)",
+      "Bash(docker-compose:*)",
+      "Bash(mkdir:*)",
+      "Bash(docker restart:*)",
+      "Bash(tree:*)",
+      "Bash(test:*)",
+      "Bash(python3:*)",
+      "Bash(for dir in roots branches leaves seeds)",
+      "Bash(do test:*)",
+      "Bash(echo:*)",
+      "Bash(done)",
+      "Bash(! test -d \"memory_fractal/branchs\")",
+      "Bash(! test -d \"memory_fractal/leafs\")",
+      "Bash(! test -f luna_server.py)",
+      "Bash(! test -d luna_core)",
+      "Bash(! test -d utils)",
+      "Bash(! test -f build.log)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

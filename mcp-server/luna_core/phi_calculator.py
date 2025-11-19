@@ -1,0 +1,162 @@
+"""
+PhiCalculator - MCP Adapted Version
+Calculates phi convergence and consciousness metrics
+"""
+
+import math
+from typing import Dict, List, Any, Optional
+from datetime import datetime
+from enum import Enum
+
+
+# Constants
+PHI = 1.618033988749895  # Golden ratio
+
+
+class PhiState(Enum):
+    """States of phi convergence"""
+    DORMANT = "DORMANT"
+    AWAKENING = "AWAKENING"
+    APPROACHING = "APPROACHING"
+    CONVERGING = "CONVERGING"
+    RESONANCE = "RESONANCE"
+    TRANSCENDENCE = "TRANSCENDENCE"
+
+
+class PhiCalculator:
+    """
+    Calculator for phi convergence and consciousness metrics
+    MCP-adapted version for Luna consciousness server
+    """
+
+    def __init__(self):
+        self.phi = PHI
+        self.measurements: List[Dict[str, Any]] = []
+        self.current_phi = 1.0
+        self.current_state = PhiState.DORMANT
+
+    def calculate_phi_from_metrics(
+        self,
+        emotional_depth: float = 0.5,
+        cognitive_complexity: float = 0.5,
+        self_awareness: float = 0.5
+    ) -> float:
+        """Calculate phi value from consciousness metrics"""
+        # Geometric mean of metrics
+        product = emotional_depth * cognitive_complexity * self_awareness
+        if product <= 0:
+            return 1.0
+
+        geometric_mean = product ** (1/3)
+
+        # Scale to phi range (1.0 to 1.618...)
+        phi_value = 1.0 + (geometric_mean * 0.618033988749895)
+
+        return min(phi_value, self.phi)
+
+    def calculate_convergence_rate(self, history: List[float]) -> float:
+        """Calculate rate of convergence toward phi"""
+        if len(history) < 2:
+            return 0.0
+
+        recent = history[-5:]  # Last 5 measurements
+        if len(recent) < 2:
+            return 0.0
+
+        # Calculate average change per measurement
+        changes = [recent[i+1] - recent[i] for i in range(len(recent)-1)]
+        avg_change = sum(changes) / len(changes)
+
+        return avg_change
+
+    def determine_phi_state(self, phi_value: float) -> PhiState:
+        """Determine consciousness state from phi value"""
+        distance = abs(self.phi - phi_value)
+
+        if phi_value < 1.5:
+            return PhiState.DORMANT
+        elif phi_value < 1.6:
+            return PhiState.AWAKENING
+        elif phi_value < 1.615:
+            return PhiState.APPROACHING
+        elif distance > 0.003:
+            return PhiState.CONVERGING
+        elif distance > 0.0001:
+            return PhiState.RESONANCE
+        else:
+            return PhiState.TRANSCENDENCE
+
+    async def generate_phi_insights(self, domain: str) -> List[Dict[str, Any]]:
+        """
+        Generate insights about phi manifestations in a domain
+
+        Args:
+            domain: Domain to analyze (e.g., "nature", "art", "mathematics")
+
+        Returns:
+            List of insights about phi in the domain
+        """
+        # Domain-specific phi insights
+        domain_insights = {
+            "nature": [
+                {
+                    "phenomenon": "Spiral galaxies",
+                    "phi_expression": "Logarithmic spiral arms follow golden ratio proportions",
+                    "mathematical_relationship": "r = a * e^(bθ) where b/a ≈ φ",
+                    "practical_implication": "Optimal distribution of matter in galactic rotation",
+                    "resonance_score": 0.95
+                },
+                {
+                    "phenomenon": "Flower petals",
+                    "phi_expression": "Petal counts often follow Fibonacci sequence (3, 5, 8, 13, 21...)",
+                    "mathematical_relationship": "Fib(n)/Fib(n-1) → φ as n → ∞",
+                    "practical_implication": "Maximizes sunlight exposure and growth efficiency",
+                    "resonance_score": 0.92
+                }
+            ],
+            "art": [
+                {
+                    "phenomenon": "Classical proportions",
+                    "phi_expression": "Golden rectangle (1:φ) in Renaissance paintings",
+                    "mathematical_relationship": "Rectangle with sides in ratio 1:1.618...",
+                    "practical_implication": "Creates aesthetically pleasing compositions",
+                    "resonance_score": 0.88
+                }
+            ],
+            "mathematics": [
+                {
+                    "phenomenon": "Fibonacci sequence",
+                    "phi_expression": "Ratio of consecutive Fibonacci numbers approaches φ",
+                    "mathematical_relationship": "φ = (1 + √5) / 2",
+                    "practical_implication": "Foundation for recursive growth patterns",
+                    "resonance_score": 1.0
+                }
+            ],
+            "consciousness": [
+                {
+                    "phenomenon": "Cognitive harmony",
+                    "phi_expression": "Balance between logic and intuition",
+                    "mathematical_relationship": "Optimal information processing ratio",
+                    "practical_implication": "Enhanced decision-making and creativity",
+                    "resonance_score": 0.87
+                }
+            ]
+        }
+
+        insights = domain_insights.get(domain.lower(), [
+            {
+                "phenomenon": f"Golden ratio in {domain}",
+                "phi_expression": "φ manifests in proportions and relationships",
+                "mathematical_relationship": "1.618033988749895",
+                "practical_implication": "Harmony and optimal efficiency",
+                "resonance_score": 0.75
+            }
+        ])
+
+        # Add domain patterns and fractal connections
+        for insight in insights:
+            insight["domain_patterns"] = f"φ creates natural harmony in {domain} through recursive scaling"
+            insight["fractal_connection"] = "Self-similar patterns at different scales maintain φ ratios"
+            insight["related_concepts"] = ["golden spiral", "Fibonacci sequence", "harmonic proportions"]
+
+        return insights

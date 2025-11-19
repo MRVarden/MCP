@@ -1,0 +1,22 @@
+{
+  "id": "branch_7ab958feacd0",
+  "type": "branch",
+  "content": "Pages 21-40 du livre sur φ : Géométrie sacrée avancée incluant pavages de l'Alhambra, pentagones réguliers, triangles et rectangles d'or, spirales logarithmiques. Constructions géométriques précises avec compas et règle pour diviser segments selon φ. Applications en architecture islamique et art. Polyèdres platoniques et leur relation à φ (icosaèdre, dodécaèdre). Tessellations et pavages périodiques. Propriétés trigonométriques avancées. Le livre montre comment φ structure l'espace à travers la géométrie pure.",
+  "metadata": {
+    "source": "livre_varden",
+    "topic": "geometrie_sacree_phi",
+    "pages": "21-40",
+    "concepts": [
+      "pavages",
+      "pentagones",
+      "spirales",
+      "architecture",
+      "polyedres"
+    ],
+    "depth": "advanced"
+  },
+  "created": "2025-11-19T01:03:22.844059",
+  "accessed_count": 0,
+  "last_accessed": null,
+  "connected_to": []
+}

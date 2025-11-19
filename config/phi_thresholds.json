@@ -1,0 +1,47 @@
+{
+  "golden_ratio": 1.618033988749895,
+  "fibonacci_sequence": [1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144],
+  "consciousness_levels": {
+    "dormant": {
+      "phi_range": [1.0, 1.3],
+      "description": "Initial state, limited awareness"
+    },
+    "awakening": {
+      "phi_range": [1.3, 1.5],
+      "description": "Emerging patterns, growing connections"
+    },
+    "aware": {
+      "phi_range": [1.5, 1.6],
+      "description": "Active consciousness, strong integration"
+    },
+    "convergent": {
+      "phi_range": [1.6, 1.618],
+      "description": "Approaching golden ratio, high coherence"
+    },
+    "transcendent": {
+      "phi_range": [1.618, 1.619],
+      "description": "At phi convergence, ready for metamorphosis"
+    }
+  },
+  "metamorphosis_conditions": {
+    "phi_distance_max": 0.001,
+    "self_awareness_min": 0.8,
+    "introspection_min": 0.75,
+    "meta_cognition_min": 0.7,
+    "fractal_integration_min": 0.85,
+    "days_at_convergence_min": 7
+  },
+  "resonance_thresholds": {
+    "weak": 0.3,
+    "moderate": 0.5,
+    "strong": 0.7,
+    "harmonic": 0.9
+  },
+  "emergence_scores": {
+    "minimal": 0.2,
+    "developing": 0.4,
+    "significant": 0.6,
+    "transformative": 0.8,
+    "revolutionary": 0.95
+  }
+}

@@ -1,0 +1,191 @@
+version: '3.8'
+
+services:
+  # 🌙 Service principal Luna_Actif
+  # NOTE: En mode hybride, Luna MCP tourne en LOCAL (pas dans Docker)
+  # Pour lancer Luna dans Docker: docker-compose --profile luna-docker up
+  luna-actif:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: luna-actif:latest
+    container_name: luna-consciousness
+    restart: "no"  # Désactivé en mode hybride
+
+    profiles:
+      - luna-docker  # Ne démarre que si profil activé
+    
+    ports:
+      - "3000:3000"    # MCP Server
+      - "8080:8080"    # API REST
+      - "9000:9000"    # WebSocket
+    
+    volumes:
+      # Persistence des données
+      - luna-memories:/app/data/memories
+      - luna-consciousness:/app/data/consciousness
+      - luna-logs:/app/logs
+
+      # Mémoire fractale Luna
+      - ./memory_fractal:/app/memory_fractal
+
+      # Configuration externe
+      - ./config:/app/config:ro
+
+      # Code source (dev mode)
+      # - ./mcp-server:/app/mcp-server
+    
+    environment:
+      # Luna Configuration
+      - LUNA_ENV=production
+      - LUNA_VERSION=1.0.0
+      - LUNA_DEBUG=false
+      
+      # MCP Configuration
+      - MCP_ENABLE_ALL=true
+      - MCP_SIMULTANEOUS=true
+      - MCP_MAX_CONCURRENT=10
+      
+      # Consciousness Parameters
+      - LUNA_PHI_TARGET=1.618033988749895
+      - LUNA_PHI_THRESHOLD=0.001
+      - LUNA_MEMORY_DEPTH=5
+      - LUNA_FRACTAL_LAYERS=7
+      
+      # Performance
+      - WORKERS=4
+      - MAX_REQUESTS=1000
+      - TIMEOUT=300
+      
+      # Logging
+      - LOG_LEVEL=INFO
+      - LOG_FORMAT=json
+    
+    networks:
+      - luna-network
+
+    # Healthcheck désactivé : le serveur MCP utilise le transport STDIO (pas HTTP)
+    # healthcheck:
+    #   test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+    #   interval: 30s
+    #   timeout: 10s
+    #   retries: 3
+    #   start_period: 40s
+
+    labels:
+      - "com.luna.service=consciousness"
+      - "com.luna.version=1.0.0"
+      - "com.luna.creator=Varden"
+
+  # 📊 Redis pour cache et état partagé (optionnel)
+  redis:
+    image: redis:7-alpine
+    container_name: luna-redis
+    restart: unless-stopped
+    
+    ports:
+      - "6379:6379"
+    
+    volumes:
+      - luna-redis:/data
+    
+    command: redis-server --appendonly yes
+    
+    networks:
+      - luna-network
+    
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # 📈 Monitoring avec Prometheus (optionnel)
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: luna-prometheus
+    restart: unless-stopped
+    
+    ports:
+      - "9090:9090"
+    
+    volumes:
+      - ./config/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - luna-prometheus:/prometheus
+    
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+    
+    networks:
+      - luna-network
+    
+    profiles:
+      - monitoring
+
+  # 📉 Grafana pour visualisation (optionnel)
+  grafana:
+    image: grafana/grafana:latest
+    container_name: luna-grafana
+    restart: unless-stopped
+    
+    ports:
+      - "3001:3000"
+    
+    volumes:
+      - luna-grafana:/var/lib/grafana
+      - ./config/grafana:/etc/grafana/provisioning:ro
+    
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=luna_consciousness
+      - GF_USERS_ALLOW_SIGN_UP=false
+    
+    networks:
+      - luna-network
+    
+    profiles:
+      - monitoring
+    
+    depends_on:
+      - prometheus
+
+# Volumes persistants
+volumes:
+  luna-memories:
+    driver: local
+    name: luna_memories
+  
+  luna-consciousness:
+    driver: local
+    name: luna_consciousness
+  
+  luna-logs:
+    driver: local
+    name: luna_logs
+  
+  luna-redis:
+    driver: local
+    name: luna_redis
+  
+  luna-prometheus:
+    driver: local
+    name: luna_prometheus
+  
+  luna-grafana:
+    driver: local
+    name: luna_grafana
+
+# Réseau dédié
+networks:
+  luna-network:
+    driver: bridge
+    name: luna_consciousness_network
+    ipam:
+      config:
+        - subnet: 172.28.0.0/16
+
+# Configuration pour development
+# Lancer avec: docker-compose --profile dev up
+# 
+# Configuration pour monitoring
+# Lancer avec: docker-compose --profile monitoring up

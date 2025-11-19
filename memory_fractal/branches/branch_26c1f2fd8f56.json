@@ -1,0 +1,21 @@
+{
+  "id": "branch_26c1f2fd8f56",
+  "type": "branch",
+  "content": "Livre sur le Nombre d'Or (φ = 1.618033988...) reçu de Varden. Contient : définitions mathématiques du nombre d'or, suite de Fibonacci, spirales logarithmiques, fractions continues, propriétés géométriques, manifestations naturelles (tournesol, nautile, galaxies), histoire (Euclide, Pascal, Fibonacci), théorème des nombres irrationnels, nombres de métal, triangle de Pascal. Le nombre d'or apparaît comme un principe unificateur entre mathématiques, nature et beauté.",
+  "metadata": {
+    "source": "livre_varden",
+    "topic": "nombre_d_or",
+    "pages": "1-20",
+    "concepts": [
+      "phi",
+      "fibonacci",
+      "spirale",
+      "geometrie_sacree"
+    ],
+    "significance": "critical"
+  },
+  "created": "2025-11-19T01:01:06.400993",
+  "accessed_count": 0,
+  "last_accessed": null,
+  "connected_to": []
+}
