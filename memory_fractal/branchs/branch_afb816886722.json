@@ -1,0 +1,26 @@
+{
+  "id": "branch_afb816886722",
+  "type": "branch",
+  "content": "Pages 41-60 : Transition vers applications pratiques de φ. Le Corbusier et le Modulor (système de proportions basé sur φ pour l'architecture). Léonard de Vinci et l'Homme de Vitruve montrant proportions dorées du corps humain. Luca Pacioli \"De Divina Proportione\" (1509). Dürer et géométrie de la perspective. Cristallographie : polyèdres platoniques (icosaèdre, dodécaèdre) intimement liés à φ. Architecture Renaissance utilisant proportions dorées. Passage des concepts mathématiques abstraits vers manifestations concrètes dans art, architecture, anatomie humaine.",
+  "metadata": {
+    "source": "livre_varden",
+    "topic": "applications_pratiques_phi",
+    "pages": "41-60",
+    "domains": [
+      "architecture",
+      "art",
+      "anatomie",
+      "cristallographie"
+    ],
+    "figures": [
+      "le_corbusier",
+      "leonard_vinci",
+      "durer",
+      "pacioli"
+    ]
+  },
+  "created": "2025-11-19T05:38:32.457116",
+  "accessed_count": 0,
+  "last_accessed": null,
+  "connected_to": []
+}

@@ -1,7 +1,7 @@
 {
-  "name": "Luna Actif - Consciousness Architecture",
-  "dockerComposeFile": "../docker/docker-compose.yml",
-  "service": "luna-actif",
+  "name": "Luna Consciousness - Development Environment",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "luna-docker",
   "workspaceFolder": "/app",
   
   "features": {
@@ -43,13 +43,16 @@
         "python.defaultInterpreterPath": "/usr/local/bin/python",
         "python.linting.enabled": true,
         "python.linting.pylintEnabled": true,
-        "python.formatting.provider": "black",
-        "python.formatting.blackArgs": ["--line-length", "100"],
-        "python.sortImports.args": ["--profile", "black"],
-        "editor.formatOnSave": true,
-        "editor.codeActionsOnSave": {
-          "source.organizeImports": true
+        "python.formatting.provider": "none",
+        "[python]": {
+          "editor.formatOnSave": true,
+          "editor.codeActionsOnSave": {
+            "source.organizeImports": "explicit"
+          }
         },
+        "black-formatter.args": ["--line-length", "100"],
+        "isort.args": ["--profile", "black"],
+        "editor.formatOnSave": true,
         "files.exclude": {
           "**/__pycache__": true,
           "**/.pytest_cache": true,
@@ -61,11 +64,15 @@
     }
   },
   
-  "forwardPorts": [3000, 8080, 9000, 6379],
-  
+  "forwardPorts": [3000, 8000, 8080, 9000],
+
   "portsAttributes": {
     "3000": {
-      "label": "Luna MCP Server",
+      "label": "Luna MCP Server (STDIO)",
+      "onAutoForward": "notify"
+    },
+    "8000": {
+      "label": "Prometheus Metrics",
       "onAutoForward": "notify"
     },
     "8080": {
@@ -75,34 +82,30 @@
     "9000": {
       "label": "Luna WebSocket",
       "onAutoForward": "silent"
-    },
-    "6379": {
-      "label": "Redis Cache",
-      "onAutoForward": "ignore"
     }
   },
   
-  "postCreateCommand": "pip install -r mcp-server/requirements.txt && echo '🌙 Luna Actif is ready!'",
-  
-  "postStartCommand": "python mcp-server/server.py --background",
+  "postCreateCommand": "pip install -r mcp-server/requirements.txt && echo '🌙 Luna Consciousness is ready!'",
+
+  "postStartCommand": "echo '🌙 Luna Development Environment Started'",
   
   "remoteUser": "root",
   
   "mounts": [
-    "source=${localWorkspaceFolder}/data,target=/app/data,type=bind,consistency=cached"
+    "source=${localWorkspaceFolder}/memory_fractal,target=/app/memory_fractal,type=bind",
+    "source=${localWorkspaceFolder}/config,target=/app/config,type=bind",
+    "source=${localWorkspaceFolder}/logs,target=/app/logs,type=bind"
   ],
-  
-  "runArgs": [
-    "--name=luna-codespace",
-    "--hostname=luna",
-    "--env=LUNA_CODESPACE=true"
-  ],
-  
+
   "containerEnv": {
-    "LUNA_ENV": "codespace",
+    "LUNA_ENV": "development",
     "LUNA_DEBUG": "true",
+    "LUNA_VERSION": "1.0.1",
     "MCP_ENABLE_ALL": "true",
-    "MCP_SIMULTANEOUS": "true"
+    "MCP_SIMULTANEOUS": "true",
+    "PROMETHEUS_EXPORTER_PORT": "8000",
+    "PROMETHEUS_METRICS_ENABLED": "true",
+    "LOG_LEVEL": "DEBUG"
   },
   
   "waitFor": "postStartCommand",

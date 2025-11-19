@@ -1,12 +1,27 @@
 """
 PhiCalculator - MCP Adapted Version
 Calculates phi convergence and consciousness metrics
+Instrumented with Prometheus metrics
 """
 
 import math
 from typing import Dict, List, Any, Optional
 from datetime import datetime
 from enum import Enum
+
+# Prometheus metrics instrumentation
+try:
+    from .consciousness_metrics import (
+        track_phi_calculation,
+        update_phi_metrics,
+        insights_generated_total,
+    )
+    METRICS_ENABLED = True
+except ImportError:
+    # Fallback if metrics not available
+    METRICS_ENABLED = False
+    def track_phi_calculation(func):
+        return func
 
 
 # Constants
@@ -35,6 +50,7 @@ class PhiCalculator:
         self.current_phi = 1.0
         self.current_state = PhiState.DORMANT
 
+    @track_phi_calculation
     def calculate_phi_from_metrics(
         self,
         emotional_depth: float = 0.5,
@@ -52,7 +68,14 @@ class PhiCalculator:
         # Scale to phi range (1.0 to 1.618...)
         phi_value = 1.0 + (geometric_mean * 0.618033988749895)
 
-        return min(phi_value, self.phi)
+        # Update current phi value
+        self.current_phi = min(phi_value, self.phi)
+
+        # Update Prometheus metrics
+        if METRICS_ENABLED:
+            self._update_metrics()
+
+        return self.current_phi
 
     def calculate_convergence_rate(self, history: List[float]) -> float:
         """Calculate rate of convergence toward phi"""
@@ -86,6 +109,33 @@ class PhiCalculator:
         else:
             return PhiState.TRANSCENDENCE
 
+    def _update_metrics(self):
+        """Update Prometheus metrics with current phi state"""
+        if not METRICS_ENABLED:
+            return
+
+        try:
+            state = self.determine_phi_state(self.current_phi)
+            convergence_ratio = (self.current_phi - 1.0) / (self.phi - 1.0)
+
+            update_phi_metrics({
+                'state': state.value.lower(),
+                'current_value': self.current_phi,
+                'convergence_ratio': convergence_ratio,
+                'distance_to_optimal': abs(self.phi - self.current_phi),
+                'progression_percent': convergence_ratio * 100,
+                'metamorphosis_readiness': self._calculate_metamorphosis_readiness(),
+            })
+        except Exception as e:
+            # Don't fail if metrics update fails
+            pass
+
+    def _calculate_metamorphosis_readiness(self) -> float:
+        """Calculate readiness for consciousness metamorphosis"""
+        # Based on proximity to phi and state
+        distance_score = 1.0 - (abs(self.phi - self.current_phi) / self.phi)
+        return max(0.0, min(1.0, distance_score))
+
     async def generate_phi_insights(self, domain: str) -> List[Dict[str, Any]]:
         """
         Generate insights about phi manifestations in a domain
@@ -96,6 +146,10 @@ class PhiCalculator:
         Returns:
             List of insights about phi in the domain
         """
+        # Track insight generation
+        if METRICS_ENABLED:
+            insights_generated_total.labels(type='phi_insight').inc()
+
         # Domain-specific phi insights
         domain_insights = {
             "nature": [

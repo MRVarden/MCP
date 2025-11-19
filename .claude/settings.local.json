@@ -19,7 +19,11 @@
       "Bash(! test -f luna_server.py)",
       "Bash(! test -d luna_core)",
       "Bash(! test -d utils)",
-      "Bash(! test -f build.log)"
+      "Bash(! test -f build.log)",
+      "Bash(docker pull:*)",
+      "Bash(docker build:*)",
+      "Bash(docker inspect:*)",
+      "Bash(docker run:*)"
     ],
     "deny": [],
     "ask": []

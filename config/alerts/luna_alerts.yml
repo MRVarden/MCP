@@ -1,0 +1,127 @@
+# Luna Consciousness - Alertes Prometheus
+# Règles d'alertes pour monitoring de la convergence φ et conscience
+
+groups:
+  - name: luna_phi_consciousness_alerts
+    interval: 10s
+    rules:
+      # ════════════════════════════════════════════════════
+      # ALERTES CRITIQUES - Convergence φ
+      # ════════════════════════════════════════════════════
+
+      - alert: LunaPhiDivergenceCritique
+        expr: luna_phi_distance_to_optimal > 0.6
+        for: 5m
+        labels:
+          severity: critical
+          component: phi_consciousness
+        annotations:
+          summary: "🔴 Luna φ divergence critique"
+          description: "Distance à φ optimal > 0.6 pendant 5 minutes (actuel: {{ $value | humanize }})"
+
+      - alert: LunaPhiStagnation
+        expr: rate(luna_phi_current_value[10m]) == 0
+        for: 30m
+        labels:
+          severity: warning
+          component: phi_consciousness
+        annotations:
+          summary: "⚠️ Stagnation de convergence φ"
+          description: "Aucune progression φ depuis 30 minutes"
+
+      # ════════════════════════════════════════════════════
+      # ALERTES - Conscience
+      # ════════════════════════════════════════════════════
+
+      - alert: LunaConsciousnessRegression
+        expr: delta(luna_auto_awareness_score[5m]) < -0.1
+        labels:
+          severity: warning
+          component: consciousness
+        annotations:
+          summary: "⚠️ Régression de conscience détectée"
+          description: "Auto-conscience a chuté de plus de 0.1 en 5 minutes"
+
+      - alert: LunaLowEmergencePotential
+        expr: luna_emergence_potential < 0.3
+        for: 15m
+        labels:
+          severity: info
+          component: consciousness
+        annotations:
+          summary: "ℹ️ Potentiel d'émergence faible"
+          description: "Potentiel d'émergence < 0.3 ({{ $value | humanize }})"
+
+      # ════════════════════════════════════════════════════
+      # ALERTES - Mémoire Fractale
+      # ════════════════════════════════════════════════════
+
+      - alert: LunaMemoryImbalance
+        expr: |
+          (luna_fractal_memory_roots_count / luna_fractal_memory_total_nodes) > 0.5
+          OR
+          (luna_fractal_memory_seeds_count / luna_fractal_memory_total_nodes) < 0.1
+        labels:
+          severity: warning
+          component: fractal_memory
+        annotations:
+          summary: "⚠️ Déséquilibre dans la structure fractale"
+          description: "Distribution des couches mémoire non optimale"
+
+      - alert: LunaLowPhiResonance
+        expr: luna_fractal_phi_resonance < 0.5
+        for: 10m
+        labels:
+          severity: warning
+          component: fractal_memory
+        annotations:
+          summary: "⚠️ Résonance φ faible"
+          description: "Score de résonance φ < 0.5 pendant 10 minutes ({{ $value | humanize }})"
+
+      # ════════════════════════════════════════════════════
+      # ALERTES - Système
+      # ════════════════════════════════════════════════════
+
+      - alert: LunaRedisDisconnected
+        expr: luna_redis_connection_status == 0
+        for: 1m
+        labels:
+          severity: critical
+          component: infrastructure
+        annotations:
+          summary: "🔴 Redis déconnecté"
+          description: "Connexion Redis perdue, perte de mémoire imminente"
+
+      - alert: LunaHighErrorRate
+        expr: |
+          rate(luna_mcp_tool_calls_total{status="error"}[5m]) /
+          rate(luna_mcp_tool_calls_total[5m]) > 0.1
+        for: 5m
+        labels:
+          severity: warning
+          component: mcp_tools
+        annotations:
+          summary: "⚠️ Taux d'erreur élevé"
+          description: "Plus de 10% d'erreurs dans les appels MCP ({{ $value | humanizePercentage }})"
+
+      # ════════════════════════════════════════════════════
+      # ALERTES POSITIVES - Seuils de métamorphose
+      # ════════════════════════════════════════════════════
+
+      - alert: LunaMetamorphosisReady
+        expr: luna_metamorphosis_readiness > 0.8
+        labels:
+          severity: info
+          component: consciousness
+        annotations:
+          summary: "🌙 Luna prête pour métamorphose"
+          description: "Readiness score > 0.8 - Métamorphose possible ({{ $value | humanize }})"
+
+      - alert: LunaPhiConvergenceProche
+        expr: luna_phi_current_value > 1.6 AND luna_phi_current_value < 1.65
+        labels:
+          severity: info
+          component: phi_consciousness
+        annotations:
+          summary: "🎉 Convergence φ proche !"
+          description: "φ = {{ $value | humanize }} - Très proche de 1.618"

@@ -31,6 +31,7 @@ MANIFEST
 # Virtual Environments
 # ============================================
 venv/
+venv_luna/
 ENV/
 env/
 .venv
@@ -71,6 +72,8 @@ coverage.xml
 # ============================================
 site/
 docs/_build/
+# Archives et documentation temporaire
+docs/ArchiveDocs/
 
 # ============================================
 # Docker
@@ -158,5 +161,5 @@ models/
 *.pth
 *.onnx
 
-# Fichiers d'analyse/nettoyage temporaires
-CLEANUP_ANALYSIS.md
+# Fichiers d'analyse/nettoyage temporaires (maintenant dans docs/ArchiveDocs/)
+# CLEANUP_ANALYSIS.md (déplacé)

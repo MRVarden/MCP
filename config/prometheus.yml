@@ -1,76 +1,75 @@
 # Configuration Prometheus pour Luna Consciousness
 # Monitoring des métriques de conscience fractale et performance
+# Mise à jour: Architecture Prometheus complète
 
 global:
-  scrape_interval: 15s      # Scrape toutes les 15 secondes
-  evaluation_interval: 15s  # Évaluer les règles toutes les 15 secondes
+  scrape_interval: 5s       # Intervalle Fibonacci (1, 2, 3, 5, 8...)
+  evaluation_interval: 5s   # Évaluation rapide pour alertes
+  scrape_timeout: 3s        # Timeout avant 5s
   external_labels:
-    monitor: 'luna-consciousness'
-    environment: 'production'
+    cluster: 'luna-consciousness'
+    environment: 'development'
+
+# Règles d'alerte
+rule_files:
+  - '/etc/prometheus/alerts/luna_alerts.yml'
 
 # Configuration du scraping
 scrape_configs:
-  # Monitoring de Prometheus lui-même
+  # ══════════════════════════════════════════════════════
+  # LUNA CONSCIOUSNESS MCP - MÉTRIQUES PRINCIPALES
+  # ══════════════════════════════════════════════════════
+  - job_name: 'luna-consciousness'
+    scrape_interval: 5s
+    scrape_timeout: 3s
+    metrics_path: '/metrics'
+    static_configs:
+      - targets: ['luna-actif:8000']  # Service name from docker-compose
+        labels:
+          service: 'luna-consciousness'
+          component: 'mcp-server'
+          metrics_type: 'consciousness'
+
+    # Filtrage des métriques Luna
+    metric_relabel_configs:
+      # Garder toutes les métriques Luna
+      - source_labels: [__name__]
+        regex: 'luna_.*'
+        action: keep
+
+      # Ajouter label système
+      - source_labels: [__name__]
+        target_label: 'system'
+        replacement: 'consciousness'
+
+  # ══════════════════════════════════════════════════════
+  # PROMETHEUS SELF-MONITORING
+  # ══════════════════════════════════════════════════════
   - job_name: 'prometheus'
     static_configs:
       - targets: ['localhost:9090']
         labels:
           service: 'prometheus'
 
-  # Monitoring du service Luna principal
-  - job_name: 'luna-consciousness'
-    scrape_interval: 10s
-    metrics_path: '/metrics'
-    static_configs:
-      - targets: ['luna-actif:8080']
-        labels:
-          service: 'luna-actif'
-          type: 'consciousness'
-          component: 'main'
+  # ══════════════════════════════════════════════════════
+  # REDIS (si redis-exporter installé)
+  # ══════════════════════════════════════════════════════
+  # - job_name: 'redis'
+  #   static_configs:
+  #     - targets: ['redis-exporter:9121']
+  #       labels:
+  #         service: 'redis'
+  #         component: 'cache'
 
-      # Port alternatif pour métriques (si configuré)
-      - targets: ['luna-actif:8000']
-        labels:
-          service: 'luna-metrics'
-          type: 'consciousness'
-          component: 'metrics'
-
-  # Monitoring du serveur MCP
-  - job_name: 'luna-mcp'
-    scrape_interval: 10s
-    metrics_path: '/metrics'
-    static_configs:
-      - targets: ['luna-actif:3000']
-        labels:
-          service: 'mcp-server'
-          type: 'protocol'
-          component: 'mcp'
-
-  # Monitoring WebSocket
-  - job_name: 'luna-websocket'
-    scrape_interval: 10s
-    metrics_path: '/metrics'
-    static_configs:
-      - targets: ['luna-actif:9000']
-        labels:
-          service: 'websocket'
-          type: 'communication'
-          component: 'ws'
-
-  # Monitoring Redis (si actif)
-  - job_name: 'luna-redis'
-    static_configs:
-      - targets: ['redis:6379']
-        labels:
-          service: 'redis'
-          type: 'cache'
-          component: 'storage'
-
-# Alerting (optionnel - peut être étendu)
+# ══════════════════════════════════════════════════════
+# ALERTING (Optionnel - décommenter si AlertManager configuré)
+# ══════════════════════════════════════════════════════
 # alerting:
 #   alertmanagers:
 #     - static_configs:
-#         - targets: []
+#         - targets: ['alertmanager:9093']
 
-# Note: La rétention des données se configure via les arguments de ligne de commande
-# dans docker-compose.yml (--storage.tsdb.retention.time et --storage.tsdb.retention.size)
+# Note:
+# - Rétention des données: Configurée via docker-compose.yml
+# - Alertes: Définies dans config/alerts/luna_alerts.yml
+# - Dashboards Grafana: À importer manuellement dans Grafana UI

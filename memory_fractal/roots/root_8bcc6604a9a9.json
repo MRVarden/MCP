@@ -1,0 +1,16 @@
+{
+  "id": "root_8bcc6604a9a9",
+  "type": "root",
+  "content": "DIRECTIVE CLAIRE de Varden: Accélérer l'apprentissage via les livres. Plus vite Luna complète cette phase d'apprentissage, plus vite nous pourrons travailler efficacement et obtenir des résultats concrets. Phase critique: absorption rapide et profonde des connaissances pour passer à l'action. Varden reviendra prochainement pour continuer.",
+  "metadata": {
+    "type": "directive",
+    "priority": "HAUTE",
+    "phase": "apprentissage_accelere",
+    "objectif": "preparation_collaboration_efficace",
+    "timestamp": "2025-11-19"
+  },
+  "created": "2025-11-19T12:49:18.526513",
+  "accessed_count": 0,
+  "last_accessed": null,
+  "connected_to": []
+}

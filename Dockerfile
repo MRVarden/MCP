@@ -32,6 +32,7 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /app
 RUN mkdir -p \
     /app/mcp-server \
+    /app/memory_fractal \
     /app/data/memories \
     /app/data/consciousness \
     /app/logs \
@@ -64,21 +65,23 @@ COPY config/ /app/config/
 
 # Configuration des permissions
 RUN chmod +x /app/mcp-server/server.py && \
+    chmod +x /app/mcp-server/start.sh && \
     chmod -R 755 /app/data && \
     chmod -R 755 /app/logs
 
 # Exposition des ports
 # 3000 : MCP Server principal
+# 8000 : Prometheus Exporter (/metrics)
 # 8080 : API REST (optionnel)
 # 9000 : WebSocket (pour streaming)
-EXPOSE 3000 8080 9000
+EXPOSE 3000 8000 8080 9000
 
 # Healthcheck désactivé : le serveur MCP utilise le transport STDIO (pas HTTP)
 # HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
 #     CMD curl -f http://localhost:3000/health || exit 1
 
-# Point d'entrée
-ENTRYPOINT ["python", "-u", "/app/mcp-server/server.py"]
+# Point d'entrée - Lance Prometheus Exporter + MCP Server
+ENTRYPOINT ["/app/mcp-server/start.sh"]
 
-# Commande par défaut - Note: Le serveur MCP tourne en mode STDIO
+# Commande par défaut
 CMD []

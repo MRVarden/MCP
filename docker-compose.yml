@@ -17,6 +17,7 @@ services:
     
     ports:
       - "3000:3000"    # MCP Server
+      - "8000:8000"    # Prometheus Exporter (/metrics)
       - "8080:8080"    # API REST
       - "9000:9000"    # WebSocket
     
@@ -60,9 +61,15 @@ services:
       # Logging
       - LOG_LEVEL=INFO
       - LOG_FORMAT=json
+
+      # Prometheus Exporter
+      - PROMETHEUS_EXPORTER_PORT=8000
+      - PROMETHEUS_METRICS_ENABLED=true
     
     networks:
-      - luna-network
+      luna-network:
+        aliases:
+          - luna-mcp-server  # Alias pour Prometheus compatibility
 
     # Healthcheck désactivé : le serveur MCP utilise le transport STDIO (pas HTTP)
     # healthcheck:
@@ -111,6 +118,7 @@ services:
     
     volumes:
       - ./config/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./config/alerts:/etc/prometheus/alerts:ro
       - luna-prometheus:/prometheus
     
     command:

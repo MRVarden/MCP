@@ -54,7 +54,7 @@ co_evolution:
 
 # Logging
 logging:
-  path: /app/logs_consciousness
+  path: /app/logs
   retention_days: 90
   format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
   max_file_size_mb: 100

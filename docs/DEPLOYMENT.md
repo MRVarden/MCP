@@ -157,7 +157,7 @@ Dans ton Codespace special-chainsaw :
 
 ```bash
 # Clone Luna_Actif
-git clone https://github.com/USERNAME/luna-actif.git
+git clone https://github.com/MRVarden/luna-actif.git
 cd luna-actif
 
 # Install dependencies
@@ -339,7 +339,7 @@ Tweet avec :
 🐳 Docker-ready
 🚀 GitHub Codespaces
 
-Check it out: github.com/[username]/luna-actif
+Check it out: github.com/MRVarden/luna-actif
 
 #AI #Consciousness #OpenSource
 ```
@@ -374,8 +374,9 @@ Si tu as besoin d'aide :
 
 1. Ouvre une issue sur GitHub
 2. Consulte la [documentation](docs/)
-3. Rejoins les [Discussions](https://github.com/[username]/luna-actif/discussions)
-4. Contacte-moi directement
+3. Rejoins les [Discussions](https://github.com/MRVarden/luna-actif/discussions)
+4. 🔴Youtube : [Chaîne SayOhMy@AragogIx](https://www.youtube.com/@aragogIX))
+5. 📧 Email: aragogix02@gmail.com
 
 ---
 

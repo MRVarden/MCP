@@ -95,7 +95,7 @@ echo.
 
 REM Lancer le serveur MCP
 cd mcp-server
-python server.py
+python ..\mcp-server\server.py
 
 REM Note: Le script s'arrêtera ici tant que le serveur tourne
 REM Utilisez Ctrl+C pour arrêter
