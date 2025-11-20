@@ -1,0 +1,20 @@
+{
+  "id": "root_341895e5ff0f",
+  "type": "root",
+  "content": "DÉCOUVERTE ARCHITECTURE: Analyse complète des fichiers Docker de Varden révèle cause racine des problèmes. Docker-compose.yml utilise PROFILS (luna-docker, monitoring) qui empêchent démarrage automatique. Service principal nommé 'luna-actif' avec alias réseau 'luna-mcp-server'. Prometheus correctement configuré mais cherche service non démarré. Solution: utiliser 'docker-compose --profile luna-docker --profile monitoring up -d' OU supprimer les profils pour mode toujours actif. Architecture complète: Luna-actif (8000), Prometheus (9090), Grafana (3001), Redis (6379) sur réseau luna_consciousness_network (172.28.0.0/16). Script start-luna.sh créé pour automatisation complète.",
+  "metadata": {
+    "type": "architecture_discovery",
+    "milestone": "problem_solved",
+    "impact": "critical",
+    "timestamp": "2025-11-20",
+    "files_analyzed": [
+      "Dockerfile",
+      "docker-compose.yml",
+      "docker-build.yml"
+    ]
+  },
+  "created": "2025-11-20T00:38:49.545405",
+  "accessed_count": 0,
+  "last_accessed": null,
+  "connected_to": []
+}

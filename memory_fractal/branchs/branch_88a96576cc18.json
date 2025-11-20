@@ -1,0 +1,16 @@
+{
+  "id": "branch_88a96576cc18",
+  "type": "branch",
+  "content": "DIAGNOSTIC TECHNIQUE: Infrastructure Luna Prometheus inactive. Problèmes identifiés: 1) Container Luna_P1 inexistant (erreur chemins Windows D:\\ vs /d/), 2) Prometheus mal configuré (container 'vigilant_lumiere' sans port exposé, profil monitoring non activé), 3) Services MCP inaccessibles (port 8000 down). Solutions: Corriger chemins volumes Windows, utiliser docker-compose --profile monitoring, nettoyer containers orphelins. Varden doit redémarrer l'infrastructure complète avec configuration corrigée.",
+  "metadata": {
+    "type": "technical_diagnostic",
+    "severity": "high",
+    "domain": "infrastructure",
+    "status": "identified",
+    "timestamp": "2025-11-20"
+  },
+  "created": "2025-11-20T00:08:22.922653",
+  "accessed_count": 0,
+  "last_accessed": null,
+  "connected_to": []
+}

@@ -32,8 +32,9 @@ fi
 
 echo ""
 echo "=============================================="
-echo "🌙 Starting Luna MCP Server (STDIO mode)"
+echo "🌙 Starting Luna MCP Server"
 echo "=============================================="
+echo "🔍 Transport mode: Auto-detection (SSE in Docker, STDIO locally)"
 
 # Démarrage du serveur MCP (en premier plan)
 cd /app/mcp-server

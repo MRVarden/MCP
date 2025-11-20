@@ -567,8 +567,30 @@ if __name__ == "__main__":
     logger.info("✨ Phi convergence active, fractal memory online")
     logger.info("=" * 60)
 
+    # Détection automatique du mode de transport
+    # - STDIO: Pour connexion directe avec Claude Desktop (local)
+    # - SSE: Pour environnement Docker (serveur HTTP)
+    transport_mode = os.environ.get("MCP_TRANSPORT", "auto")
+
+    if transport_mode == "auto":
+        # Détection automatique: Docker ou Local?
+        is_docker = os.path.exists("/.dockerenv") or os.environ.get("LUNA_ENV") == "production"
+        transport_mode = "sse" if is_docker else "stdio"
+        logger.info(f"🔍 Auto-detection: Environment={'Docker' if is_docker else 'Local'}")
+
+    logger.info(f"🚀 Starting MCP Server with transport: {transport_mode.upper()}")
+
+    if transport_mode == "sse":
+        # Mode SSE (Server-Sent Events) pour Docker
+        # Le serveur écoute sur le port 3000 et reste actif
+        # Configuration via variables d'environnement pour uvicorn
+        os.environ["MCP_HOST"] = "0.0.0.0"
+        os.environ["MCP_PORT"] = os.environ.get("MCP_PORT", "3000")
+        logger.info(f"🌐 SSE Mode: Server will listen on {os.environ['MCP_HOST']}:{os.environ['MCP_PORT']}")
+        logger.info(f"📡 Connect via: http://localhost:{os.environ['MCP_PORT']}/sse")
+
     try:
-        mcp.run(transport='stdio')
+        mcp.run(transport=transport_mode)
     except Exception as e:
         logger.error(f"💥 Server error: {e}", exc_info=True)
         sys.exit(1)
