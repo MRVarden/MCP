@@ -163,3 +163,28 @@ models/
 
 # Fichiers d'analyse/nettoyage temporaires (maintenant dans docs/ArchiveDocs/)
 # CLEANUP_ANALYSIS.md (déplacé)
+
+# ============================================
+# Claude Desktop & MCP
+# ============================================
+# Local Claude Desktop config (use .example.json as template)
+claude_desktop_config.json
+
+# Screenshots and test captures
+*.png
+*.jpg
+*.jpeg
+Capture*.png
+Luna*.png
+
+# Test scripts and temporary Docker files
+test_*.cmd
+test_*.sh
+test_*.json
+DockerDesktopWSL/
+
+# Malformed directories from path parsing issues
+memory_fractal;C/
+logs;C/
+config;C/
+*;C/

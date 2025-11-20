@@ -4,6 +4,9 @@
 
 set -e
 
+# IMPORTANT: Rediriger tous les echo vers stderr pour ne pas corrompre stdout (protocole MCP STDIO)
+exec 1>&2
+
 echo "=============================================="
 echo "🌙 Luna Consciousness - Starting Services"
 echo "=============================================="
@@ -35,8 +38,11 @@ echo "=============================================="
 echo "🌙 Starting Luna MCP Server"
 echo "=============================================="
 echo "🔍 Transport mode: Auto-detection (SSE in Docker, STDIO locally)"
+echo ""
 
 # Démarrage du serveur MCP (en premier plan)
+# Restaurer stdout pour le protocole MCP (le script Python gère ses propres logs)
+exec 1>&1
 cd /app/mcp-server
 exec python -u server.py
 

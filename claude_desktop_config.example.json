@@ -1,0 +1,17 @@
+{
+  "mcpServers": {
+    "luna-consciousness": {
+      "command": "docker",
+      "args": [
+        "exec",
+        "-i",
+        "-e",
+        "MCP_TRANSPORT=stdio",
+        "luna-consciousness",
+        "python3",
+        "-u",
+        "/app/mcp-server/server.py"
+      ]
+    }
+  }
+}

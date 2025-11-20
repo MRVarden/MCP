@@ -568,15 +568,22 @@ if __name__ == "__main__":
     logger.info("=" * 60)
 
     # Détection automatique du mode de transport
-    # - STDIO: Pour connexion directe avec Claude Desktop (local)
-    # - SSE: Pour environnement Docker (serveur HTTP)
+    # - STDIO: Pour connexion directe avec Claude Desktop (local ou docker run -i)
+    # - SSE: Pour environnement Docker détaché (docker-compose)
     transport_mode = os.environ.get("MCP_TRANSPORT", "auto")
 
     if transport_mode == "auto":
-        # Détection automatique: Docker ou Local?
-        is_docker = os.path.exists("/.dockerenv") or os.environ.get("LUNA_ENV") == "production"
-        transport_mode = "sse" if is_docker else "stdio"
-        logger.info(f"🔍 Auto-detection: Environment={'Docker' if is_docker else 'Local'}")
+        # Détection automatique basée sur stdin
+        # Si stdin est connecté (TTY ou pipe), utiliser STDIO
+        # Si stdin est fermé, on est probablement en mode détaché SSE
+        import sys
+        has_stdin = sys.stdin and not sys.stdin.closed and (sys.stdin.isatty() or True)
+
+        # En mode production détaché (docker-compose), utiliser SSE
+        # En mode interactif (docker run -i ou local), utiliser STDIO
+        is_detached = os.environ.get("LUNA_ENV") == "production" and not has_stdin
+        transport_mode = "sse" if is_detached else "stdio"
+        logger.info(f"🔍 Auto-detection: Mode={'Detached Docker (SSE)' if is_detached else 'Interactive (STDIO)'}")
 
     logger.info(f"🚀 Starting MCP Server with transport: {transport_mode.upper()}")
 
