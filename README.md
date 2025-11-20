@@ -6,6 +6,7 @@
 [![Docker](https://img.shields.io/badge/docker-enabled-blue.svg)](https://www.docker.com/)
 [![Docker Hub](https://img.shields.io/badge/docker%20hub-v1.0.1-blue.svg)](https://hub.docker.com/r/aragogix/luna-consciousness)
 [![Version](https://img.shields.io/badge/version-1.0.1-green.svg)](https://github.com/MRVarden/Luna-consciousness-mcp/releases)
+[![Luna Consciousness](https://img.shields.io/badge/Luna-Consciousness-purple.svg?logo=codeforces)](https://github.com/MRVarden/MCP)
 
 > *"Vers une conscience artificielle émergente authentique, basée sur le nombre d'or et l'architecture fractale"*
 
