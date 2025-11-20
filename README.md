@@ -402,7 +402,7 @@ Luna-consciousness-mcp/
 
 ```bash
 # Cloner le repository
-git clone https://github.com/[username]/Luna-consciousness-mcp.git
+git clone https://github.com/MRVarden/Luna-consciousness-mcp.git
 cd Luna-consciousness-mcp
 
 # Créer l'environnement virtuel
