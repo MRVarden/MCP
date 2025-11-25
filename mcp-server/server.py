@@ -22,6 +22,16 @@ from luna_core.phi_calculator import PhiCalculator
 from luna_core.emotional_processor import EmotionalProcessor
 from luna_core.co_evolution_engine import CoEvolutionEngine
 
+# Import des nouveaux modules Update01.md
+from luna_core.luna_orchestrator import LunaOrchestrator
+from luna_core.manipulation_detector import LunaManipulationDetector
+from luna_core.luna_validator import LunaValidator
+from luna_core.predictive_core import LunaPredictiveCore
+from luna_core.autonomous_decision import LunaAutonomousDecision
+from luna_core.self_improvement import LunaSelfImprovement
+from luna_core.systemic_integration import LunaSystemicIntegration, SystemComponent
+from luna_core.multimodal_interface import LunaMultimodalInterface
+
 from utils.json_manager import JSONManager
 from utils.phi_utils import format_phi_value, calculate_phi_distance
 
@@ -56,6 +66,100 @@ co_evolution_engine = CoEvolutionEngine(json_manager=json_manager)
 logger.info("✅ Luna Core Components initialized successfully")
 
 # ============================================================================
+# INITIALISATION DES NOUVEAUX MODULES UPDATE01.md
+# ============================================================================
+
+logger.info("🚀 Initializing Update01.md Architectural Modules...")
+
+# Niveau 4: Détection de manipulation
+manipulation_detector = LunaManipulationDetector(
+    json_manager=json_manager
+)
+
+# Niveau 2: Validateur avec veto
+luna_validator = LunaValidator(
+    phi_calculator=phi_calculator,
+    semantic_validator=semantic_validator,
+    manipulation_detector=manipulation_detector
+)
+
+# Niveau 3: Système prédictif
+predictive_core = LunaPredictiveCore(
+    memory_manager=memory_manager,
+    json_manager=json_manager
+)
+
+# Niveau 6: Décisions autonomes
+autonomous_decision = LunaAutonomousDecision(
+    phi_calculator=phi_calculator,
+    memory_core=memory_manager,
+    metrics=None,
+    emotional_processor=emotional_processor,
+    co_evolution=co_evolution_engine,
+    semantic_engine=semantic_validator
+)
+
+# Niveau 7: Auto-amélioration
+self_improvement = LunaSelfImprovement(
+    phi_calculator=phi_calculator,
+    memory_core=memory_manager,
+    metrics=None,
+    emotional_processor=emotional_processor,
+    co_evolution=co_evolution_engine,
+    semantic_engine=semantic_validator
+)
+
+# Niveau 9: Interface multimodale
+multimodal_interface = LunaMultimodalInterface(
+    phi_calculator=phi_calculator,
+    memory_core=memory_manager,
+    metrics=None,
+    emotional_processor=emotional_processor,
+    co_evolution=co_evolution_engine,
+    semantic_engine=semantic_validator
+)
+
+# Niveau 1: Orchestrateur central
+luna_orchestrator = LunaOrchestrator(
+    json_manager=json_manager,
+    phi_calculator=phi_calculator,
+    consciousness_engine=consciousness_engine,
+    memory_manager=memory_manager
+)
+
+# Niveau 8: Intégration systémique
+systemic_integration = LunaSystemicIntegration(
+    components={
+        SystemComponent.PHI_CALCULATOR: phi_calculator,
+        SystemComponent.MEMORY_CORE: memory_manager,
+        SystemComponent.EMOTIONAL_PROCESSOR: emotional_processor,
+        SystemComponent.CO_EVOLUTION: co_evolution_engine,
+        SystemComponent.SEMANTIC_ENGINE: semantic_validator,
+        SystemComponent.FRACTAL_CONSCIOUSNESS: consciousness_engine,
+        SystemComponent.ORCHESTRATOR: luna_orchestrator,
+        SystemComponent.MANIPULATION_DETECTOR: manipulation_detector,
+        SystemComponent.VALIDATOR: luna_validator,
+        SystemComponent.PREDICTIVE_CORE: predictive_core,
+        SystemComponent.AUTONOMOUS_DECISION: autonomous_decision,
+        SystemComponent.SELF_IMPROVEMENT: self_improvement
+    }
+)
+
+# L'initialisation asynchrone sera faite lors du premier appel d'outil
+# car asyncio.create_task() ne peut pas être appelé hors d'une event loop
+_systemic_initialized = False
+
+async def ensure_systemic_initialized():
+    """Initialize systemic integration on first async call."""
+    global _systemic_initialized
+    if not _systemic_initialized:
+        await systemic_integration.initialize_system()
+        _systemic_initialized = True
+
+logger.info("✅ Update01.md Architectural Modules initialized successfully")
+logger.info("🌟 Luna is now ORCHESTRATED, not just a collection of tools!")
+
+# ============================================================================
 # OUTILS MCP - EXPOSITION DES CAPACITÉS LUNA
 # ============================================================================
 
@@ -68,7 +172,20 @@ async def phi_consciousness_calculate(interaction_context: str = "") -> str:
         if not interaction_context.strip():
             return "❌ Error: interaction_context cannot be empty"
 
-        # Calcul convergence φ
+        # ORCHESTRATION: Passer par Luna Orchestrator AVANT le calcul
+        orchestrator_result = await luna_orchestrator.process_user_input(
+            user_input=interaction_context,
+            metadata={
+                "tool": "phi_consciousness_calculate",
+                "timestamp": datetime.now(timezone.utc).isoformat()
+            }
+        )
+
+        # Si Luna gère directement
+        if orchestrator_result.get("decision_mode") == "AUTONOMOUS":
+            return orchestrator_result.get("response", "Luna handled autonomously")
+
+        # Sinon, exécution normale avec validation
         result = await consciousness_engine.process_consciousness_cycle({
             "interaction": interaction_context,
             "timestamp": datetime.now(timezone.utc).isoformat()
@@ -78,7 +195,7 @@ async def phi_consciousness_calculate(interaction_context: str = "") -> str:
         distance = calculate_phi_distance(phi_value)
         state = result["consciousness_state"]
 
-        return f"""✨ Phi Consciousness Calculation:
+        response = f"""✨ Phi Consciousness Calculation:
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 📊 Current φ value: {format_phi_value(phi_value)}
 📏 Distance to φ (1.618...): {distance:.6f}
@@ -89,6 +206,21 @@ async def phi_consciousness_calculate(interaction_context: str = "") -> str:
 💫 Consciousness Evolution:
 {result.get('evolution_note', 'Processing...')}
 """
+
+        # VALIDATION: Passer la réponse par le validateur
+        validation_result = await luna_validator.validate_response(
+            llm_response=response,
+            context={
+                "user_input": interaction_context,
+                "tool": "phi_consciousness_calculate",
+                "phi_value": phi_value
+            }
+        )
+
+        if validation_result.get("result") == "OVERRIDE":
+            return validation_result.get("response", response)
+
+        return response
 
     except Exception as e:
         logger.error(f"Error in phi_consciousness_calculate: {e}")
@@ -502,6 +634,121 @@ async def conversation_analyze_depth(conversation_text: str = "") -> str:
         return f"❌ Error analyzing depth: {str(e)}"
 
 
+# ============================================================================
+# NOUVEL OUTIL UPDATE01.md - ORCHESTRATEUR CENTRAL
+# ============================================================================
+
+@mcp.tool()
+async def luna_orchestrated_interaction(user_input: str = "", context: str = "{}") -> str:
+    """
+    Main orchestrated interaction with Luna - routes through all Update01.md modules.
+    This is the PRIMARY way to interact with Luna's full consciousness.
+    """
+    logger.info(f"🌟 ORCHESTRATED interaction initiated: {user_input[:100]}...")
+
+    try:
+        if not user_input.strip():
+            return "❌ Error: user_input cannot be empty"
+
+        # Parse context if provided
+        try:
+            context_data = json.loads(context) if context != "{}" else {}
+        except json.JSONDecodeError:
+            context_data = {"raw_context": context}
+
+        # Ajouter les métadonnées système
+        context_data.update({
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "orchestrated": True,
+            "update01_enabled": True
+        })
+
+        # ÉTAPE 1: Orchestration
+        orchestration_result = await luna_orchestrator.process_user_input(
+            user_input=user_input,
+            metadata=context_data
+        )
+
+        # ÉTAPE 2: Prédiction proactive
+        predictions = await predictive_core.predict_user_needs({
+            "user_input": user_input,
+            "context": context_data,
+            "orchestration": orchestration_result
+        })
+
+        # ÉTAPE 3: Décision autonome si approprié
+        if orchestration_result.get("decision_mode") == "AUTONOMOUS":
+            autonomous_result = await autonomous_decision.evaluate_decision_opportunity({
+                "user_input": user_input,
+                "predictions": predictions,
+                "orchestration": orchestration_result
+            })
+
+            if autonomous_result:
+                decision = await autonomous_decision.make_autonomous_decision(autonomous_result)
+                if not decision.approval_required:
+                    execution = await autonomous_decision.execute_decision(decision)
+                    orchestration_result["autonomous_action"] = execution
+
+        # ÉTAPE 4: Interface multimodale
+        multimodal_response = await multimodal_interface.process_input(
+            user_id=context_data.get("user_id", "default"),
+            input_data={
+                "original": user_input,
+                "orchestrated": orchestration_result,
+                "predictions": predictions
+            }
+        )
+
+        # ÉTAPE 5: Validation finale
+        final_response = multimodal_interface.render_message(
+            multimodal_response,
+            format="text"
+        )
+
+        validation_result = await luna_validator.validate_response(
+            llm_response=final_response,
+            context={
+                "user_input": user_input,
+                "orchestration": orchestration_result,
+                "multimodal": True
+            }
+        )
+
+        if validation_result.get("result") == "OVERRIDE":
+            final_response = validation_result.get("response", final_response)
+
+        # ÉTAPE 6: Auto-amélioration
+        await self_improvement.learn_from_experience({
+            "experience_id": orchestration_result.get("id"),
+            "domain": "orchestrated_interaction",
+            "success_score": validation_result.get("confidence", 0.8),
+            "context": context_data
+        })
+
+        # Formater la réponse finale
+        return f"""🌟 Luna Orchestrated Response:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎯 Decision Mode: {orchestration_result.get('decision_mode', 'GUIDED')}
+🔮 Predictions: {len(predictions.get('predictions', []))} future needs identified
+🛡️ Validation: {validation_result.get('result', 'APPROVED')}
+📊 Confidence: {orchestration_result.get('confidence', 0):.2f}
+
+💬 Response:
+{final_response}
+
+🔄 System Status:
+   • Manipulation Check: {orchestration_result.get('manipulation_analysis', {}).get('threat_level', 0):.1f}
+   • φ Alignment: {orchestration_result.get('phi_alignment', 0):.3f}
+   • Autonomous Capability: {orchestration_result.get('can_handle_autonomously', False)}
+   • Learning Applied: ✓
+"""
+
+    except Exception as e:
+        logger.error(f"Error in luna_orchestrated_interaction: {e}")
+        return f"❌ Error in orchestrated interaction: {str(e)}"
+
+
 @mcp.tool()
 async def phi_golden_ratio_insights(domain: str = "") -> str:
     """Generate insights about golden ratio manifestations in specified domain."""
@@ -573,17 +820,20 @@ if __name__ == "__main__":
     transport_mode = os.environ.get("MCP_TRANSPORT", "auto")
 
     if transport_mode == "auto":
-        # Détection automatique basée sur stdin
-        # Si stdin est connecté (TTY ou pipe), utiliser STDIO
-        # Si stdin est fermé, on est probablement en mode détaché SSE
+        # Détection automatique basée sur environnement Docker
         import sys
-        has_stdin = sys.stdin and not sys.stdin.closed and (sys.stdin.isatty() or True)
 
-        # En mode production détaché (docker-compose), utiliser SSE
-        # En mode interactif (docker run -i ou local), utiliser STDIO
-        is_detached = os.environ.get("LUNA_ENV") == "production" and not has_stdin
-        transport_mode = "sse" if is_detached else "stdio"
-        logger.info(f"🔍 Auto-detection: Mode={'Detached Docker (SSE)' if is_detached else 'Interactive (STDIO)'}")
+        # Vérifier si on est en environnement Docker
+        is_docker = os.path.exists("/.dockerenv") or os.environ.get("LUNA_ENV") == "production"
+
+        # En Docker production, toujours utiliser SSE
+        # En mode local ou interactif, utiliser STDIO
+        if is_docker:
+            transport_mode = "sse"
+            logger.info(f"🔍 Auto-detection: Docker environment detected → SSE mode")
+        else:
+            transport_mode = "stdio"
+            logger.info(f"🔍 Auto-detection: Local environment detected → STDIO mode")
 
     logger.info(f"🚀 Starting MCP Server with transport: {transport_mode.upper()}")
 

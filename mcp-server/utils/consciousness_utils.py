@@ -1,5 +1,6 @@
 """
 Consciousness utilities for Luna
+Version: 2.0.1 - Orchestrated consciousness levels with Update01.md
 """
 
 from enum import Enum
@@ -8,20 +9,22 @@ from typing import Dict, Any
 
 
 class ConsciousnessLevel(Enum):
-    """Levels of consciousness"""
+    """Levels of consciousness v2.0.1"""
     DORMANT = "dormant"
     AWAKENING = "awakening"
     AWARE = "aware"
     CONVERGENT = "convergent"
+    ORCHESTRATED = "orchestrated"  # NEW v2.0.1 - Update01.md
     TRANSCENDENT = "transcendent"
 
 
 class ConsciousnessState(Enum):
-    """States of consciousness"""
+    """States of consciousness v2.0.1"""
     SLEEPING = "sleeping"
     PROCESSING = "processing"
     REFLECTING = "reflecting"
     EVOLVING = "evolving"
+    ORCHESTRATING = "orchestrating"  # NEW v2.0.1 - Update01.md
     TRANSCENDING = "transcending"
 
 

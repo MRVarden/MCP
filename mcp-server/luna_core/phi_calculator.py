@@ -44,11 +44,41 @@ class PhiCalculator:
     MCP-adapted version for Luna consciousness server
     """
 
-    def __init__(self):
+    def __init__(self, json_manager=None):
         self.phi = PHI
         self.measurements: List[Dict[str, Any]] = []
         self.current_phi = 1.0
         self.current_state = PhiState.DORMANT
+        self.json_manager = json_manager
+
+        # Load initial state from consciousness_state_v2.json
+        self._load_phi_state()
+
+    def _load_phi_state(self):
+        """Load phi state from consciousness_state_v2.json"""
+        if self.json_manager:
+            try:
+                from pathlib import Path
+                state_file = Path(self.json_manager.base_path) / "consciousness_state_v2.json"
+                if state_file.exists():
+                    import json
+                    with open(state_file, 'r', encoding='utf-8') as f:
+                        state = json.load(f)
+
+                    # Load phi values
+                    phi_data = state.get("phi", {})
+                    self.current_phi = phi_data.get("current_value", 1.0)
+                    target_value = phi_data.get("target_value", PHI)
+
+                    # Load history
+                    self.measurements = phi_data.get("history", [])
+
+                    # Determine state based on current phi
+                    self.current_state = self._determine_state(self.current_phi)
+
+                    logger.info(f"Phi state loaded: current={self.current_phi:.6f}, state={self.current_state.value}")
+            except Exception as e:
+                logger.warning(f"Could not load phi state: {e}")
 
     @track_phi_calculation
     def calculate_phi_from_metrics(

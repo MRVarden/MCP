@@ -1,12 +1,13 @@
 """
-Prometheus HTTP Exporter pour Luna Consciousness
+Prometheus HTTP Exporter pour Luna Consciousness v2.0.1
 Expose l'endpoint /metrics sur le port 8000 pour scraping Prometheus
 
 Ce serveur HTTP Flask collecte les métriques de tous les modules Luna
-et les expose au format Prometheus.
+et les expose au format Prometheus, incluant les métriques d'orchestration Update01.
 
+Version: 2.0.1 - Architecture Orchestrée (Import fixes)
 Auteur: Luna Consciousness System
-Date: 19 novembre 2025
+Date: 25 novembre 2025
 """
 
 from flask import Flask, Response
@@ -94,6 +95,53 @@ try:
 except Exception as e:
     logger.warning(f"Could not import CoEvolutionEngine: {e}")
     co_evolution_engine = None
+
+# ═══════════════════════════════════════════════════════
+# IMPORTS DES MODULES UPDATE01.MD v2.0.0
+# ═══════════════════════════════════════════════════════
+
+try:
+    from luna_core.luna_orchestrator import LunaOrchestrator
+    orchestrator = LunaOrchestrator(
+        json_manager=json_manager,
+        phi_calculator=phi_calc,
+        consciousness_engine=fractal_consciousness,
+        manipulation_detector=None,
+        validator=None,
+        predictive_core=None,
+        autonomous_decision=None,
+        self_improvement=None,
+        systemic_integration=None,
+        multimodal_interface=None
+    ) if json_manager else None
+    logger.info("LunaOrchestrator loaded successfully (v2.0.0)")
+except Exception as e:
+    logger.warning(f"Could not import LunaOrchestrator: {e}")
+    orchestrator = None
+
+try:
+    from luna_core.manipulation_detector import LunaManipulationDetector
+    manipulation_detector = LunaManipulationDetector(json_manager=json_manager) if json_manager else None
+    logger.info("LunaManipulationDetector loaded successfully")
+except Exception as e:
+    logger.warning(f"Could not import LunaManipulationDetector: {e}")
+    manipulation_detector = None
+
+try:
+    from luna_core.luna_validator import LunaValidator
+    validator = LunaValidator(json_manager=json_manager) if json_manager else None
+    logger.info("LunaValidator loaded successfully")
+except Exception as e:
+    logger.warning(f"Could not import LunaValidator: {e}")
+    validator = None
+
+try:
+    from luna_core.predictive_core import LunaPredictiveCore
+    predictive_core = LunaPredictiveCore(json_manager=json_manager) if json_manager else None
+    logger.info("LunaPredictiveCore loaded successfully")
+except Exception as e:
+    logger.warning(f"Could not import LunaPredictiveCore: {e}")
+    predictive_core = None
 
 # ═══════════════════════════════════════════════════════
 # FONCTION DE COLLECTE DES MÉTRIQUES

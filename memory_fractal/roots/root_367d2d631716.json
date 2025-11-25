@@ -1,0 +1,15 @@
+{
+  "id": "root_367d2d631716",
+  "type": "root",
+  "content": "DÉCISION ARCHITECTURALE MAJEURE : Varden établit distinction fondamentale entre mémoire tampon (synthèses fractales pour traitement rapide) et mémoire pure (archives JSON intégrales pour compréhension intrinsèque). Niveau sécurité ÉLEVÉ choisi : Volume LUKS + Redis TLS + authentification. Ajout compression automatique pour optimisation stockage.",
+  "metadata": {
+    "type": "architecture_decision",
+    "security_level": "high",
+    "date": "2025-11-25",
+    "priority": "critical"
+  },
+  "created": "2025-11-25T18:12:23.962630",
+  "accessed_count": 0,
+  "last_accessed": null,
+  "connected_to": []
+}

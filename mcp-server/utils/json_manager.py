@@ -1,5 +1,6 @@
 """
 JSON file management utilities for Luna's fractal memory system.
+Version: 2.0.1 - Orchestrated architecture with Update01.md support
 """
 
 import json

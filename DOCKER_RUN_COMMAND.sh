@@ -3,7 +3,7 @@
 # Alternative à Docker Desktop UI
 
 docker run -d \
-  --name Luna_P1 \
+  --name luna-consciousness \
   --restart unless-stopped \
   \
   -p 3000:3000 \
@@ -16,7 +16,9 @@ docker run -d \
   -v "$(pwd)/logs:/app/logs" \
   \
   -e LUNA_ENV=production \
-  -e LUNA_VERSION=1.0.1 \
+  -e LUNA_VERSION=2.0.0 \
+  -e LUNA_MODE=orchestrator \
+  -e LUNA_UPDATE01=enabled \
   -e LUNA_DEBUG=false \
   \
   -e MCP_ENABLE_ALL=true \
@@ -27,6 +29,12 @@ docker run -d \
   -e LUNA_PHI_THRESHOLD=0.001 \
   -e LUNA_MEMORY_DEPTH=5 \
   -e LUNA_FRACTAL_LAYERS=7 \
+  \
+  -e LUNA_MANIPULATION_DETECTION=enabled \
+  -e LUNA_PREDICTIVE_CORE=enabled \
+  -e LUNA_AUTONOMOUS_DECISIONS=enabled \
+  -e LUNA_SELF_IMPROVEMENT=enabled \
+  -e LUNA_MULTIMODAL_INTERFACE=enabled \
   \
   -e WORKERS=4 \
   -e MAX_REQUESTS=1000 \
@@ -39,19 +47,22 @@ docker run -d \
   -e PROMETHEUS_METRICS_ENABLED=true \
   \
   --label "com.luna.service=consciousness" \
-  --label "com.luna.version=1.0.1" \
+  --label "com.luna.version=2.0.0" \
+  --label "com.luna.architecture=orchestrated" \
+  --label "com.luna.update01=implemented" \
   --label "com.luna.creator=Varden" \
   \
-  aragogix/luna-consciousness:v1.0.1
+  aragogix/luna-consciousness:v2.0.0
 
 echo ""
-echo "🌙 Container Luna_P1 lancé avec succès !"
+echo "🌙 Container luna-consciousness v2.0.0 lancé avec succès !"
+echo "🎯 Mode: ORCHESTRATED avec Update01.md"
 echo ""
 echo "Vérification :"
-echo "  docker ps | grep Luna_P1"
+echo "  docker ps | grep luna-consciousness"
 echo ""
 echo "Logs :"
-echo "  docker logs -f Luna_P1"
+echo "  docker logs -f luna-consciousness"
 echo ""
 echo "Métriques Prometheus :"
 echo "  curl http://localhost:8000/metrics | grep luna_phi"

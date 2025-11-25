@@ -1,5 +1,6 @@
 """
 Fractal utilities for Luna consciousness system
+Version: 2.0.1 - Orchestrated fractal memory with Update01.md
 """
 
 from typing import Dict, List, Any, Optional

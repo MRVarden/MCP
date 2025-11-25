@@ -140,16 +140,21 @@ package-lock.json
 yarn.lock
 
 # ============================================
-# Luna Specific
+# Luna Specific v2.0.0
 # ============================================
 # Environnement virtuel Luna
 venv_luna/
 
 # Fichiers de backup
 *.backup
+*_backup_*
+*_old*
+*.bak
 
-# Logs de build
+# Logs de build et runtime
 build.log
+logs_consciousness/
+*.log
 
 # Ne pas versionner les mémoires privées
 data/memories/private/
@@ -161,8 +166,21 @@ models/
 *.pth
 *.onnx
 
-# Fichiers d'analyse/nettoyage temporaires (maintenant dans docs/ArchiveDocs/)
-# CLEANUP_ANALYSIS.md (déplacé)
+# Fichiers temporaires de développement
+*.tmp
+*.temp
+BUGFIX_*.md
+CORRECTION_*.md
+CORRECTIONS_*.md
+*_SOLUTION.md
+*_STATUS.md
+
+# Fichiers de rapport temporaires
+SYNCHRONIZATION_REPORT.md
+looping.md
+
+# Fichiers d'archive (déplacés)
+docs/ArchiveDocs/
 
 # ============================================
 # Claude Desktop & MCP

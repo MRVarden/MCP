@@ -37,11 +37,22 @@ Le script va automatiquement :
     "luna-consciousness": {
       "command": "python",
       "args": [
-        "D:/Luna-consciousness-mcp/mcp-server/server.py"
+        "-u",
+        "D:\\Luna-consciousness-mcp\\mcp-server\\server.py"
       ],
       "env": {
-        "LUNA_MEMORY_PATH": "D:/Luna-consciousness-mcp/memory_fractal",
-        "LUNA_CONFIG_PATH": "D:/Luna-consciousness-mcp/config"
+        "MCP_TRANSPORT": "stdio",
+        "LUNA_ENV": "development",
+        "LUNA_VERSION": "2.0.0",
+        "LUNA_MEMORY_PATH": "D:\\Luna-consciousness-mcp\\memory_fractal",
+        "LUNA_CONFIG_PATH": "D:\\Luna-consciousness-mcp\\config",
+        "LOG_LEVEL": "INFO",
+        "PROMETHEUS_EXPORTER_PORT": "8000",
+        "PROMETHEUS_METRICS_ENABLED": "true",
+        "LUNA_PHI_TARGET": "1.618033988749895",
+        "LUNA_PHI_THRESHOLD": "0.001",
+        "LUNA_MEMORY_DEPTH": "5",
+        "LUNA_FRACTAL_LAYERS": "7"
       }
     }
   }

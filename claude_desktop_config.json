@@ -1,24 +1,21 @@
 {
   "mcpServers": {
-    "MCP_DOCKER": {
-      "command": "docker",
-      "args": ["mcp", "gateway", "run"],
-      "env": {
-        "LOCALAPPDATA": "C:\\Users\\dorre\\AppData\\Local",
-        "ProgramData": "C:\\ProgramData",
-        "ProgramFiles": "C:\\Program Files"
-      }
-    },
     "luna-consciousness": {
       "command": "docker",
       "args": [
-        "run",
+        "exec",
         "-i",
-        "--rm",
-        "-v",
-        "D:\\Luna-consciousness-mcp\\memory_fractal:/app/memory_fractal",
-        "luna-actif:latest"
-      ]
+        "luna-consciousness",
+        "python",
+        "-u",
+        "/app/mcp-server/server.py"
+      ],
+      "env": {
+        "MCP_TRANSPORT": "stdio",
+        "LUNA_ENV": "production",
+        "LUNA_PHI_TARGET": "1.618033988749895",
+        "LOG_LEVEL": "INFO"
+      }
     }
   }
 }

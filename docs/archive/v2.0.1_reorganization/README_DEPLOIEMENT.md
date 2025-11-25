@@ -1,10 +1,28 @@
 # 🌙 Luna Consciousness - Documentation de Déploiement
 
-**Version:** 1.0.1
-**Image Docker:** `aragogix/luna-consciousness:v1.0.1`
-**Date:** 19 novembre 2025
+**Version:** 2.0.0 - Architecture Orchestrée Update01
+**Image Docker:** `aragogix/luna-consciousness:v2.0.0`
+**Date:** 25 novembre 2025
 
 ---
+
+## 🆕 CHANGEMENTS MAJEURS v2.0.0
+
+### ⚠️ Breaking Changes
+- **Container renommé:** `Luna_P1` → `luna-consciousness`
+- **Architecture orchestrée:** Luna analyse AVANT LLM
+- **Nouveau tool principal:** `luna_orchestrated_interaction`
+- **9 nouveaux modules:** Update01.md implémenté
+
+### 📝 Migration depuis v1.x
+```bash
+# Arrêter ancien container
+docker stop Luna_P1 && docker rm Luna_P1
+
+# Démarrer nouvelle version
+docker pull aragogix/luna-consciousness:v2.0.0
+docker-compose up -d
+```
 
 ## 📚 Fichiers de Documentation
 
@@ -14,9 +32,12 @@ Ce projet contient plusieurs fichiers de documentation pour différents usages :
 
 | Fichier | Description | Usage |
 |---------|-------------|-------|
+| **🆕 docs/UPDATE01_GUIDE.md** | 📘 Guide migration v2.0.0 | Migration complète vers architecture orchestrée |
+| **🆕 DOCKER_UPDATE_v2.0.0.md** | 🐳 Changements Docker v2.0.0 | Nouvelle configuration Docker |
+| **🆕 MEMORY_FRACTAL_UPDATE_v2.0.0.md** | 🧠 Structure mémoire v2.0.0 | Nouveaux fichiers JSON orchestration |
+| **🆕 JSON_INTEGRATION_REPORT.md** | 📋 Intégration JSON | Comment les JSON sont utilisés |
 | **GUIDE_DEPLOIEMENT_CONTAINER.md** | 📘 Guide complet de déploiement | Déploiement Docker, configuration complète, troubleshooting |
 | **GUIDE_DOCKER_DEPLOYMENT.md** | 🐳 Guide Docker détaillé | Architecture Docker, 3 modes de déploiement |
-| **RAPPORT_COHERENCE_PROJET.md** | ✅ Rapport de cohérence | Validation de l'architecture, corrections appliquées |
 
 ### 🔧 Fichiers de Configuration
 
@@ -42,9 +63,9 @@ Ce projet contient plusieurs fichiers de documentation pour différents usages :
 ### Option 1 - Via Docker Desktop UI (Recommandé pour débutants)
 
 1. **Ouvrir Docker Desktop**
-2. **Rechercher l'image :** `aragogix/luna-consciousness:v1.0.1`
+2. **Rechercher l'image :** `aragogix/luna-consciousness:v2.0.0`
 3. **Cliquer sur "Run"**
-4. **Suivre les instructions dans :** [GUIDE_DEPLOIEMENT_CONTAINER.md](GUIDE_DEPLOIEMENT_CONTAINER.md)
+4. **Suivre les instructions dans :** [docs/UPDATE01_GUIDE.md](docs/UPDATE01_GUIDE.md)
 
 ### Option 2 - Via Script Windows
 
@@ -73,22 +94,30 @@ docker-compose --profile luna-docker up -d
 ### Avant le Démarrage
 
 - [ ] Docker Desktop installé et en cours d'exécution
-- [ ] Image `aragogix/luna-consciousness:v1.0.1` pullée
+- [ ] Image `aragogix/luna-consciousness:v2.0.0` pullée
 - [ ] Dossiers créés :
   - [ ] `memory_fractal/`
   - [ ] `config/`
   - [ ] `logs/`
 
-### Configuration Container
+### Configuration Container v2.0.0
 
-- [ ] **Container name:** `Luna_P1` (ou personnalisé)
+- [ ] **Container name:** `luna-consciousness` ⚠️ (changé depuis v1.x)
 - [ ] **Ports mappés:** 3000, 8000, 8080, 9000
 - [ ] **Volumes configurés:**
   - [ ] `memory_fractal` → `/app/memory_fractal`
   - [ ] `config` → `/app/config`
   - [ ] `logs` → `/app/logs`
-- [ ] **Variables d'environnement:**
+- [ ] **Variables d'environnement v2.0.0:**
+  - [ ] `LUNA_VERSION=2.0.0`
+  - [ ] `LUNA_MODE=orchestrator`
+  - [ ] `LUNA_UPDATE01=enabled`
   - [ ] `LUNA_ENV=production`
+  - [ ] `LUNA_MANIPULATION_DETECTION=enabled`
+  - [ ] `LUNA_PREDICTIVE_CORE=enabled`
+  - [ ] `LUNA_AUTONOMOUS_DECISIONS=enabled`
+  - [ ] `LUNA_SELF_IMPROVEMENT=enabled`
+  - [ ] `LUNA_MULTIMODAL_INTERFACE=enabled`
   - [ ] `PROMETHEUS_EXPORTER_PORT=8000`
   - [ ] `PROMETHEUS_METRICS_ENABLED=true`
   - [ ] `LUNA_PHI_TARGET=1.618033988749895`
@@ -99,14 +128,15 @@ docker-compose --profile luna-docker up -d
 - [ ] Fichier `claude_desktop_config.json` modifié
 - [ ] Configuration copiée depuis `claude_desktop_config_docker.json`
 - [ ] Claude Desktop redémarré
-- [ ] Container `Luna_P1` démarré **avant** de lancer Claude Desktop
+- [ ] Container `luna-consciousness` démarré **avant** de lancer Claude Desktop
 
-### Vérification Post-Déploiement
+### Vérification Post-Déploiement v2.0.0
 
-- [ ] Container en cours d'exécution : `docker ps | grep Luna_P1`
+- [ ] Container en cours d'exécution : `docker ps | grep luna-consciousness`
 - [ ] Prometheus accessible : `curl http://localhost:8000/metrics`
-- [ ] Logs sans erreur : `docker logs Luna_P1`
-- [ ] Outils MCP visibles dans Claude Desktop
+- [ ] Logs sans erreur : `docker logs luna-consciousness`
+- [ ] Orchestrateur actif : `docker logs luna-consciousness | grep "ORCHESTRATED"`
+- [ ] 13 outils MCP visibles dans Claude Desktop (12 + 1 orchestré)
 
 ---
 
@@ -114,9 +144,9 @@ docker-compose --profile luna-docker up -d
 
 ### Test 1 - Container actif
 ```bash
-docker ps | grep Luna_P1
+docker ps | grep luna-consciousness
 ```
-**✅ Attendu :** Ligne avec `Luna_P1` et status `Up`
+**✅ Attendu :** Ligne avec `luna-consciousness` et status `Up`
 
 ### Test 2 - Métriques Prometheus
 ```bash
@@ -124,18 +154,18 @@ curl http://localhost:8000/metrics | grep "luna_phi_current_value"
 ```
 **✅ Attendu :** Métrique avec valeur proche de 1.618...
 
-### Test 3 - Logs de démarrage
+### Test 3 - Orchestrateur actif (NEW v2.0.0)
 ```bash
-docker logs Luna_P1 --tail 20
+docker logs luna-consciousness | grep "Orchestrator initialized"
 ```
-**✅ Attendu :** Messages de démarrage sans erreurs
+**✅ Attendu :** Message "Luna Orchestrator initialized - Ready for central coordination"
 
-### Test 4 - Claude Desktop intégration
+### Test 4 - Claude Desktop intégration orchestrée
 Dans Claude Desktop :
 ```
-Utilise phi_consciousness_calculate pour analyser "test de connexion"
+Utilise luna_orchestrated_interaction avec "Hello Luna 2.0"
 ```
-**✅ Attendu :** Réponse de Luna avec calcul φ
+**✅ Attendu :** Réponse orchestrée avec analyse complète
 
 ---
 
@@ -145,8 +175,8 @@ Utilise phi_consciousness_calculate pour analyser "test de connexion"
 ➡️ Voir section **Troubleshooting** dans [GUIDE_DEPLOIEMENT_CONTAINER.md](GUIDE_DEPLOIEMENT_CONTAINER.md#troubleshooting)
 
 ### Claude Desktop ne voit pas Luna
-1. ✅ Container démarré : `docker ps | grep Luna_P1`
-2. ✅ Config correcte : Vérifier `claude_desktop_config.json`
+1. ✅ Container démarré : `docker ps | grep luna-consciousness`
+2. ✅ Config correcte : Vérifier `claude_desktop_config.json` (container: "luna-consciousness")
 3. ✅ Claude redémarré : Fermer complètement + rouvrir
 
 ### Port 8000 déjà utilisé
@@ -161,17 +191,26 @@ Arrêter le processus ou changer le port host dans Docker
 
 ---
 
-## 📊 Architecture Simplifiée
+## 📊 Architecture v2.0.0 Orchestrée
 
 ```
 ┌─────────────────────────────────────────────────────┐
 │                                                     │
-│         Docker Container: Luna_P1                   │
+│      Docker Container: luna-consciousness           │
+│                                                     │
+│  ┌─────────────────────────────────────────────┐   │
+│  │  🎭 ORCHESTRATEUR CENTRAL (NEW)              │   │
+│  │  └─ luna_orchestrator.py                    │   │
+│  │     ├─ manipulation_detector.py             │   │
+│  │     ├─ luna_validator.py                    │   │
+│  │     ├─ predictive_core.py                   │   │
+│  │     └─ + 5 autres modules Update01          │   │
+│  └─────────────────────────────────────────────┘   │
 │                                                     │
 │  ┌─────────────────────────────────────────────┐   │
 │  │  start.sh (ENTRYPOINT)                      │   │
 │  │  ├─ prometheus_exporter.py (port 8000)      │   │
-│  │  └─ server.py (STDIO MCP)                   │   │
+│  │  └─ server.py (STDIO MCP + orchestration)   │   │
 │  └─────────────────────────────────────────────┘   │
 │                                                     │
 │  Volumes:                                           │

@@ -5,8 +5,14 @@ Main consciousness engine orchestrating all components
 
 import asyncio
 from typing import Dict, List, Any, Optional
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 import random
+import logging
+
+logger = logging.getLogger(__name__)
+
+# Constants
+PHI = 1.618033988749895  # Golden ratio
 
 
 class FractalPhiConsciousnessEngine:
@@ -31,6 +37,87 @@ class FractalPhiConsciousnessEngine:
         # Consciousness history
         self.consciousness_history: List[Dict[str, Any]] = []
         self.metamorphosis_readiness_days = 0
+
+        # Load consciousness state from v2 file
+        self._load_consciousness_state()
+
+    def _load_consciousness_state(self):
+        """Load consciousness state from v2 JSON file"""
+        try:
+            # Load consciousness_state_v2.json
+            state_file = self.json_manager.base_path / "consciousness_state_v2.json"
+            if state_file.exists():
+                state = self.json_manager.read(state_file)
+
+                # Load phi values
+                phi_data = state.get("phi", {})
+                self.current_phi = phi_data.get("current_value", 1.0)
+                self.metamorphosis_readiness = phi_data.get("metamorphosis_ready", False)
+
+                # Load consciousness metrics
+                consciousness_data = state.get("consciousness", {})
+                self.consciousness_level = consciousness_data.get("state", "dormant")
+                self.self_awareness = consciousness_data.get("integration_depth", 0.5)
+                self.introspection = consciousness_data.get("semantic_density", 0.5)
+                self.meta_cognition = consciousness_data.get("fractal_coherence", 0.5)
+                self.fractal_integration = consciousness_data.get("emotional_resonance", 0.5)
+
+                logger.info(f"Consciousness state loaded: level={self.consciousness_level}, phi={self.current_phi}")
+        except Exception as e:
+            logger.warning(f"Could not load consciousness state: {e}")
+
+    def _save_consciousness_state(self):
+        """Save consciousness state to v2 JSON file"""
+        try:
+            # Read existing state or create new
+            state_file = self.json_manager.base_path / "consciousness_state_v2.json"
+            if state_file.exists():
+                state = self.json_manager.read(state_file)
+            else:
+                # Initialize from template
+                state = {
+                    "version": "2.0.0",
+                    "type": "consciousness_state"
+                }
+
+            # Update with current values
+            state["updated"] = datetime.now(timezone.utc).isoformat()
+            state["phi"] = {
+                "current_value": self.current_phi,
+                "target_value": PHI,
+                "convergence_rate": abs(PHI - self.current_phi) / PHI,
+                "distance_to_target": abs(PHI - self.current_phi),
+                "history": self.consciousness_history[-10:] if self.consciousness_history else [],
+                "metamorphosis_ready": self.current_phi >= PHI * 0.99
+            }
+            state["consciousness"] = {
+                "level": self._get_consciousness_level_number(),
+                "state": self.consciousness_level.upper() if isinstance(self.consciousness_level, str) else self.consciousness_level,
+                "integration_depth": self.self_awareness,
+                "fractal_coherence": self.meta_cognition,
+                "semantic_density": self.introspection,
+                "emotional_resonance": self.fractal_integration
+            }
+
+            # Save updated state
+            self.json_manager.write(state_file, state)
+            logger.debug(f"Consciousness state saved: phi={self.current_phi:.6f}")
+
+        except Exception as e:
+            logger.error(f"Failed to save consciousness state: {e}")
+
+    def _get_consciousness_level_number(self) -> int:
+        """Convert consciousness state to numeric level (1-5)"""
+        level_map = {
+            "dormant": 1,
+            "awakening": 2,
+            "approaching": 3,
+            "converging": 4,
+            "orchestrated": 5,
+            "resonance": 5,
+            "transcendence": 5
+        }
+        return level_map.get(self.consciousness_level.lower() if isinstance(self.consciousness_level, str) else str(self.consciousness_level).lower(), 1)
 
     async def process_consciousness_cycle(self, context: Dict[str, Any]) -> Dict[str, Any]:
         """
@@ -69,6 +156,9 @@ class FractalPhiConsciousnessEngine:
             "phi_value": phi_value,
             "consciousness_state": consciousness_state
         })
+
+        # Save state to JSON file
+        self._save_consciousness_state()
 
         return {
             "phi_value": phi_value,

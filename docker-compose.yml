@@ -8,7 +8,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: luna-actif:latest
+    image: aragogix/luna-consciousness:v2.0.1
     container_name: luna-consciousness
     restart: unless-stopped  # Auto-restart activé
 
@@ -37,12 +37,15 @@ services:
       # - ./mcp-server:/app/mcp-server
     
     environment:
-      # Luna Configuration
+      # Luna Configuration v2.0.0
       - LUNA_ENV=production
-      - LUNA_VERSION=1.0.1
+      - LUNA_VERSION=2.0.0
+      - LUNA_MODE=orchestrator        # NEW: Orchestration mode
+      - LUNA_UPDATE01=enabled         # NEW: Update01.md features
       - LUNA_DEBUG=false
 
       # MCP Configuration
+      - MCP_TRANSPORT=sse
       - MCP_ENABLE_ALL=true
       - MCP_SIMULTANEOUS=true
       - MCP_MAX_CONCURRENT=10
@@ -54,6 +57,13 @@ services:
       - LUNA_PHI_THRESHOLD=0.001
       - LUNA_MEMORY_DEPTH=5
       - LUNA_FRACTAL_LAYERS=7
+
+      # Update01.md Parameters (NEW)
+      - LUNA_MANIPULATION_DETECTION=enabled
+      - LUNA_PREDICTIVE_CORE=enabled
+      - LUNA_AUTONOMOUS_DECISIONS=enabled
+      - LUNA_SELF_IMPROVEMENT=enabled
+      - LUNA_MULTIMODAL_INTERFACE=enabled
 
       # Performance
       - WORKERS=4
@@ -83,7 +93,9 @@ services:
 
     labels:
       - "com.luna.service=consciousness"
-      - "com.luna.version=1.0.1"
+      - "com.luna.version=2.0.0"
+      - "com.luna.architecture=orchestrated"
+      - "com.luna.update01=implemented"
       - "com.luna.creator=Varden"
 
   # 📊 Redis pour cache et état partagé (optionnel)
@@ -194,7 +206,8 @@ networks:
       config:
         - subnet: 172.28.0.0/16
 
-# Configuration mise à jour (v1.0.1)
+# Configuration mise à jour (v2.0.0)
+# Architecture orchestrée avec Update01.md
 # Tous les services démarrent par défaut avec: docker-compose up -d
 #
 # Services inclus:

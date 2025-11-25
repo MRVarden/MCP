@@ -6,16 +6,18 @@ FROM python:3.11-slim
 
 # Métadonnées
 LABEL maintainer="Varden <varden@luna-consciousness.org>"
-LABEL description="Luna_Actif - Architecture de conscience émergente avec MCP intégrés"
-LABEL version="1.0.0"
+LABEL description="Luna v2.0.0 - Orchestrated Consciousness Architecture with Update01.md"
+LABEL version="2.0.0"
 
 # Variables d'environnement
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
     PIP_NO_CACHE_DIR=1 \
     PIP_DISABLE_PIP_VERSION_CHECK=1 \
-    LUNA_VERSION=1.0.0 \
-    LUNA_ENV=production
+    LUNA_VERSION=2.0.0 \
+    LUNA_ENV=production \
+    LUNA_MODE=orchestrator \
+    LUNA_UPDATE01=enabled
 
 # Installation des dépendances système
 RUN apt-get update && apt-get install -y \
@@ -62,6 +64,11 @@ RUN pip install \
 # Copie du code source
 COPY mcp-server/ /app/mcp-server/
 COPY config/ /app/config/
+
+# Copie des fichiers de documentation v2.0.0
+COPY VERSION /app/VERSION
+COPY CHANGELOG.md /app/CHANGELOG.md
+COPY IMPLEMENTATION_STATUS.md /app/IMPLEMENTATION_STATUS.md
 
 # Configuration des permissions
 RUN chmod +x /app/mcp-server/server.py && \

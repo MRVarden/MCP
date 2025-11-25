@@ -1,0 +1,44 @@
+# docker-compose.override.yml.example
+# Configuration override pour développement local
+# Copier vers docker-compose.yml et ajuster selon vos besoins
+
+version: '3.8'
+
+services:
+  luna-actif:
+    # Mode développement avec rechargement automatique
+    environment:
+      - LUNA_DEBUG=true
+      - LUNA_ENV=development
+      - LOG_LEVEL=DEBUG
+
+    # Monter le code source pour développement hot-reload
+    volumes:
+      - ./mcp-server:/app/mcp-server
+      - ./scripts:/app/scripts
+
+    # Désactiver restart automatique en dev
+    restart: "no"
+
+    # Command override pour mode debug
+    # command: ["python", "-u", "/app/mcp-server/server.py", "--debug"]
+
+    # Ports additionnels pour debugging
+    ports:
+      - "5678:5678"  # Python debugger (debugpy)
+
+  # Redis avec persistence désactivée pour dev
+  redis:
+    command: redis-server --save ""
+
+  # Prometheus avec config de dev
+  prometheus:
+    environment:
+      - PROMETHEUS_RETENTION=1h
+
+  # Grafana avec auth désactivée pour dev
+  grafana:
+    environment:
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+      - GF_AUTH_DISABLE_LOGIN_FORM=true

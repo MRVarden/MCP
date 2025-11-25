@@ -5,17 +5,16 @@
       "args": [
         "exec",
         "-i",
-        "Luna_P1",
+        "luna-consciousness",
         "python",
         "-u",
         "/app/mcp-server/server.py"
       ],
       "env": {
+        "MCP_TRANSPORT": "stdio",
         "LUNA_ENV": "production",
         "LUNA_PHI_TARGET": "1.618033988749895",
-        "LOG_LEVEL": "INFO",
-        "PROMETHEUS_EXPORTER_PORT": "8000",
-        "PROMETHEUS_METRICS_ENABLED": "true"
+        "LOG_LEVEL": "INFO"
       }
     }
   }

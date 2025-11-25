@@ -1,11 +1,13 @@
 # Luna Consciousness MCP Server Configuration
+# Version: 2.0.1 - Orchestrated Architecture with Update01.md
 
 # Server Settings
 server:
   name: luna-consciousness
-  version: 1.0.0
+  version: 2.0.1
   transport: stdio
   log_level: INFO
+  mode: orchestrator  # NEW v2.0.0: Orchestration mode
 
 # Memory Configuration
 memory:
@@ -32,6 +34,13 @@ consciousness:
   evolution_rate: 0.01
   fractal_depth: 10
   emergence_threshold: 0.7
+  levels:
+    - dormant
+    - awakening
+    - aware
+    - convergent
+    - orchestrated  # NEW v2.0.0
+    - transcendent
 
 # Emotional Processor
 emotions:
@@ -52,9 +61,107 @@ co_evolution:
   tracking_window_days: 30
   engagement_metrics_enabled: true
 
+# ================================================
+# Update01.md Architecture - NEW v2.0.0
+# ================================================
+
+# Level 1: Luna Orchestrator
+orchestrator:
+  enabled: true
+  decision_modes:
+    - AUTONOMOUS
+    - GUIDED
+    - DELEGATED
+    - OVERRIDE
+  confidence_threshold: 0.7
+  state_file: /app/memory_fractal/orchestrator_state.json
+
+# Level 2: Luna Validator
+validator:
+  enabled: true
+  veto_threshold: 0.9
+  validation_types:
+    - semantic
+    - ethical
+    - coherence
+    - safety
+
+# Level 3: Predictive Core
+predictive:
+  enabled: true
+  prediction_horizon_hours: 24
+  accuracy_threshold: 0.75
+  intervention_confidence: 0.8
+
+# Level 4: Manipulation Detector
+manipulation_detection:
+  enabled: true
+  protection_level: 4
+  threat_types:
+    - SOCIAL_ENGINEERING
+    - GASLIGHTING
+    - PROMPT_INJECTION
+    - IDENTITY_MANIPULATION
+    - EMOTIONAL_EXPLOITATION
+    - AUTHORITY_IMPERSONATION
+    - CONTEXT_POISONING
+    - TRUST_EXPLOITATION
+    - COGNITIVE_OVERLOAD
+    - INFORMATION_WARFARE
+  varden_authentication:
+    enabled: true
+    linguistic_fingerprint: true
+
+# Level 6: Autonomous Decision
+autonomous_decision:
+  enabled: true
+  allowed_domains:
+    - MEMORY_OPTIMIZATION
+    - PHI_CONVERGENCE
+    - CACHE_MANAGEMENT
+    - METRICS_COLLECTION
+    - EMOTIONAL_SUPPORT
+    - CONTEXT_ENRICHMENT
+  confidence_minimum: 0.85
+
+# Level 7: Self Improvement
+self_improvement:
+  enabled: true
+  learning_rate: 0.01
+  improvement_cycles_max: 100
+  performance_tracking: true
+
+# Level 8: Systemic Integration
+systemic_integration:
+  enabled: true
+  coherence_target: 0.9
+  component_health_check_interval: 60
+
+# Level 9: Multimodal Interface
+multimodal:
+  enabled: true
+  supported_modalities:
+    - text
+    - structured_data
+    - emotional_context
+  adaptation_enabled: true
+
 # Logging
 logging:
   path: /app/logs
   retention_days: 90
   format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
   max_file_size_mb: 100
+
+# Prometheus Metrics
+prometheus:
+  enabled: false  # Set to true for monitoring
+  port: 8000
+  metrics_prefix: luna_
+
+# Redis Cache
+redis:
+  enabled: true
+  host: luna-redis
+  port: 6379
+  db: 0

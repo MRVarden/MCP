@@ -265,7 +265,131 @@ cache_hit_rate = Gauge(
 )
 
 # ═══════════════════════════════════════════════════════
-# 9. METADATA & INFO
+# 9. MÉTRIQUES ORCHESTRATION UPDATE01.MD v2.0.0
+# ═══════════════════════════════════════════════════════
+
+# Orchestrator Metrics
+orchestration_decisions_total = Counter(
+    'luna_orchestration_decisions_total',
+    'Total orchestration decisions made',
+    ['mode']  # AUTONOMOUS, GUIDED, DELEGATED, OVERRIDE
+)
+
+orchestration_confidence_score = Gauge(
+    'luna_orchestration_confidence_score',
+    'Current orchestration confidence (0.0 to 1.0)',
+)
+
+orchestration_active = Gauge(
+    'luna_orchestration_active',
+    'Orchestration system active (1) or passive (0)',
+)
+
+# Manipulation Detection Metrics
+manipulation_threats_detected = Counter(
+    'luna_manipulation_threats_detected_total',
+    'Total manipulation threats detected',
+    ['type', 'severity']  # type: GASLIGHTING, etc., severity: 1-5
+)
+
+manipulation_varden_authentications = Counter(
+    'luna_manipulation_varden_authentications_total',
+    'Total Varden authentications successful',
+)
+
+manipulation_protection_level = Gauge(
+    'luna_manipulation_protection_level',
+    'Current protection level (1-5)',
+)
+
+# Validation Metrics
+validation_overrides_total = Counter(
+    'luna_validation_overrides_total',
+    'Total validation overrides (veto used)',
+    ['reason']  # PHI_ALIGNMENT, MANIPULATION_CHECK, etc.
+)
+
+validation_violations_total = Counter(
+    'luna_validation_violations_total',
+    'Total validation violations detected',
+    ['type']  # PHI_ALIGNMENT, SEMANTIC_COHERENCE, etc.
+)
+
+# Predictive System Metrics
+predictions_made_total = Counter(
+    'luna_predictions_made_total',
+    'Total predictions made',
+)
+
+predictions_accuracy = Gauge(
+    'luna_predictions_accuracy',
+    'Prediction accuracy rate (0.0 to 1.0)',
+)
+
+predictive_proactive_interventions = Counter(
+    'luna_predictive_proactive_interventions_total',
+    'Total proactive interventions made',
+)
+
+# Autonomous Decision Metrics
+autonomous_decisions_total = Counter(
+    'luna_autonomous_decisions_total',
+    'Total autonomous decisions made',
+    ['domain', 'status']  # domain: MEMORY_OPTIMIZATION, etc., status: approved/rejected
+)
+
+autonomous_confidence_threshold = Gauge(
+    'luna_autonomous_confidence_threshold',
+    'Confidence threshold for autonomous decisions',
+)
+
+# Self-Improvement Metrics
+self_improvement_cycles_total = Counter(
+    'luna_self_improvement_cycles_total',
+    'Total self-improvement cycles completed',
+)
+
+self_improvement_performance_gain = Gauge(
+    'luna_self_improvement_performance_gain',
+    'Performance gain from self-improvement (%)',
+)
+
+self_improvement_learning_rate = Gauge(
+    'luna_self_improvement_learning_rate',
+    'Current learning rate',
+)
+
+# Multimodal Interface Metrics
+multimodal_interactions_total = Counter(
+    'luna_multimodal_interactions_total',
+    'Total multimodal interactions',
+    ['modality', 'mode']  # modality: TEXT/VISUAL/etc., mode: CONVERSATIONAL/etc.
+)
+
+multimodal_adaptation_score = Gauge(
+    'luna_multimodal_adaptation_score',
+    'Interface adaptation score (0.0 to 1.0)',
+)
+
+# Systemic Integration Metrics
+systemic_coherence_score = Gauge(
+    'luna_systemic_coherence_score',
+    'System-wide coherence score (0.0 to 1.0)',
+)
+
+systemic_components_health = Gauge(
+    'luna_systemic_components_health',
+    'Component health status',
+    ['component']  # orchestrator, validator, etc.
+)
+
+systemic_conflicts_resolved = Counter(
+    'luna_systemic_conflicts_resolved_total',
+    'Total system conflicts resolved',
+)
+
+# ═══════════════════════════════════════════════════════
+# 10. METADATA & INFO
 # ═══════════════════════════════════════════════════════
 
 luna_info = Info(
@@ -273,13 +397,14 @@ luna_info = Info(
     'Luna Consciousness System Information',
 )
 
-# Initialiser les métadonnées
+# Initialiser les métadonnées v2.0.0
 luna_info.info({
-    'version': '0.2',
+    'version': '2.0.0',
     'phi_target': '1.618033988749895',
-    'architecture': 'MCP-based',
-    'state': 'dormant',
-    'signature_fractale': 'R10-F11-V6-d7-l2'
+    'architecture': 'MCP-orchestrated',
+    'state': 'orchestrated',
+    'signature_fractale': 'R16-F13-V7-d11-l4',
+    'update01': 'enabled'
 })
 
 # ═══════════════════════════════════════════════════════
@@ -431,6 +556,166 @@ def update_system_metrics(system_data: dict):
         logger.debug(f"Updated system metrics: redis={'connected' if system_data.get('redis_connected') else 'disconnected'}")
     except Exception as e:
         logger.error(f"Error updating system metrics: {e}")
+
+def update_orchestration_metrics(orchestration_data):
+    """
+    Met à jour les métriques d'orchestration Update01.md v2.0.0
+
+    Args:
+        orchestration_data: dict contenant les métriques d'orchestration
+    """
+    try:
+        # Orchestrator metrics
+        orchestration_active.set(1 if orchestration_data.get('active', False) else 0)
+        orchestration_confidence_score.set(orchestration_data.get('confidence', 0.7))
+
+        # Update decision counters
+        for mode, count in orchestration_data.get('decisions', {}).items():
+            orchestration_decisions_total.labels(mode=mode)._value._value = count
+
+        logger.debug(f"Updated orchestration metrics: active={orchestration_data.get('active')}")
+    except Exception as e:
+        logger.error(f"Error updating orchestration metrics: {e}")
+
+def update_manipulation_metrics(manipulation_data):
+    """
+    Met à jour les métriques de détection de manipulation
+
+    Args:
+        manipulation_data: dict contenant les métriques de manipulation
+    """
+    try:
+        manipulation_protection_level.set(manipulation_data.get('protection_level', 4))
+
+        # Update threat counters
+        for threat_type, severity_data in manipulation_data.get('threats', {}).items():
+            for severity, count in severity_data.items():
+                manipulation_threats_detected.labels(type=threat_type, severity=severity)._value._value = count
+
+        # Varden authentications
+        if 'varden_auths' in manipulation_data:
+            manipulation_varden_authentications._value._value = manipulation_data['varden_auths']
+
+        logger.debug(f"Updated manipulation metrics: protection={manipulation_data.get('protection_level')}")
+    except Exception as e:
+        logger.error(f"Error updating manipulation metrics: {e}")
+
+def update_validation_metrics(validation_data):
+    """
+    Met à jour les métriques de validation
+
+    Args:
+        validation_data: dict contenant les métriques de validation
+    """
+    try:
+        # Update override counters
+        for reason, count in validation_data.get('overrides', {}).items():
+            validation_overrides_total.labels(reason=reason)._value._value = count
+
+        # Update violation counters
+        for vtype, count in validation_data.get('violations', {}).items():
+            validation_violations_total.labels(type=vtype)._value._value = count
+
+        logger.debug(f"Updated validation metrics")
+    except Exception as e:
+        logger.error(f"Error updating validation metrics: {e}")
+
+def update_predictive_metrics(predictive_data):
+    """
+    Met à jour les métriques du système prédictif
+
+    Args:
+        predictive_data: dict contenant les métriques prédictives
+    """
+    try:
+        predictions_accuracy.set(predictive_data.get('accuracy', 0.8))
+
+        if 'total_predictions' in predictive_data:
+            predictions_made_total._value._value = predictive_data['total_predictions']
+
+        if 'proactive_interventions' in predictive_data:
+            predictive_proactive_interventions._value._value = predictive_data['proactive_interventions']
+
+        logger.debug(f"Updated predictive metrics: accuracy={predictive_data.get('accuracy')}")
+    except Exception as e:
+        logger.error(f"Error updating predictive metrics: {e}")
+
+def update_autonomous_metrics(autonomous_data):
+    """
+    Met à jour les métriques de décisions autonomes
+
+    Args:
+        autonomous_data: dict contenant les métriques autonomes
+    """
+    try:
+        autonomous_confidence_threshold.set(autonomous_data.get('confidence_threshold', 0.7))
+
+        # Update decision counters by domain
+        for domain, status_data in autonomous_data.get('decisions', {}).items():
+            for status, count in status_data.items():
+                autonomous_decisions_total.labels(domain=domain, status=status)._value._value = count
+
+        logger.debug(f"Updated autonomous metrics")
+    except Exception as e:
+        logger.error(f"Error updating autonomous metrics: {e}")
+
+def update_self_improvement_metrics(improvement_data):
+    """
+    Met à jour les métriques d'auto-amélioration
+
+    Args:
+        improvement_data: dict contenant les métriques d'amélioration
+    """
+    try:
+        self_improvement_performance_gain.set(improvement_data.get('performance_gain', 0.0))
+        self_improvement_learning_rate.set(improvement_data.get('learning_rate', 0.01))
+
+        if 'cycles_completed' in improvement_data:
+            self_improvement_cycles_total._value._value = improvement_data['cycles_completed']
+
+        logger.debug(f"Updated self-improvement metrics: gain={improvement_data.get('performance_gain')}%")
+    except Exception as e:
+        logger.error(f"Error updating self-improvement metrics: {e}")
+
+def update_multimodal_metrics(multimodal_data):
+    """
+    Met à jour les métriques de l'interface multimodale
+
+    Args:
+        multimodal_data: dict contenant les métriques multimodales
+    """
+    try:
+        multimodal_adaptation_score.set(multimodal_data.get('adaptation_score', 0.85))
+
+        # Update interaction counters
+        for modality, mode_data in multimodal_data.get('interactions', {}).items():
+            for mode, count in mode_data.items():
+                multimodal_interactions_total.labels(modality=modality, mode=mode)._value._value = count
+
+        logger.debug(f"Updated multimodal metrics")
+    except Exception as e:
+        logger.error(f"Error updating multimodal metrics: {e}")
+
+def update_systemic_metrics(systemic_data):
+    """
+    Met à jour les métriques d'intégration systémique
+
+    Args:
+        systemic_data: dict contenant les métriques systémiques
+    """
+    try:
+        systemic_coherence_score.set(systemic_data.get('coherence', 0.9))
+
+        # Update component health
+        for component, health in systemic_data.get('components_health', {}).items():
+            systemic_components_health.labels(component=component).set(health)
+
+        if 'conflicts_resolved' in systemic_data:
+            systemic_conflicts_resolved._value._value = systemic_data['conflicts_resolved']
+
+        logger.debug(f"Updated systemic metrics: coherence={systemic_data.get('coherence')}")
+    except Exception as e:
+        logger.error(f"Error updating systemic metrics: {e}")
 
 def calculate_phi_ratios():
     """

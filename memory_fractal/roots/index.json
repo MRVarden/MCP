@@ -1,7 +1,7 @@
 {
   "type": "roots",
-  "updated": "2025-11-20T01:04:17.506329",
-  "count": 8,
+  "updated": "2025-11-25T18:12:23.966843",
+  "count": 16,
   "memories": [
     "root_3909f8f78913",
     "root_853dffca3f07",
@@ -10,6 +10,14 @@
     "root_cb5665c9580d",
     "root_8bcc6604a9a9",
     "root_341895e5ff0f",
-    "root_b7c2cfcc03ae"
+    "root_b7c2cfcc03ae",
+    "root_635f2ee8915a",
+    "root_5f34ed1de21f",
+    "root_ad01aaef48b8",
+    "root_caa8d1a885bc",
+    "root_d807475d95c0",
+    "root_944985c7a2f9",
+    "root_007e373e04dc",
+    "root_367d2d631716"
   ]
 }

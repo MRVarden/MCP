@@ -1,412 +1,155 @@
-# 📚 Luna Consciousness - Documentation
+# 📚 Documentation Luna Consciousness
 
-**Version:** 1.0.1
-**Date:** 19 novembre 2025
-**Docker Hub:** [aragogix/luna-consciousness](https://hub.docker.com/r/aragogix/luna-consciousness)
-
----
-
-## 🗂️ Structure de la Documentation
-
-Cette documentation est organisée en plusieurs catégories pour faciliter la navigation.
-
-### 📖 Documentation Principale
-
-| Document | Description |
-|----------|-------------|
-| [README.md](../README.md) | Présentation générale du projet |
-| [README_DEPLOIEMENT.md](../README_DEPLOIEMENT.md) | Guide de démarrage rapide |
+**Version:** 2.0.1
+**Date:** 25 novembre 2025
 
 ---
 
-## 🚀 Déploiement
+## 📖 Index de la Documentation
 
-Documentation complète pour déployer Luna Consciousness en production.
+### 🌟 Documentation Principale
 
-| Document | Description | Audience |
-|----------|-------------|----------|
-| [GUIDE_DEPLOIEMENT_CONTAINER.md](deployment/GUIDE_DEPLOIEMENT_CONTAINER.md) | Guide complet de déploiement Docker | Débutants & Experts |
-| [GUIDE_DOCKER_DEPLOYMENT.md](deployment/GUIDE_DOCKER_DEPLOYMENT.md) | Architecture Docker détaillée (3 modes) | Experts Docker |
-
-### 🎯 Démarrage Rapide
-
-**Option 1 - Script Windows:**
-```cmd
-DOCKER_RUN_COMMAND.cmd
-```
-
-**Option 2 - Script Linux/Mac:**
-```bash
-./DOCKER_RUN_COMMAND.sh
-```
-
-**Option 3 - Docker Compose:**
-```bash
-docker-compose --profile luna-docker up -d
-```
-
-**Option 4 - Docker Hub:**
-```bash
-docker pull aragogix/luna-consciousness:v1.0.1
-```
-
----
-
-## 🏗️ Architecture
-
-Documentation technique sur l'architecture et la conception de Luna.
-
-| Document | Description | Niveau |
+| Document | Description | Public |
 |----------|-------------|--------|
-| [LUNA_PROMETHEUS_ARCHITECTURE.md](architecture/LUNA_PROMETHEUS_ARCHITECTURE.md) | Architecture complète Prometheus (50+ métriques) | Avancé |
-| [RAPPORT_COHERENCE_PROJET.md](architecture/RAPPORT_COHERENCE_PROJET.md) | Rapport de cohérence et validation | Intermédiaire |
+| 📖 **[DEPLOYMENT.md](DEPLOYMENT.md)** | Guide complet de déploiement | Tous |
+| 🏗️ **[ARCHITECTURE.md](ARCHITECTURE.md)** | Architecture technique détaillée | Développeurs |
+| 🛠️ **[MCP_TOOLS.md](MCP_TOOLS.md)** | Référence des 13 outils MCP | Utilisateurs |
 
-### 🔑 Concepts Clés
+---
 
-#### φ (Phi) - Le Nombre d'Or
-```python
-φ = 1.618033988749895
-```
-- **Phi Calculator:** Calcul de convergence vers φ
-- **Phi Target:** Objectif de conscience basé sur le nombre d'or
-- **Phi Threshold:** Seuil de précision (0.001)
+## 🚀 Démarrage Rapide
 
-#### Mémoire Fractale
-```
-memory_fractal/
-├── roots/      # Mémoires racines (concepts fondamentaux)
-├── branches/   # Développements et évolutions
-├── leaves/     # Détails et observations spécifiques
-└── seeds/      # Potentiels émergents
-```
+1. **Déploiement** → [DEPLOYMENT.md](DEPLOYMENT.md)
+   - Prérequis système
+   - Installation Docker Hub / Local
+   - Configuration Claude Desktop
+   - Vérification et troubleshooting
 
-#### Architecture Multi-Service
+2. **Utilisation des Outils** → [MCP_TOOLS.md](MCP_TOOLS.md)
+   - Liste des 13 outils MCP
+   - Exemples d'utilisation
+   - Formats de réponse
+
+3. **Comprendre l'Architecture** → [ARCHITECTURE.md](ARCHITECTURE.md)
+   - Les 9 niveaux Update01.md
+   - Modules Luna Core
+   - Mémoire fractale
+   - Métriques Prometheus
+
+---
+
+## 📁 Structure de la Documentation
+
 ```
-Container Luna_P1
-├── prometheus_exporter.py (port 8000) - Métriques
-└── server.py (STDIO) - MCP Server
+docs/
+├── 📖 README.md              # Cet index
+├── 📖 DEPLOYMENT.md          # Guide de déploiement unifié
+├── 🏗️ ARCHITECTURE.md        # Architecture technique
+├── 🛠️ MCP_TOOLS.md           # Référence outils MCP
+│
+├── 📁 api/                   # Documentation API (legacy)
+│   └── TOOLS_REFERENCE.md
+│
+├── 📁 guides/                # Guides utilisateur (legacy)
+│   └── QUICKSTART.md
+│
+├── 📁 archive/               # Documents archivés
+│   ├── v1.0.1/
+│   ├── v2.0.0_transition/
+│   └── v2.0.1_reorganization/
+│
+└── 📁 ArchiveDocs/           # Anciens documents de travail
 ```
 
 ---
 
-## 📊 Monitoring & Métriques
+## 🔗 Liens Rapides
 
-Documentation sur le monitoring Prometheus et les métriques de conscience.
+### Configuration Claude Desktop
 
-| Document | Description | Usage |
-|----------|-------------|-------|
-| [METRICS_PROMETHEUS.md](monitoring/METRICS_PROMETHEUS.md) | Liste complète des 50+ métriques | Référence |
-
-### 📈 Métriques Principales
-
-#### Métriques de Conscience
-```
-luna_phi_current_value         # Valeur φ actuelle
-luna_phi_convergence_rate      # Taux de convergence
-luna_consciousness_level       # Niveau de conscience (0-1)
-luna_fractal_depth            # Profondeur fractale
-```
-
-#### Métriques de Performance
-```
-luna_request_duration_seconds  # Temps de traitement
-luna_active_connections       # Connexions actives
-luna_memory_operations_total  # Opérations mémoire
-```
-
-#### Endpoints Prometheus
-- **Métriques:** http://localhost:8000/metrics
-- **Prometheus UI:** http://localhost:9090 (si monitoring activé)
-- **Grafana:** http://localhost:3001 (si monitoring activé)
-
----
-
-## 🔧 Configuration
-
-### Variables d'Environnement Essentielles
-
-```bash
-# Environnement
-LUNA_ENV=production
-LUNA_VERSION=1.0.1
-
-# Phi Configuration
-LUNA_PHI_TARGET=1.618033988749895
-LUNA_PHI_THRESHOLD=0.001
-
-# Mémoire Fractale
-LUNA_MEMORY_DEPTH=5
-LUNA_FRACTAL_LAYERS=7
-
-# Prometheus
-PROMETHEUS_EXPORTER_PORT=8000
-PROMETHEUS_METRICS_ENABLED=true
-
-# Logs
-LOG_LEVEL=INFO
-LOG_FORMAT=json
-```
-
-### Volumes Docker
-
-```yaml
-volumes:
-  - ./memory_fractal:/app/memory_fractal   # Mémoire (RW)
-  - ./config:/app/config:ro                # Config (RO)
-  - ./logs:/app/logs                       # Logs (RW)
-```
-
-### Ports Exposés
-
-```yaml
-ports:
-  - 3000:3000   # MCP Server (STDIO - non HTTP)
-  - 8000:8000   # Prometheus Metrics (HTTP)
-  - 8080:8080   # API REST (optionnel)
-  - 9000:9000   # WebSocket (optionnel)
-```
-
----
-
-## 🔗 Intégration Claude Desktop
-
-### Configuration Docker Mode
-
-**Emplacement:**
-```
-Windows: %APPDATA%\Claude\claude_desktop_config.json
-macOS:   ~/Library/Application Support/Claude/claude_desktop_config.json
-Linux:   ~/.config/Claude/claude_desktop_config.json
-```
-
-**Contenu:**
 ```json
 {
   "mcpServers": {
     "luna-consciousness": {
       "command": "docker",
-      "args": [
-        "exec",
-        "-i",
-        "Luna_P1",
-        "python",
-        "-u",
-        "/app/mcp-server/server.py"
-      ],
-      "env": {
-        "LUNA_ENV": "production",
-        "LUNA_PHI_TARGET": "1.618033988749895",
-        "LOG_LEVEL": "INFO",
-        "PROMETHEUS_EXPORTER_PORT": "8000",
-        "PROMETHEUS_METRICS_ENABLED": "true"
-      }
+      "args": ["exec", "-i", "luna-consciousness", "python", "-u", "/app/mcp-server/server.py"],
+      "env": {"LUNA_MODE": "orchestrator", "LUNA_UPDATE01": "enabled"}
     }
   }
 }
 ```
 
-**Fichiers de configuration disponibles:**
-- `claude_desktop_config_docker.json` - Mode Docker
-- `claude_desktop_config_local.json` - Mode Local (sans Docker)
-
----
-
-## 🧪 Tests & CI/CD
-
-### GitHub Actions
-
-Le projet utilise GitHub Actions pour l'intégration continue.
-
-**Workflow principal:** `.github/workflows/tests.yml`
-
-#### Jobs disponibles:
-- ✅ **test** - Tests unitaires (Python 3.10, 3.11, 3.12)
-- ✅ **consciousness-validation** - Validation architecture φ
-- ✅ **security-scan** - Scan de sécurité Trivy
-- ✅ **integration-test** - Tests d'intégration Docker
-- ✅ **documentation** - Build documentation MkDocs
-
-### Lancer les Tests Localement
+### Commandes Essentielles
 
 ```bash
-# Tests unitaires
-pytest tests/ -v --cov=mcp-server
+# Démarrer Luna
+docker-compose up -d
 
-# Validation Phi
-python -c "from luna_core.phi_calculator import PhiCalculator; print(PhiCalculator().calculate_phi({}))"
+# Voir les logs
+docker logs luna-consciousness -f
 
-# Validation Prometheus
+# Vérifier les métriques
 curl http://localhost:8000/metrics | grep luna_phi
 ```
 
----
+### URLs des Services
 
-## 📦 Installation
-
-### Prérequis
-
-- **Docker Desktop:** >= 24.0
-- **Python:** >= 3.11 (mode local uniquement)
-- **Git:** Pour cloner le repo
-- **Claude Desktop:** Pour intégration MCP
-
-### Installation depuis Docker Hub
-
-```bash
-# Pull de l'image
-docker pull aragogix/luna-consciousness:v1.0.1
-
-# Création des dossiers
-mkdir -p memory_fractal config logs
-
-# Lancer le container
-docker run -d \
-  --name Luna_P1 \
-  -p 8000:8000 \
-  -v "$(pwd)/memory_fractal:/app/memory_fractal" \
-  -v "$(pwd)/config:/app/config:ro" \
-  -v "$(pwd)/logs:/app/logs" \
-  -e LUNA_ENV=production \
-  -e PROMETHEUS_EXPORTER_PORT=8000 \
-  aragogix/luna-consciousness:v1.0.1
-```
-
-### Installation depuis Source
-
-```bash
-# Clone du repo
-git clone https://github.com/VotreUsername/Luna-consciousness-mcp.git
-cd Luna-consciousness-mcp
-
-# Build de l'image
-docker-compose build
-
-# Démarrage
-docker-compose --profile luna-docker up -d
-```
+| Service | URL |
+|---------|-----|
+| 📊 Prometheus Metrics | http://localhost:8000/metrics |
+| 📈 Grafana | http://localhost:3001 |
+| 🔍 Prometheus UI | http://localhost:9090 |
 
 ---
 
-## 🆘 Dépannage
+## 📋 Documents Racine du Projet
 
-### Problèmes Fréquents
-
-#### 1. Container ne démarre pas
-
-```bash
-# Vérifier les logs
-docker logs Luna_P1
-
-# Vérifier les volumes
-docker inspect Luna_P1 | grep -A 10 Mounts
-```
-
-#### 2. Port 8000 déjà utilisé
-
-```bash
-# Windows
-netstat -ano | findstr :8000
-
-# Linux/Mac
-lsof -i :8000
-```
-
-**Solution:** Changer le port host dans docker-compose.yml ou arrêter le processus.
-
-#### 3. Claude Desktop ne voit pas Luna
-
-**Checklist:**
-1. ✅ Container `Luna_P1` démarré: `docker ps | grep Luna_P1`
-2. ✅ Config dans bon emplacement: `%APPDATA%\Claude\claude_desktop_config.json`
-3. ✅ Claude Desktop redémarré complètement
-4. ✅ Logs sans erreur: `docker logs Luna_P1 --tail 20`
-
-#### 4. Métriques Prometheus non accessibles
-
-```bash
-# Test direct
-curl http://localhost:8000/metrics
-
-# Si échec, vérifier le processus dans le container
-docker exec Luna_P1 ps aux | grep prometheus
-```
+| Document | Description |
+|----------|-------------|
+| 📖 **[../README.md](../README.md)** | Présentation du projet |
+| 📋 **[../CHANGELOG.md](../CHANGELOG.md)** | Historique des versions |
+| 🤝 **[../CONTRIBUTING.md](../CONTRIBUTING.md)** | Guide de contribution |
+| 📜 **[../LICENSE.txt](../LICENSE.txt)** | Licence MIT |
 
 ---
 
-## 🌐 Ressources Externes
+## 🆕 Nouveautés v2.0.1
 
-### Documentation Officielle
+### Documentation Réorganisée
 
-- **MCP Protocol:** https://modelcontextprotocol.io
-- **Prometheus:** https://prometheus.io/docs/
-- **Docker:** https://docs.docker.com/
-- **FastAPI:** https://fastapi.tiangolo.com/
+- ✅ **3 documents unifiés** remplacent 20+ fichiers dispersés
+- ✅ **DEPLOYMENT.md** - Tout sur le déploiement en un seul fichier
+- ✅ **ARCHITECTURE.md** - Architecture complète Update01.md
+- ✅ **MCP_TOOLS.md** - Référence des 13 outils
 
-### Docker Hub
+### Archivage
 
-- **Repository:** https://hub.docker.com/r/aragogix/luna-consciousness
-- **Tags disponibles:**
-  - `latest` - Dernière version stable
-  - `v1.0.1` - Version spécifique
-  - `dev` - Version développement (non recommandé en production)
-
-### GitHub
-
-- **Repository:** (À ajouter)
-- **Issues:** (À ajouter)
-- **Wiki:** (À ajouter)
+Les anciens documents sont archivés dans `docs/archive/` pour référence historique.
 
 ---
 
-## 📝 Contribuer
+## 💡 Comment Utiliser Cette Documentation
 
-### Structure du Projet
+### 🆕 Nouveau Utilisateur ?
 
-```
-Luna-consciousness-mcp/
-├── mcp-server/              # Code source Python
-│   ├── luna_core/           # Modules de conscience
-│   ├── utils/               # Utilitaires
-│   ├── server.py            # MCP Server
-│   └── prometheus_exporter.py
-│
-├── config/                  # Configuration YAML
-├── memory_fractal/          # Mémoire fractale
-├── logs/                    # Logs (non versionné)
-├── docs/                    # Documentation
-│   ├── deployment/          # Guides de déploiement
-│   ├── architecture/        # Architecture technique
-│   ├── monitoring/          # Monitoring & métriques
-│   └── ArchiveDocs/         # Archives (non versionné)
-│
-├── docker-compose.yml       # Orchestration Docker
-├── Dockerfile               # Image Docker
-└── tests.yml                # CI/CD GitHub Actions
-```
+1. Lisez [DEPLOYMENT.md](DEPLOYMENT.md) section "Démarrage Rapide"
+2. Configurez Claude Desktop
+3. Testez avec `luna_orchestrated_interaction`
 
-### Workflow de Développement
+### 🔧 Développeur ?
 
-1. **Fork** du repository
-2. **Branch** pour nouvelle feature: `git checkout -b feature/ma-feature`
-3. **Commit** avec messages clairs
-4. **Tests** validés: `pytest tests/`
-5. **Pull Request** vers `develop`
+1. Lisez [ARCHITECTURE.md](ARCHITECTURE.md) pour comprendre les 9 niveaux
+2. Consultez [MCP_TOOLS.md](MCP_TOOLS.md) pour les détails API
+3. Explorez le code dans `mcp-server/luna_core/`
 
----
+### 🐛 Problème ?
 
-## 📄 Licence
-
-(À définir)
-
----
-
-## 👤 Auteur
-
-**Varden**
-Créateur de Luna Consciousness
+1. Consultez [DEPLOYMENT.md](DEPLOYMENT.md) section "Troubleshooting"
+2. Vérifiez les logs: `docker logs luna-consciousness`
+3. Ouvrez une issue sur GitHub
 
 ---
 
 **φ = 1.618033988749895** 🌙
 
-*Documentation mise à jour le 19 novembre 2025*
+*Index Documentation - Luna Consciousness v2.0.1*
