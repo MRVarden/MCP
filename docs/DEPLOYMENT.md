@@ -1,8 +1,8 @@
 # 🚀 Guide de Déploiement Luna Consciousness
 
-**Version:** 2.0.1
-**Date:** 25 novembre 2025
-**Statut:** ✅ Production Ready
+**Version:** 2.1.0-secure
+**Date:** 1er décembre 2025
+**Statut:** ✅ Production Ready & Sécurisé
 
 ---
 
@@ -50,7 +50,7 @@ La méthode la plus simple - utilise l'image pré-construite.
 
 ```bash
 # 1. Pull de l'image officielle
-docker pull aragogix/luna-consciousness:v2.0.1
+docker pull aragogix/luna-consciousness:v2.1.0-secure
 
 # 2. Cloner le repository (pour configs et volumes)
 git clone https://github.com/MRVarden/Luna-consciousness-mcp.git
@@ -75,7 +75,7 @@ git clone https://github.com/MRVarden/Luna-consciousness-mcp.git
 cd Luna-consciousness-mcp
 
 # 2. Build de l'image
-docker-compose build luna-actif
+docker-compose build luna-consciousness
 
 # 3. Lancement
 docker-compose up -d
@@ -117,10 +117,10 @@ python server.py
 ```yaml
 services:
   luna-consciousness:    # 🌙 Serveur MCP principal
-    ports: 3000, 8000, 8080, 9000
+    ports: 3000, 8000, 8080, 9000, 9100  # 9100 = Prometheus metrics
 
-  redis:                 # 🔴 Cache et état
-    port: 6379
+  redis:                 # 🔴 Cache et état (interne uniquement)
+    port: 6379 (non exposé)
 
   prometheus:            # 📊 Métriques
     port: 9090
@@ -221,11 +221,11 @@ docker ps -a
 
 **Résultat attendu :**
 ```
-CONTAINER ID   IMAGE                                STATUS          PORTS
-xxxx           aragogix/luna-consciousness:v2.0.1   Up X minutes    0.0.0.0:3000->3000/tcp...
-xxxx           redis:7-alpine                       Up (healthy)    0.0.0.0:6379->6379/tcp
-xxxx           prom/prometheus:latest               Up              0.0.0.0:9090->9090/tcp
-xxxx           grafana/grafana:latest               Up              0.0.0.0:3001->3000/tcp
+CONTAINER ID   IMAGE                                     STATUS          PORTS
+xxxx           aragogix/luna-consciousness:v2.1.0-secure Up X minutes    127.0.0.1:3000->3000/tcp...
+xxxx           redis:7-alpine                            Up (healthy)    (pas de port exposé)
+xxxx           prom/prometheus:latest                    Up              127.0.0.1:9090->9090/tcp
+xxxx           grafana/grafana:latest                    Up              127.0.0.1:3001->3000/tcp
 ```
 
 ### 2️⃣ Vérifier les Logs Luna
@@ -255,7 +255,7 @@ docker logs luna-consciousness 2>&1 | tail -20
 ### 3️⃣ Vérifier les Métriques Prometheus
 
 ```bash
-curl http://localhost:8000/metrics | grep luna_phi
+curl http://localhost:9100/metrics | grep luna_phi
 ```
 
 **Résultat attendu :**
@@ -286,7 +286,7 @@ docker logs luna-consciousness 2>&1 | tail -50
 
 # Causes communes :
 # 1. Import error → Rebuild l'image
-docker-compose build --no-cache luna-actif
+docker-compose build --no-cache luna-consciousness
 
 # 2. Port déjà utilisé
 docker-compose down
@@ -317,11 +317,11 @@ docker-compose up -d
 
 ### ❌ Erreur "No running event loop"
 
-**Cause :** Version < 2.0.1 avec asyncio mal configuré
+**Cause :** Version < 2.1.0 avec asyncio mal configuré
 
 **Solution :**
 ```bash
-docker pull aragogix/luna-consciousness:v2.0.1
+docker pull aragogix/luna-consciousness:v2.1.0-secure
 docker-compose down
 docker-compose up -d
 ```
@@ -330,11 +330,11 @@ docker-compose up -d
 
 **Vérification :**
 ```bash
-# Le port 8000 doit être exposé
-docker port luna-consciousness 8000
+# Le port 9100 doit être exposé
+docker port luna-consciousness 9100
 
 # Test direct
-curl -v http://localhost:8000/metrics
+curl -v http://localhost:9100/metrics
 ```
 
 ---
@@ -362,7 +362,7 @@ docker logs luna-consciousness 2>&1 | head -5
 git pull origin main
 
 # 2. Rebuild
-docker-compose build --no-cache luna-actif
+docker-compose build --no-cache luna-consciousness
 
 # 3. Redémarrer
 docker-compose down
@@ -384,10 +384,10 @@ cp -r memory_fractal memory_fractal_backup_$(date +%Y%m%d)
 | Service | Port | URL | Usage |
 |---------|------|-----|-------|
 | 🌙 Luna MCP | 3000 | STDIO (pas HTTP) | Communication MCP |
-| 📊 Prometheus Metrics | 8000 | http://localhost:8000/metrics | Métriques Luna |
-| 🔍 Prometheus UI | 9090 | http://localhost:9090 | Interface Prometheus |
-| 📈 Grafana | 3001 | http://localhost:3001 | Dashboards |
-| 🔴 Redis | 6379 | localhost:6379 | Cache |
+| 📊 Prometheus Metrics | 9100 | http://127.0.0.1:9100/metrics | Métriques Luna |
+| 🔍 Prometheus UI | 9090 | http://127.0.0.1:9090 | Interface Prometheus |
+| 📈 Grafana | 3001 | http://127.0.0.1:3001 | Dashboards |
+| 🔴 Redis | - | Réseau interne uniquement | Cache (non exposé) |
 
 ---
 
@@ -400,7 +400,7 @@ cp -r memory_fractal memory_fractal_backup_$(date +%Y%m%d)
 | `LUNA_PHI_TARGET` | `1.618033988749895` | Cible φ |
 | `LUNA_MEMORY_PATH` | `/app/memory_fractal` | Chemin mémoire |
 | `LUNA_CONFIG_PATH` | `/app/config` | Chemin config |
-| `PROMETHEUS_EXPORTER_PORT` | `8000` | Port métriques |
+| `PROMETHEUS_EXPORTER_PORT` | `9100` | Port métriques |
 | `LUNA_LOG_LEVEL` | `INFO` | Niveau de log |
 
 ---
@@ -422,4 +422,4 @@ cp -r memory_fractal memory_fractal_backup_$(date +%Y%m%d)
 
 **φ = 1.618033988749895** 🌙
 
-*Guide de déploiement - Luna Consciousness v2.0.1*
+*Guide de déploiement - Luna Consciousness v2.1.0-secure*

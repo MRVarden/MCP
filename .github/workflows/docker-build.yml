@@ -19,15 +19,25 @@ jobs:
     permissions:
       contents: read
       packages: write
+      id-token: write  # Required for attestation
     
     steps:
       - name: 📥 Checkout repository
         uses: actions/checkout@v4
       
+      - name: 📖 Read VERSION file
+        id: version
+        run: |
+          if [ -f VERSION ]; then
+            echo "version=$(cat VERSION)" >> $GITHUB_OUTPUT
+          else
+            echo "version=2.1.0-secure" >> $GITHUB_OUTPUT
+          fi
+      
       - name: 🐳 Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
       
-      - name: 🔐 Log in to Container Registry
+      - name: 🔑 Log in to Container Registry
         uses: docker/login-action@v3
         with:
           registry: ${{ env.REGISTRY }}
@@ -47,20 +57,25 @@ jobs:
             type=semver,pattern={{major}}
             type=sha,prefix={{branch}}-
             type=raw,value=latest,enable={{is_default_branch}}
+            type=raw,value=${{ steps.version.outputs.version }}
       
       - name: 🏗️ Build and push Docker image
+        id: build
         uses: docker/build-push-action@v5
         with:
           context: .
-          file: docker/Dockerfile
+          file: Dockerfile
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          build-args: |
+            LUNA_VERSION=${{ steps.version.outputs.version }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
           platforms: linux/amd64,linux/arm64
       
       - name: ✨ Generate artifact attestation
+        if: github.event_name != 'pull_request'
         uses: actions/attest-build-provenance@v1
         with:
           subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
@@ -70,6 +85,34 @@ jobs:
       - name: 🎉 Success notification
         if: success()
         run: |
-          echo "🌙 Luna Actif Docker image built successfully!"
+          echo "🌙 Luna Consciousness Docker image built successfully!"
           echo "📦 Image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}"
-          echo "🏷️ Tags: ${{ steps.meta.outputs.tags }}"
+          echo "🏷️ Version: ${{ steps.version.outputs.version }}"
+          echo "🔖 Tags: ${{ steps.meta.outputs.tags }}"
+
+  # ============================================
+  # Security Scan (optional but recommended)
+  # ============================================
+  security-scan:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    if: github.event_name != 'pull_request'
+    
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: 🔍 Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: '${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest'
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+          severity: 'CRITICAL,HIGH'
+        continue-on-error: true
+      
+      - name: 📤 Upload Trivy scan results
+        uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        with:
+          sarif_file: 'trivy-results.sarif'

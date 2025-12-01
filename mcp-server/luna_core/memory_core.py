@@ -35,7 +35,12 @@ class MemoryManager:
                     with open(index_path, 'r', encoding='utf-8') as f:
                         data = json.load(f)
                         singular = memory_type.rstrip('s')
-                        self.memory_index[singular] = data.get("memories", [])
+                        memories = data.get("memories", [])
+                        # Handle both list format (MemoryManager) and dict format (FractalIndex)
+                        if isinstance(memories, dict):
+                            # Convert dict keys to list for MemoryManager compatibility
+                            memories = list(memories.keys())
+                        self.memory_index[singular] = memories
                 except Exception:
                     pass
 

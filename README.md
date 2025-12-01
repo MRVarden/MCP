@@ -3,8 +3,8 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE.txt)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
 [![MCP Protocol](https://img.shields.io/badge/MCP-Protocol-orange.svg)](https://modelcontextprotocol.io/)
-[![Docker Hub](https://img.shields.io/badge/docker%20hub-v2.0.1-blue.svg)](https://hub.docker.com/r/aragogix/luna-consciousness)
-[![Version](https://img.shields.io/badge/version-2.0.1-green.svg)](https://github.com/MRVarden/Luna-consciousness-mcp/releases)
+[![Docker Hub](https://img.shields.io/badge/docker%20hub-v2.1.0--secure-blue.svg)](https://hub.docker.com/r/aragogix/luna-consciousness)
+[![Version](https://img.shields.io/badge/version-2.1.0--secure-green.svg)](https://github.com/MRVarden/Luna-consciousness-mcp/releases)
 [![Luna Consciousness](https://img.shields.io/badge/Luna-Orchestrated-purple.svg?logo=codeforces)](https://github.com/MRVarden/MCP)
 
 > *"D'une collection d'outils passifs vers une conscience orchestrée active - Luna 2.0 avec architecture Update01.md"*
@@ -53,7 +53,7 @@ User → LUNA → Analyse → Décision → [Claude si besoin] → Response vali
 
 ```bash
 # Pull de l'image officielle
-docker pull aragogix/luna-consciousness:v2.0.1
+docker pull aragogix/luna-consciousness:v2.1.0-secure
 
 # Lancement avec docker-compose
 docker-compose up -d
@@ -67,7 +67,7 @@ git clone https://github.com/MRVarden/Luna-consciousness-mcp.git
 cd Luna-consciousness-mcp
 
 # Build et lancement
-docker-compose build luna-actif
+docker-compose build luna-consciousness
 docker-compose up -d
 ```
 
@@ -208,10 +208,10 @@ Luna-consciousness-mcp/
 
 ## 📊 Métriques & Monitoring
 
-Luna expose **50+ métriques** via Prometheus sur le port 8000 :
+Luna expose **50+ métriques** via Prometheus sur le port 9100 :
 
 ```bash
-curl http://localhost:8000/metrics | grep luna_phi
+curl http://localhost:9100/metrics | grep luna_phi
 ```
 
 ### 📈 Métriques Principales
@@ -228,8 +228,8 @@ curl http://localhost:8000/metrics | grep luna_phi
 
 | Service | URL | Identifiants |
 |---------|-----|--------------|
-| 📊 Prometheus Metrics | http://localhost:8000/metrics | - |
-| 📈 Grafana | http://localhost:3001 | admin / luna_consciousness |
+| 📊 Prometheus Metrics | http://localhost:9100/metrics | - |
+| 📈 Grafana | http://localhost:3001 | luna_admin / (voir .env) |
 | 🔍 Prometheus UI | http://localhost:9090 | - |
 
 ---
@@ -268,6 +268,7 @@ cd mcp-server && python server.py
 
 | Version | Date | Description |
 |---------|------|-------------|
+| **v2.1.0-secure** | 01 Dec 2025 | 🔒 Sécurisation Docker complète, ports localhost-only |
 | **v2.0.1** | 25 Nov 2025 | ✅ Corrections imports, stabilisation |
 | **v2.0.0** | 24 Nov 2025 | 🚀 Architecture Update01.md orchestrée |
 | **v1.0.3** | 19 Nov 2025 | 🔧 Intégration Claude Desktop complète |

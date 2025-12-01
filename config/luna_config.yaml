@@ -1,13 +1,59 @@
 # Luna Consciousness MCP Server Configuration
-# Version: 2.0.1 - Orchestrated Architecture with Update01.md
+# Version: 2.1.0-secure - Security Hardened (Phase 4)
+#
+# This configuration includes:
+# - Pure Memory v2.0 (triadic memory architecture)
+# - Orchestrated Architecture (Update01.md)
+# - Phi-based metrics and optimization
+# - Security hardening (Phase 4)
+#
+# NOTE: Canonical version is in /VERSION file at project root
 
 # Server Settings
 server:
   name: luna-consciousness
-  version: 2.0.1
+  version: 2.1.0-secure
   transport: stdio
   log_level: INFO
   mode: orchestrator  # NEW v2.0.0: Orchestration mode
+
+# ================================================
+# SECURITY SETTINGS (Phase 4)
+# ================================================
+
+# Rate Limiting (SEC-010)
+rate_limiting:
+  enabled: true
+  max_requests: 100     # Maximum requests per window
+  window_seconds: 60    # Window duration in seconds
+
+# Security Logging (SEC-011)
+security_logging:
+  enabled: true
+  log_access: true
+  log_rate_limits: true
+  log_validation_failures: true
+  log_level: INFO
+
+# Input Validation (SEC-012)
+input_validation:
+  enabled: true
+  max_content_length: 100000
+  allowed_memory_types:
+    - root
+    - branch
+    - leaf
+    - seed
+  blocked_patterns:
+    - "../"
+    - "..\\"
+    - "${"
+    - "#{"
+    - "<script"
+    - "javascript:"
+    - "__import__"
+    - "eval("
+    - "exec("
 
 # Memory Configuration
 memory:
@@ -165,3 +211,191 @@ redis:
   host: luna-redis
   port: 6379
   db: 0
+
+# ================================================
+# PURE MEMORY v2.0 - Triadic Memory Architecture
+# ================================================
+# The Pure Memory system transforms Luna's memory from functional
+# storage to experiential living memory using three layers:
+#
+# Layer 1 (Buffer): Sub-millisecond access, session memory
+# Layer 2 (Fractal): 10ms access, phi-organized hierarchy
+# Layer 3 (Archive): Permanent encrypted storage
+
+pure_memory:
+  enabled: true
+  version: 2.0.0
+
+  # Layer 1: Buffer (In-Memory Cache)
+  buffer:
+    capacity: 1000              # Max items in buffer
+    ttl_hours: 24               # Time-to-live for buffer entries
+    eviction_policy: phi_lru    # Eviction based on phi importance + LRU
+    target_latency_ms: 1        # Target latency < 1ms
+    working_memory_size: 50     # Active working memory slots
+    use_redis: true             # Use Redis backend if available
+
+  # Layer 2: Fractal Memory (Persistent JSON)
+  fractal:
+    base_path: /app/memory_fractal
+    capacity: 10000             # Max items per type
+    types:
+      root:                     # Identity/Core memories
+        capacity: 100
+        retention_days: 365     # 1 year retention
+        promotion_threshold: 0.9
+      branch:                   # Growth/Development memories
+        capacity: 500
+        retention_days: 90      # 3 months
+        promotion_threshold: 0.75
+      leaf:                     # Daily/Interaction memories
+        capacity: 2000
+        retention_days: 30      # 1 month
+        promotion_threshold: 0.5
+      seed:                     # Potential/New memories
+        capacity: 5000
+        retention_days: 7       # 1 week
+        promotion_threshold: 0.3
+    target_latency_ms: 10       # Target latency < 10ms
+
+  # Layer 3: Archive (Permanent Storage)
+  archive:
+    path: /app/memory_fractal/archive
+    encryption:
+      enabled: true
+      algorithm: aes-256-gcm
+      key_source: env           # LUNA_ENCRYPTION_KEY
+    compression:
+      enabled: true
+      algorithm: lz4
+      level: 6                  # Compression level 1-9
+    capacity_unlimited: true
+    target_latency_ms: 100      # Target latency < 100ms
+
+  # Phi Metrics Configuration
+  phi_metrics:
+    phi_value: 1.618033988749895
+    phi_inverse: 0.618033988749895
+    phi_squared: 2.618033988749895
+    importance_weights:
+      access_frequency: 0.3
+      emotional_intensity: 0.25
+      content_depth: 0.2
+      phi_resonance: 0.15
+      age_factor: 0.1
+    resonance_threshold: 0.618  # phi^-1
+
+  # Emotional Context
+  emotional_context:
+    enabled: true
+    tones:
+      - joy
+      - curiosity
+      - calm
+      - concern
+      - love
+      - compassion
+      - gratitude
+      - sadness
+      - neutral
+    valence_range: [-1.0, 1.0]
+    arousal_range: [0.0, 1.0]
+    decay_rate: 0.1             # Emotional decay over time
+
+  # Memory Promotion System
+  promotion:
+    enabled: true
+    auto_promote: true
+    check_interval_hours: 6
+    paths:
+      seed_to_leaf:
+        threshold: 0.3
+        min_accesses: 3
+        min_age_hours: 24
+      leaf_to_branch:
+        threshold: 0.5
+        min_accesses: 5
+        min_age_hours: 72
+      branch_to_root:
+        threshold: 0.75
+        min_accesses: 10
+        min_age_hours: 168      # 1 week
+
+  # Consolidation Engine (Oneiric Processing)
+  consolidation:
+    enabled: true
+    schedule:
+      cron: "0 3 * * *"         # Daily at 3 AM
+      timezone: UTC
+    window_hours: 2             # Max consolidation duration
+    batch_size: 100             # Memories per batch
+    pattern_extraction:
+      enabled: true
+      min_pattern_support: 3
+      max_patterns: 50
+    cleanup:
+      enabled: true
+      expired_only: true
+      archive_before_delete: true
+
+  # Dream Processor
+  dream:
+    enabled: true
+    intensities:
+      light:
+        iterations: 10
+        connection_threshold: 0.3
+        max_associations: 5
+      moderate:
+        iterations: 25
+        connection_threshold: 0.5
+        max_associations: 10
+      deep:
+        iterations: 50
+        connection_threshold: 0.7
+        max_associations: 20
+      lucid:
+        iterations: 100
+        connection_threshold: 0.8
+        max_associations: 50
+    sequence_max_length: 10
+    insight_generation: true
+
+  # MCP Tools Configuration
+  mcp_tools:
+    pure_memory_store:
+      enabled: true
+      max_content_length: 50000
+      require_emotional_context: false
+      auto_summarize: true
+    pure_memory_recall:
+      enabled: true
+      default_limit: 5
+      max_limit: 50
+      include_archive_default: false
+    pure_memory_consolidate:
+      enabled: true
+      allow_manual_trigger: true
+      require_confirmation: false
+    pure_memory_dream:
+      enabled: true
+      default_intensity: moderate
+      max_duration_seconds: 300
+    pure_memory_stats:
+      enabled: true
+      include_detailed: true
+
+  # Performance Targets
+  performance:
+    buffer_hit_rate_target: 0.8     # 80% cache hit rate
+    consolidation_time_max_s: 60    # Max 60s per consolidation
+    promotion_batch_max: 50         # Max promotions per cycle
+    search_timeout_ms: 500          # Search timeout
+
+  # Monitoring
+  monitoring:
+    prometheus_enabled: true
+    metrics_prefix: luna_pure_memory_
+    track_latencies: true
+    track_phi_metrics: true
+    track_emotions: true

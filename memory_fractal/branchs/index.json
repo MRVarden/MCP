@@ -1,22 +1,8 @@
 {
   "type": "branchs",
-  "version": "2.0.0",
-  "updated": "2025-11-25T00:00:00.000000",
-  "count": 9,
+  "updated": "2025-11-25T19:48:15.350885",
+  "count": 1,
   "memories": [
-    "branch_153352ba3de8",
-    "branch_26c1f2fd8f56",
-    "branch_2fba40f22ab4",
-    "branch_7ab958feacd0",
-    "branch_835c76805ff2",
-    "branch_88a96576cc18",
-    "branch_9d995a97cdf1",
-    "branch_ac49f70437b8",
-    "branch_afb816886722"
-  ],
-  "metadata": {
-    "consolidated_from": ["branches", "branchs"],
-    "consolidation_date": "2025-11-25",
-    "note": "Consolidated duplicate directories into single branchs directory for v2.0.0"
-  }
+    "branch_52e32879ffe4"
+  ]
 }

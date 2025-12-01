@@ -1,34 +1,243 @@
 """
 JSON file management utilities for Luna's fractal memory system.
-Version: 2.0.1 - Orchestrated architecture with Update01.md support
+Version: 2.0.2 - Security hardened with path traversal protection
+
+Security Features (Phase 4):
+- Path traversal protection via whitelist and regex validation
+- Memory type validation (roots, branchs, leaves, seeds)
+- Memory ID validation (alphanumeric pattern)
+- Structured security logging
 """
 
 import json
 import os
+import re
+import logging
 from pathlib import Path
-from typing import Dict, List, Any, Optional, Union
-from datetime import datetime
+from typing import Dict, List, Any, Optional, Union, Set
+from datetime import datetime, timezone
 import hashlib
 import shutil
 from contextlib import contextmanager
 import threading
 
+# Security logging configuration
+security_logger = logging.getLogger("luna.security.json_manager")
+
+
+class PathTraversalError(Exception):
+    """Raised when a path traversal attack is detected."""
+    pass
+
+
+class InvalidMemoryTypeError(Exception):
+    """Raised when an invalid memory type is provided."""
+    pass
+
+
+class InvalidMemoryIdError(Exception):
+    """Raised when an invalid memory ID format is provided."""
+    pass
+
 class JSONManager:
-    """Manages JSON file operations with safety and efficiency."""
-    
+    """
+    Manages JSON file operations with safety, efficiency, and security.
+
+    Security Features:
+    - Path traversal protection (../ detection and containment)
+    - Memory type whitelist validation
+    - Memory ID format validation (alphanumeric only)
+    - All file operations contained within base_path
+    """
+
+    # SEC-009: Whitelist of valid memory types
+    VALID_MEMORY_TYPES: Set[str] = frozenset({
+        "roots", "branchs", "leaves", "seeds",  # Plural forms (directory names)
+        "root", "branch", "leaf", "seed"         # Singular forms (for compatibility)
+    })
+
+    # SEC-009: Regex pattern for valid memory IDs
+    # Format: type_12hexchars (e.g., root_a1b2c3d4e5f6)
+    MEMORY_ID_PATTERN = re.compile(r'^[a-z]+_[a-f0-9]{12}$')
+
+    # Alternative pattern for UUIDs and other valid formats
+    SAFE_FILENAME_PATTERN = re.compile(r'^[a-zA-Z0-9_\-\.]+$')
+
     def __init__(self, base_path: Union[str, Path], encoding: str = 'utf-8'):
         """
-        Initialize JSON manager.
-        
+        Initialize JSON manager with security validation.
+
         Args:
-            base_path: Base directory for JSON operations
+            base_path: Base directory for JSON operations (all paths must stay within)
             encoding: File encoding (default: utf-8)
         """
-        self.base_path = Path(base_path)
+        self.base_path = Path(base_path).resolve()  # Resolve to absolute path
         self.encoding = encoding
         self._lock = threading.Lock()
         self._cache = {}
         self._cache_size_limit = 100  # Maximum cached files
+
+        security_logger.info(
+            f"JSONManager initialized with base_path: {self.base_path}"
+        )
+
+    # =========================================================================
+    # SECURITY VALIDATION METHODS (SEC-009)
+    # =========================================================================
+
+    def validate_memory_type(self, memory_type: str) -> str:
+        """
+        Validate memory type against whitelist.
+
+        Args:
+            memory_type: Memory type to validate
+
+        Returns:
+            Validated memory type (normalized)
+
+        Raises:
+            InvalidMemoryTypeError: If memory type is not in whitelist
+        """
+        if not memory_type:
+            raise InvalidMemoryTypeError("Memory type cannot be empty")
+
+        normalized = memory_type.lower().strip()
+
+        if normalized not in self.VALID_MEMORY_TYPES:
+            security_logger.warning(
+                f"SEC-009: Invalid memory type rejected: '{memory_type}'"
+            )
+            raise InvalidMemoryTypeError(
+                f"Invalid memory type: '{memory_type}'. "
+                f"Must be one of: {', '.join(sorted(self.VALID_MEMORY_TYPES))}"
+            )
+
+        return normalized
+
+    def validate_memory_id(self, memory_id: str) -> str:
+        """
+        Validate memory ID format to prevent injection.
+
+        Args:
+            memory_id: Memory ID to validate
+
+        Returns:
+            Validated memory ID
+
+        Raises:
+            InvalidMemoryIdError: If memory ID format is invalid
+        """
+        if not memory_id:
+            raise InvalidMemoryIdError("Memory ID cannot be empty")
+
+        # Check for path traversal attempts in ID
+        if '..' in memory_id or '/' in memory_id or '\\' in memory_id:
+            security_logger.warning(
+                f"SEC-009: Path traversal in memory_id rejected: '{memory_id}'"
+            )
+            raise InvalidMemoryIdError(
+                f"Invalid memory ID: contains forbidden characters"
+            )
+
+        # Allow standard Luna memory ID format OR safe filename format
+        if not (self.MEMORY_ID_PATTERN.match(memory_id) or
+                self.SAFE_FILENAME_PATTERN.match(memory_id)):
+            security_logger.warning(
+                f"SEC-009: Invalid memory_id format rejected: '{memory_id}'"
+            )
+            raise InvalidMemoryIdError(
+                f"Invalid memory ID format: '{memory_id}'. "
+                "Must be alphanumeric with underscores/hyphens only"
+            )
+
+        return memory_id
+
+    def validate_path_security(self, file_path: Union[str, Path]) -> Path:
+        """
+        Validate that path doesn't escape base directory.
+
+        This is the CRITICAL security check that prevents path traversal attacks.
+
+        Args:
+            file_path: Path to validate
+
+        Returns:
+            Resolved absolute path (guaranteed within base_path)
+
+        Raises:
+            PathTraversalError: If path would escape base directory
+        """
+        path = Path(file_path)
+
+        # Check for obvious traversal patterns BEFORE resolution
+        path_str = str(file_path)
+        if '..' in path_str:
+            security_logger.critical(
+                f"SEC-009: Path traversal attempt BLOCKED: '{file_path}'"
+            )
+            raise PathTraversalError(
+                f"Path traversal detected: '..' is forbidden in paths"
+            )
+
+        # Resolve to absolute path
+        if not path.is_absolute():
+            resolved = (self.base_path / path).resolve()
+        else:
+            resolved = path.resolve()
+
+        # CRITICAL: Ensure resolved path is within base_path
+        try:
+            resolved.relative_to(self.base_path)
+        except ValueError:
+            security_logger.critical(
+                f"SEC-009: Path escape attempt BLOCKED: "
+                f"'{file_path}' resolved to '{resolved}' "
+                f"which is outside base_path '{self.base_path}'"
+            )
+            raise PathTraversalError(
+                f"Access denied: path '{file_path}' is outside allowed directory"
+            )
+
+        return resolved
+
+    def build_memory_path(
+        self,
+        memory_type: str,
+        memory_id: str,
+        extension: str = ".json"
+    ) -> Path:
+        """
+        Safely build a memory file path with full validation.
+
+        This is the RECOMMENDED method for constructing memory paths.
+
+        Args:
+            memory_type: Type of memory (roots/branchs/leaves/seeds)
+            memory_id: Memory identifier
+            extension: File extension (default: .json)
+
+        Returns:
+            Validated absolute path to memory file
+
+        Raises:
+            InvalidMemoryTypeError: If memory type invalid
+            InvalidMemoryIdError: If memory ID invalid
+            PathTraversalError: If resulting path is unsafe
+        """
+        # Validate components
+        validated_type = self.validate_memory_type(memory_type)
+        validated_id = self.validate_memory_id(memory_id)
+
+        # Normalize to plural form for directory
+        if not validated_type.endswith('s'):
+            validated_type = validated_type + 's'
+
+        # Build path safely
+        filename = f"{validated_id}{extension}"
+        relative_path = Path(validated_type) / filename
+
+        # Final security validation
+        return self.validate_path_security(relative_path)
         
     def read(self, file_path: Union[str, Path]) -> Dict[str, Any]:
         """
@@ -308,13 +517,27 @@ class JSONManager:
                 
         self.write(output_path, merged)
         
-    # Private helper methods
+    # =========================================================================
+    # PRIVATE HELPER METHODS
+    # =========================================================================
+
     def _resolve_path(self, file_path: Union[str, Path]) -> Path:
-        """Resolve file path relative to base path."""
-        path = Path(file_path)
-        if not path.is_absolute():
-            path = self.base_path / path
-        return path
+        """
+        Resolve file path relative to base path WITH SECURITY VALIDATION.
+
+        This method now includes path traversal protection.
+
+        Args:
+            file_path: Path to resolve
+
+        Returns:
+            Resolved absolute path (guaranteed within base_path)
+
+        Raises:
+            PathTraversalError: If path would escape base directory
+        """
+        # SEC-009: Use security-validated path resolution
+        return self.validate_path_security(file_path)
         
     def _create_backup(self, file_path: Path) -> None:
         """Create backup of file."""

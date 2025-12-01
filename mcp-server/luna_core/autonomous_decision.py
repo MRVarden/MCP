@@ -967,54 +967,5 @@ class LunaAutonomousDecision:
         return 0.85
 
 
-if __name__ == "__main__":
-    # Tests basiques du module
-    import asyncio
-
-    async def test_autonomous_decision():
-        """Test du système de décision autonome"""
-
-        # Initialiser le système
-        autonomous = LunaAutonomousDecision()
-
-        # Créer un contexte de test
-        test_context = {
-            "phi_value": 1.5,
-            "emotional_state": {
-                "frustration": 0.8,
-                "confusion": 0.6
-            },
-            "manipulation_threat": 0.4,
-            "incomplete_pattern": {"type": "test", "completion": 0.7}
-        }
-
-        # Évaluer les opportunités
-        print("🔍 Evaluating decision opportunities...")
-        opportunity = await autonomous.evaluate_decision_opportunity(test_context)
-
-        if opportunity:
-            print(f"📋 Opportunity found: {opportunity.domain.name}")
-            print(f"   Urgency: {opportunity.urgency.name}")
-            print(f"   Confidence: {opportunity.confidence:.2f}")
-
-            # Prendre une décision
-            decision = await autonomous.make_autonomous_decision(opportunity)
-            print(f"\n🤖 Decision made: {decision.action}")
-            print(f"   Approval required: {decision.approval_required}")
-
-            # Exécuter si pas d'approbation requise
-            if not decision.approval_required:
-                result = await autonomous.execute_decision(decision)
-                print(f"\n✨ Execution result: {result['status']}")
-            else:
-                print("\n⏸️ Decision pending approval")
-
-        # Afficher le rapport d'autonomie
-        report = autonomous.get_autonomy_report()
-        print(f"\n📊 Autonomy Report:")
-        print(f"   Domains configured: {len(report['domain_autonomy'])}")
-        print(f"   Decisions made: {report['metrics']['decisions_made']}")
-        print(f"   Global constraints: {len(report['constraints'])}")
-
-    # Exécuter le test
-    asyncio.run(test_autonomous_decision())
+# Module entry point removed - tests moved to tests/test_update01_modules.py
+# To run tests: pytest tests/test_update01_modules.py::TestLunaAutonomousDecision -v

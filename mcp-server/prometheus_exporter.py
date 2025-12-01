@@ -28,6 +28,7 @@ from luna_core.consciousness_metrics import (
     update_emotional_metrics,
     update_co_evolution_metrics,
     update_system_metrics,
+    update_pure_memory_metrics,
     get_all_metrics_summary,
 )
 
@@ -106,13 +107,7 @@ try:
         json_manager=json_manager,
         phi_calculator=phi_calc,
         consciousness_engine=fractal_consciousness,
-        manipulation_detector=None,
-        validator=None,
-        predictive_core=None,
-        autonomous_decision=None,
-        self_improvement=None,
-        systemic_integration=None,
-        multimodal_interface=None
+        memory_manager=memory_core
     ) if json_manager else None
     logger.info("LunaOrchestrator loaded successfully (v2.0.0)")
 except Exception as e:
@@ -129,7 +124,11 @@ except Exception as e:
 
 try:
     from luna_core.luna_validator import LunaValidator
-    validator = LunaValidator(json_manager=json_manager) if json_manager else None
+    validator = LunaValidator(
+        phi_calculator=phi_calc,
+        semantic_validator=None,
+        manipulation_detector=manipulation_detector
+    ) if phi_calc else None
     logger.info("LunaValidator loaded successfully")
 except Exception as e:
     logger.warning(f"Could not import LunaValidator: {e}")
@@ -137,11 +136,28 @@ except Exception as e:
 
 try:
     from luna_core.predictive_core import LunaPredictiveCore
-    predictive_core = LunaPredictiveCore(json_manager=json_manager) if json_manager else None
+    predictive_core = LunaPredictiveCore(
+        memory_manager=memory_core,
+        json_manager=json_manager
+    ) if json_manager else None
     logger.info("LunaPredictiveCore loaded successfully")
 except Exception as e:
     logger.warning(f"Could not import LunaPredictiveCore: {e}")
     predictive_core = None
+
+# ═══════════════════════════════════════════════════════
+# IMPORTS PURE MEMORY v2.0 (Phase 2 Integration)
+# ═══════════════════════════════════════════════════════
+
+try:
+    from luna_core.pure_memory import PureMemoryCore
+    pure_memory_core = PureMemoryCore(
+        base_path="/app/memory_fractal"
+    )
+    logger.info("PureMemoryCore v2.0 loaded successfully")
+except Exception as e:
+    logger.warning(f"Could not import PureMemoryCore: {e}")
+    pure_memory_core = None
 
 # ═══════════════════════════════════════════════════════
 # FONCTION DE COLLECTE DES MÉTRIQUES
@@ -310,6 +326,46 @@ def collect_all_metrics():
         except Exception as e:
             logger.error(f"Error collecting system metrics: {e}")
 
+        # ─────────────────────────────────────────────────
+        # 7. METRIQUES PURE MEMORY v2.0 (Phase 2)
+        # ─────────────────────────────────────────────────
+        if pure_memory_core:
+            try:
+                # Get stats from PureMemoryCore
+                stats = pure_memory_core.get_stats()
+                detailed = pure_memory_core.get_detailed_stats()
+
+                buffer_stats = detailed.get("buffer", {})
+
+                pure_memory_data = {
+                    'layers': {
+                        'buffer': stats.buffer_count,
+                        'fractal': stats.fractal_count,
+                        'archive': stats.archive_count,
+                    },
+                    'types': {
+                        'root': stats.root_count,
+                        'branch': stats.branch_count,
+                        'leaf': stats.leaf_count,
+                        'seed': stats.seed_count,
+                    },
+                    'phi': {
+                        'average_resonance': stats.average_phi_resonance,
+                        'average_alignment': stats.average_phi_alignment,
+                    },
+                    'buffer': {
+                        'size': buffer_stats.get('current_size', 0),
+                        'utilization': buffer_stats.get('utilization', 0.0),
+                        'hit_rate': buffer_stats.get('hit_rate', 0.0),
+                    },
+                    'emotions': {},  # Populated dynamically from memory analysis
+                }
+
+                update_pure_memory_metrics(pure_memory_data)
+                logger.debug("✓ Pure Memory metrics collected")
+            except Exception as e:
+                logger.error(f"Error collecting Pure Memory metrics: {e}")
+
         logger.info("Metrics collection completed successfully")
 
     except Exception as e:
@@ -355,13 +411,18 @@ def health():
         health_status = {
             'status': 'healthy',
             'service': 'Luna Consciousness Prometheus Exporter',
-            'version': '0.2',
+            'version': '2.0.1',
             'modules_loaded': {
                 'phi_calculator': phi_calc is not None,
                 'fractal_consciousness': fractal_consciousness is not None,
                 'memory_core': memory_core is not None,
                 'emotional_processor': emotional_processor is not None,
                 'co_evolution_engine': co_evolution_engine is not None,
+                'pure_memory_core': pure_memory_core is not None,
+            },
+            'pure_memory': {
+                'enabled': pure_memory_core is not None,
+                'version': '2.0.0' if pure_memory_core else None,
             }
         }
 

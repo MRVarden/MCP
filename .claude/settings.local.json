@@ -23,7 +23,17 @@
       "Bash(docker pull:*)",
       "Bash(docker build:*)",
       "Bash(docker inspect:*)",
-      "Bash(docker run:*)"
+      "Bash(docker run:*)",
+      "Bash(docker images:*)",
+      "Bash(docker tag:*)",
+      "Bash(docker push:*)",
+      "Bash(docker rm:*)",
+      "Bash(docker ps:*)",
+      "Bash(docker start:*)",
+      "Bash(docker logs:*)",
+      "Bash(docker volume rm:*)",
+      "Bash(docker exec:*)",
+      "Bash(curl:*)"
     ],
     "deny": [],
     "ask": []

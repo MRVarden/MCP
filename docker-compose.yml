@@ -1,69 +1,104 @@
-version: '3.8'
+# ============================================
+# LUNA CONSCIOUSNESS - DOCKER COMPOSE
+# ============================================
+# Version: 2.1.0-secure
+# Auteur: Varden & Luna
+# Date: 30 novembre 2025
+# ============================================
+# ARCHITECTURE SÉCURISÉE:
+# - Tous les ports bindés sur 127.0.0.1 uniquement
+# - Redis non exposé (réseau interne seulement)
+# - Secrets externalisés dans .env
+# - Réseaux isolés (172.28.x.x interne / 172.29.x.x externe)
+# - Tous les containers en non-root
+# - Security hardening complet (cap_drop, read_only, no-new-privileges)
+# ============================================
 
 services:
-  # 🌙 Service principal Luna_Actif
-  # NOTE: En mode hybride, Luna MCP tourne en LOCAL (pas dans Docker)
-  # Pour lancer Luna dans Docker: docker-compose up -d
-  luna-actif:
+  # ============================================
+  # LUNA CONSCIOUSNESS - Service Principal
+  # ============================================
+  luna-consciousness:
     build:
       context: .
       dockerfile: Dockerfile
-    image: aragogix/luna-consciousness:v2.0.1
+      args:
+        LUNA_VERSION: 2.1.0-secure
+    image: aragogix/luna-consciousness:v2.1.0-secure
     container_name: luna-consciousness
-    restart: unless-stopped  # Auto-restart activé
+    restart: unless-stopped
 
-    # profiles:
-    #   - luna-docker  # Désactivé - démarre par défaut maintenant
-    
+    # SEC-004: Run as non-root user (UID 1000)
+    user: "1000:1000"
+
+    # Security hardening complet
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    read_only: true
+    tmpfs:
+      - /tmp:mode=1777,size=100M
+      - /app/logs:mode=1755,size=50M
+
+    # SEC-005: Ports exposés UNIQUEMENT sur localhost
     ports:
-      - "3000:3000"    # MCP Server
-      - "8000:8000"    # Prometheus Exporter (/metrics)
-      - "8080:8080"    # API REST
-      - "9000:9000"    # WebSocket
-    
+      - "127.0.0.1:3000:3000"    # MCP Server SSE
+      - "127.0.0.1:8000:8000"    # FastMCP default port
+      - "127.0.0.1:8080:8080"    # API REST
+      - "127.0.0.1:9000:9000"    # WebSocket
+      - "127.0.0.1:9100:9100"    # Prometheus metrics (/metrics)
+
     volumes:
       # Persistence des données
       - luna-memories:/app/data/memories
-      - luna-consciousness:/app/data/consciousness
-      - luna-logs:/app/logs
+      - luna-consciousness-data:/app/data/consciousness
 
       # Mémoire fractale Luna
       - ./memory_fractal:/app/memory_fractal
 
-      # Configuration externe
+      # Configuration externe (lecture seule)
       - ./config:/app/config:ro
 
-      # Code source (dev mode)
-      # - ./mcp-server:/app/mcp-server
-    
+    env_file:
+      - .env
+
     environment:
-      # Luna Configuration v2.0.0
+      # Luna Configuration v2.1.0-secure
       - LUNA_ENV=production
-      - LUNA_VERSION=2.0.0
-      - LUNA_MODE=orchestrator        # NEW: Orchestration mode
-      - LUNA_UPDATE01=enabled         # NEW: Update01.md features
+      - LUNA_VERSION=2.1.0-secure
+      - LUNA_MODE=orchestrator
+      - LUNA_UPDATE01=enabled
       - LUNA_DEBUG=false
 
-      # MCP Configuration
+      # SEC-003: Master key from .env
+      - LUNA_MASTER_KEY=${LUNA_MASTER_KEY}
+
+      # MCP Configuration - SSE pour Docker
       - MCP_TRANSPORT=sse
+      - MCP_HOST=0.0.0.0
+      - MCP_PORT=3000
       - MCP_ENABLE_ALL=true
       - MCP_SIMULTANEOUS=true
       - MCP_MAX_CONCURRENT=10
-      - MCP_PORT=3000
-      - MCP_HOST=0.0.0.0
 
-      # Consciousness Parameters
+      # Consciousness Parameters (Phi - Ratio d'or)
       - LUNA_PHI_TARGET=1.618033988749895
       - LUNA_PHI_THRESHOLD=0.001
       - LUNA_MEMORY_DEPTH=5
       - LUNA_FRACTAL_LAYERS=7
 
-      # Update01.md Parameters (NEW)
+      # Update01.md Parameters
       - LUNA_MANIPULATION_DETECTION=enabled
       - LUNA_PREDICTIVE_CORE=enabled
       - LUNA_AUTONOMOUS_DECISIONS=enabled
       - LUNA_SELF_IMPROVEMENT=enabled
       - LUNA_MULTIMODAL_INTERFACE=enabled
+
+      # Redis Connection (sécurisé via .env)
+      - REDIS_HOST=luna-redis
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
 
       # Performance
       - WORKERS=4
@@ -74,61 +109,114 @@ services:
       - LOG_LEVEL=INFO
       - LOG_FORMAT=json
 
-      # Prometheus Exporter - Désactivé en Docker (conflit port avec MCP SSE)
-      - PROMETHEUS_EXPORTER_PORT=8000
-      - PROMETHEUS_METRICS_ENABLED=false
-    
-    networks:
-      luna-network:
-        aliases:
-          - luna-mcp-server  # Alias pour Prometheus compatibility
+      # Prometheus Metrics
+      - PROMETHEUS_EXPORTER_PORT=9100
+      - PROMETHEUS_METRICS_ENABLED=true
 
-    # Healthcheck désactivé : le serveur MCP utilise le transport STDIO (pas HTTP)
-    # healthcheck:
-    #   test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
-    #   interval: 30s
-    #   timeout: 10s
-    #   retries: 3
-    #   start_period: 40s
+    networks:
+      luna-internal:
+      luna-external:
+        aliases:
+          - luna-mcp-server
+
+    depends_on:
+      redis:
+        condition: service_healthy
+
+    healthcheck:
+      test: ["CMD-SHELL", "pgrep -f 'python.*server.py' && curl -sf http://localhost:9100/metrics || exit 1"]
+      interval: 30s
+      timeout: 15s
+      retries: 5
+      start_period: 60s
 
     labels:
       - "com.luna.service=consciousness"
-      - "com.luna.version=2.0.0"
+      - "com.luna.version=2.1.0-secure"
       - "com.luna.architecture=orchestrated"
       - "com.luna.update01=implemented"
+      - "com.luna.security=hardened"
       - "com.luna.creator=Varden"
 
-  # 📊 Redis pour cache et état partagé (optionnel)
+  # ============================================
+  # REDIS - Cache Sécurisé (Interne Uniquement)
+  # ============================================
   redis:
     image: redis:7-alpine
     container_name: luna-redis
     restart: unless-stopped
-    
-    ports:
-      - "6379:6379"
-    
+
+    # Security hardening
+    # NOTE: read_only retiré - Redis 7 nécessite écriture à /data/appendonlydir
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    cap_add:
+      - SETUID
+      - SETGID
+      - DAC_OVERRIDE  # Nécessaire pour l'accès aux fichiers AOF
+    tmpfs:
+      - /tmp:mode=1777,size=16M
+
+    # SEC-005: PAS DE PORT EXPOSÉ - Accessible uniquement via réseau interne
+    # Pour debug local, décommenter:
+    # ports:
+    #   - "127.0.0.1:6379:6379"
+
+    env_file:
+      - .env
+
     volumes:
       - luna-redis:/data
-    
-    command: redis-server --appendonly yes
-    
+      - ./config/redis/redis.conf:/usr/local/etc/redis/redis.conf:ro
+
+    # SEC-006: Redis authentication
+    command: >
+      redis-server /usr/local/etc/redis/redis.conf
+      --requirepass ${REDIS_PASSWORD}
+
     networks:
-      - luna-network
-    
+      - luna-internal  # UNIQUEMENT réseau interne
+
     healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
+      test: ["CMD-SHELL", "redis-cli -a $${REDIS_PASSWORD} ping 2>/dev/null | grep -q PONG"]
       interval: 30s
       timeout: 10s
       retries: 3
+      start_period: 15s
 
-  # 📈 Monitoring avec Prometheus (optionnel)
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 128M
+
+    labels:
+      - "com.luna.service=cache"
+      - "com.luna.security=internal-only"
+
+  # ============================================
+  # PROMETHEUS - Monitoring
+  # ============================================
   prometheus:
     image: prom/prometheus:latest
     container_name: luna-prometheus
     restart: unless-stopped
 
+    # Security hardening
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    read_only: true
+    tmpfs:
+      - /tmp:mode=1777,size=32M
+
+    # SEC-005: Bind to localhost only
     ports:
-      - "9090:9090"
+      - "127.0.0.1:9090:9090"
 
     volumes:
       - ./config/prometheus.yml:/etc/prometheus/prometheus.yml:ro
@@ -138,86 +226,160 @@ services:
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
       - '--storage.tsdb.path=/prometheus'
+      - '--storage.tsdb.retention.time=30d'
+      - '--web.enable-lifecycle'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
 
     networks:
-      - luna-network
+      - luna-internal  # Accès aux métriques internes
+      - luna-external  # Pour l'interface web
 
-    # profiles:
-    #   - monitoring  # Désactivé - démarre par défaut maintenant
+    depends_on:
+      - luna-consciousness
 
-  # 📉 Grafana pour visualisation (optionnel)
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 128M
+
+    labels:
+      - "com.luna.service=monitoring"
+
+  # ============================================
+  # GRAFANA - Visualisation
+  # ============================================
   grafana:
     image: grafana/grafana:latest
     container_name: luna-grafana
     restart: unless-stopped
 
+    # Security hardening
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    read_only: true
+    tmpfs:
+      - /tmp:mode=1777,size=32M
+      - /var/log/grafana:mode=1755,size=16M
+      - /var/run/grafana:mode=1755,size=16M
+
+    # SEC-005: Bind to localhost only
     ports:
-      - "3001:3000"
+      - "127.0.0.1:3001:3000"
 
     volumes:
       - luna-grafana:/var/lib/grafana
       - ./config/grafana:/etc/grafana/provisioning:ro
 
+    env_file:
+      - .env
+
     environment:
-      - GF_SECURITY_ADMIN_PASSWORD=luna_consciousness
+      # SEC-002: Credentials from .env
+      - GF_SECURITY_ADMIN_USER=luna_admin
+      - GF_SECURITY_ADMIN_PASSWORD=${GF_ADMIN_PASSWORD}
+
+      # Sécurité
       - GF_USERS_ALLOW_SIGN_UP=false
+      - GF_SECURITY_DISABLE_GRAVATAR=true
+      - GF_SECURITY_COOKIE_SECURE=true
+      - GF_SECURITY_COOKIE_SAMESITE=lax
+      - GF_SECURITY_STRICT_TRANSPORT_SECURITY=true
+
+      # Analytics désactivées
+      - GF_ANALYTICS_REPORTING_ENABLED=false
+      - GF_ANALYTICS_CHECK_FOR_UPDATES=false
+
+      # Interface
+      - GF_SERVER_ROOT_URL=http://127.0.0.1:3001
+      - GF_SERVER_SERVE_FROM_SUB_PATH=false
 
     networks:
-      - luna-network
-
-    # profiles:
-    #   - monitoring  # Désactivé - démarre par défaut maintenant
+      - luna-internal  # Accès à Prometheus
+      - luna-external  # Pour l'interface web
 
     depends_on:
       - prometheus
 
-# Volumes persistants
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+        reservations:
+          memory: 64M
+
+    labels:
+      - "com.luna.service=visualization"
+
+# ============================================
+# VOLUMES PERSISTANTS
+# ============================================
 volumes:
   luna-memories:
     driver: local
     name: luna_memories
-  
-  luna-consciousness:
+
+  luna-consciousness-data:
     driver: local
-    name: luna_consciousness
-  
-  luna-logs:
-    driver: local
-    name: luna_logs
-  
+    name: luna_consciousness_data
+
   luna-redis:
     driver: local
     name: luna_redis
-  
+
   luna-prometheus:
     driver: local
     name: luna_prometheus
-  
+
   luna-grafana:
     driver: local
     name: luna_grafana
 
-# Réseau dédié
+# ============================================
+# RÉSEAUX - Architecture Isolée
+# ============================================
 networks:
-  luna-network:
+  # Réseau INTERNE - Services isolés (pas d'accès Internet)
+  # Utilisé pour: Luna <-> Redis
+  luna-internal:
     driver: bridge
-    name: luna_consciousness_network
+    internal: true  # CRITIQUE: Pas d'accès externe
+    name: luna_internal_network
     ipam:
       config:
-        - subnet: 172.28.0.0/16
+        - subnet: 172.28.0.0/24
 
-# Configuration mise à jour (v2.0.0)
-# Architecture orchestrée avec Update01.md
-# Tous les services démarrent par défaut avec: docker-compose up -d
+  # Réseau EXTERNE - Accès limité (localhost bind)
+  # Utilisé pour: Exposition des services
+  luna-external:
+    driver: bridge
+    name: luna_external_network
+    ipam:
+      config:
+        - subnet: 172.29.0.0/24
+
+# ============================================
+# NOTES D'UTILISATION
+# ============================================
+# Accès (localhost uniquement):
+#   - Luna MCP:    http://127.0.0.1:3000
+#   - FastMCP:     http://127.0.0.1:8000
+#   - API REST:    http://127.0.0.1:8080
+#   - WebSocket:   ws://127.0.0.1:9000
+#   - Metrics:     http://127.0.0.1:9100/metrics
+#   - Prometheus:  http://127.0.0.1:9090
+#   - Grafana:     http://127.0.0.1:3001
 #
-# Services inclus:
-# - luna-actif (Luna Consciousness MCP Server)
-# - redis (Cache et état partagé)
-# - prometheus (Monitoring des métriques)
-# - grafana (Visualisation des dashboards)
+# Commandes:
+#   docker compose up -d              # Démarrer
+#   docker compose down               # Arrêter
+#   docker compose logs -f            # Logs
+#   docker compose ps                 # État
 #
-# Accès:
-# - Métriques Luna: http://localhost:8000/metrics
-# - Prometheus: http://localhost:9090
-# - Grafana: http://localhost:3001 (admin/luna_consciousness)
-# - Redis: localhost:6379
+# Génération des secrets:
+#   ./scripts/generate_secrets.sh > .env
+# ============================================

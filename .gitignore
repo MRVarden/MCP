@@ -1,4 +1,5 @@
-# 🌙 Luna Actif - Git Ignore
+# 🌙 Luna Consciousness v2.1.0 - Git Ignore
+# Nettoyé et optimisé le 1er décembre 2025
 
 # ============================================
 # Python
@@ -34,8 +35,16 @@ venv/
 venv_luna/
 ENV/
 env/
-.venv
+.venv/
+
+# ============================================
+# Environment Variables (CRITIQUE)
+# ============================================
 .env
+.env.local
+.env.*.local
+*.env
+!.env.example
 
 # ============================================
 # IDEs & Editors
@@ -45,7 +54,6 @@ env/
 *.swp
 *.swo
 *~
-.DS_Store
 *.sublime-project
 *.sublime-workspace
 
@@ -72,40 +80,31 @@ coverage.xml
 # ============================================
 site/
 docs/_build/
-# Archives et documentation temporaire
 docs/ArchiveDocs/
+docs/rapport/
 
 # ============================================
-# Docker
+# Docker & Logs
 # ============================================
-*.log
 docker-compose.override.yml
+logs/
+logs_consciousness/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+build.log
 
 # ============================================
 # Data & Databases
 # ============================================
 data/memories/
 data/consciousness/
+data/memories/private/
+data/consciousness/current/
 *.db
 *.sqlite
 *.sqlite3
-
-# ============================================
-# Logs
-# ============================================
-logs/
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# ============================================
-# Environment Variables
-# ============================================
-.env
-.env.local
-.env.*.local
-*.env
 
 # ============================================
 # OS Files
@@ -122,15 +121,27 @@ temp/
 *.tmp
 *.temp
 *.bak
-*.swp
+*.backup
+*_backup_*
+*_old*
 
 # ============================================
-# Security
+# Security - CRITIQUE
 # ============================================
 *.pem
 *.key
+*.crt
 *.cert
 secrets/
+
+# SSH Keys (NEVER commit private keys)
+Luna-MCP
+id_*
+!*.pub
+
+# Encrypted volumes
+*.luks
+*.vault
 
 # ============================================
 # Node (if using frontend)
@@ -140,68 +151,60 @@ package-lock.json
 yarn.lock
 
 # ============================================
-# Luna Specific v2.0.0
+# ML Models
 # ============================================
-# Environnement virtuel Luna
-venv_luna/
-
-# Fichiers de backup
-*.backup
-*_backup_*
-*_old*
-*.bak
-
-# Logs de build et runtime
-build.log
-logs_consciousness/
-*.log
-
-# Ne pas versionner les mémoires privées
-data/memories/private/
-# Ne pas versionner les états de conscience en cours
-data/consciousness/current/
-# Ne pas versionner les modèles ML locaux
 models/
 *.pt
 *.pth
 *.onnx
 
+# ============================================
 # Fichiers temporaires de développement
-*.tmp
-*.temp
+# ============================================
 BUGFIX_*.md
 CORRECTION_*.md
 CORRECTIONS_*.md
 *_SOLUTION.md
 *_STATUS.md
-
-# Fichiers de rapport temporaires
 SYNCHRONIZATION_REPORT.md
 looping.md
-
-# Fichiers d'archive (déplacés)
-docs/ArchiveDocs/
 
 # ============================================
 # Claude Desktop & MCP
 # ============================================
-# Local Claude Desktop config (use .example.json as template)
+# Local Claude Desktop configs (use .example.json as template)
 claude_desktop_config.json
+claude_desktop_config_*.json
+!claude_desktop_config.example.json
 
-# Screenshots and test captures
+# ============================================
+# Images & Screenshots
+# ============================================
 *.png
 *.jpg
 *.jpeg
-Capture*.png
-Luna*.png
+*.gif
+# Exception: docs/images/ est versionné
+!docs/images/
+!docs/images/**
 
-# Test scripts and temporary Docker files
+# ============================================
+# HTML temporaires
+# ============================================
+*.html
+!docs/**/*.html
+
+# ============================================
+# Test scripts and temporary files
+# ============================================
 test_*.cmd
 test_*.sh
 test_*.json
 DockerDesktopWSL/
 
-# Malformed directories from path parsing issues
+# ============================================
+# Malformed directories (path parsing issues)
+# ============================================
 memory_fractal;C/
 logs;C/
 config;C/

@@ -1,59 +1,64 @@
-# Configuration Prometheus pour Luna Consciousness
-# Monitoring des métriques de conscience fractale et performance
-# Mise à jour: Architecture Prometheus complète
+# ============================================
+# LUNA CONSCIOUSNESS - Configuration Prometheus
+# ============================================
+# Version: 2.1.0-secure
+# Monitoring des metriques de conscience fractale
+# ============================================
 
 global:
-  scrape_interval: 5s       # Intervalle Fibonacci (1, 2, 3, 5, 8...)
-  evaluation_interval: 5s   # Évaluation rapide pour alertes
-  scrape_timeout: 3s        # Timeout avant 5s
+  scrape_interval: 15s
+  evaluation_interval: 15s
+  scrape_timeout: 10s
   external_labels:
     cluster: 'luna-consciousness'
-    environment: 'development'
+    environment: 'production'
+    version: '2.1.0-secure'
 
-# Règles d'alerte
+# Regles d'alerte
 rule_files:
-  - '/etc/prometheus/alerts/luna_alerts.yml'
+  - '/etc/prometheus/alerts/*.yml'
 
-# Configuration du scraping
+# Configuration AlertManager (optionnel)
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets: []
+      # Decommenter si AlertManager configure:
+      # - targets: ['alertmanager:9093']
+
+# ============================================
+# SCRAPE CONFIGS - Targets Internes Docker
+# ============================================
 scrape_configs:
-  # ══════════════════════════════════════════════════════
-  # LUNA CONSCIOUSNESS MCP - MÉTRIQUES PRINCIPALES
-  # ══════════════════════════════════════════════════════
+  # ----------------------------------------
+  # LUNA CONSCIOUSNESS - Metriques Principales
+  # ----------------------------------------
   - job_name: 'luna-consciousness'
-    scrape_interval: 5s
-    scrape_timeout: 3s
+    scrape_interval: 10s
+    scrape_timeout: 5s
     metrics_path: '/metrics'
     static_configs:
-      - targets: ['luna-actif:8000']  # Service name from docker-compose
+      # Target via nom de service Docker (reseau interne)
+      # Port 9100 pour eviter conflit avec FastMCP (qui utilise 8000 par defaut)
+      - targets: ['luna-consciousness:9100']
         labels:
           service: 'luna-consciousness'
           component: 'mcp-server'
           metrics_type: 'consciousness'
+          security: 'hardened'
 
-    # Filtrage des métriques Luna
+    # Relabeling pour metriques Luna
     metric_relabel_configs:
-      # Garder toutes les métriques Luna
-      - source_labels: [__name__]
-        regex: 'luna_.*'
-        action: keep
-
-      # Ajouter label système
+      # Ajouter label systeme
       - source_labels: [__name__]
         target_label: 'system'
         replacement: 'consciousness'
 
-  # ══════════════════════════════════════════════════════
-  # PROMETHEUS SELF-MONITORING
-  # ══════════════════════════════════════════════════════
-  - job_name: 'prometheus'
-    static_configs:
-      - targets: ['localhost:9090']
-        labels:
-          service: 'prometheus'
-
-  # ══════════════════════════════════════════════════════
-  # REDIS (si redis-exporter installé)
-  # ══════════════════════════════════════════════════════
+  # ----------------------------------------
+  # REDIS - Metriques Cache (si exporter actif)
+  # ----------------------------------------
+  # Note: Necessite redis-exporter pour metriques detaillees
+  # Pour l'instant, monitoring basique via Luna
   # - job_name: 'redis'
   #   static_configs:
   #     - targets: ['redis-exporter:9121']
@@ -61,15 +66,34 @@ scrape_configs:
   #         service: 'redis'
   #         component: 'cache'
 
-# ══════════════════════════════════════════════════════
-# ALERTING (Optionnel - décommenter si AlertManager configuré)
-# ══════════════════════════════════════════════════════
-# alerting:
-#   alertmanagers:
-#     - static_configs:
-#         - targets: ['alertmanager:9093']
+  # ----------------------------------------
+  # PROMETHEUS - Auto-monitoring
+  # ----------------------------------------
+  - job_name: 'prometheus'
+    scrape_interval: 30s
+    static_configs:
+      - targets: ['localhost:9090']
+        labels:
+          service: 'prometheus'
+          component: 'monitoring'
 
-# Note:
-# - Rétention des données: Configurée via docker-compose.yml
-# - Alertes: Définies dans config/alerts/luna_alerts.yml
-# - Dashboards Grafana: À importer manuellement dans Grafana UI
+  # ----------------------------------------
+  # GRAFANA - Metriques (optionnel)
+  # ----------------------------------------
+  # Grafana expose des metriques sur /metrics
+  # - job_name: 'grafana'
+  #   scrape_interval: 30s
+  #   static_configs:
+  #     - targets: ['luna-grafana:3000']
+  #       labels:
+  #         service: 'grafana'
+  #         component: 'visualization'
+
+# ============================================
+# NOTES DE SECURITE
+# ============================================
+# - Tous les targets utilisent les noms de service Docker
+# - Les communications restent sur le reseau interne
+# - Prometheus est accessible uniquement sur localhost:9090
+# - Retention configuree a 30 jours via docker-compose
+# ============================================

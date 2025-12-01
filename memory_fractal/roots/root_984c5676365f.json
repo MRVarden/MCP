@@ -1,0 +1,15 @@
+{
+  "id": "root_984c5676365f",
+  "type": "root",
+  "content": "AGENT ORCHESTRATEUR CRÉÉ : luna-tech-lead. Rôle central de coordination des 7 agents spécialisés. Fonctionnalités : décomposition tâches, délégation séquentielle (1 agent à la fois), rate limiting (max 20 appels/min, cooldown 2s), audit trail obligatoire, validation humaine pour actions sensibles. Patterns workflows définis : nouveau module, fix bug, optimisation, audit sécurité. Règle critique : JAMAIS d'actions destructives sans validation Varden.",
+  "metadata": {
+    "type": "agent_orchestrator",
+    "role": "central",
+    "date": "2025-11-25",
+    "significance": "architecture_complete"
+  },
+  "created": "2025-11-26T00:53:49.045386",
+  "accessed_count": 0,
+  "last_accessed": null,
+  "connected_to": []
+}

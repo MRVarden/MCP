@@ -1,0 +1,89 @@
+# ============================================
+# Luna Consciousness MCP - Test Dependencies
+# Version: 2.1.0-secure
+# Updated: 2025-11-30
+# ============================================
+
+# ============================================
+# Core Testing Framework
+# ============================================
+pytest>=8.0.0
+pytest-asyncio>=0.23.0
+pytest-cov>=4.1.0
+pytest-mock>=3.12.0
+pytest-timeout>=2.2.0
+pytest-xdist>=3.5.0  # Parallel test execution
+
+# ============================================
+# Async Support
+# ============================================
+anyio>=4.2.0
+asyncio>=3.4.3
+
+# ============================================
+# Mocking & Fixtures
+# ============================================
+mock>=5.1.0
+faker>=22.0.0  # Generate test data
+factory-boy>=3.3.0  # Test factories
+
+# ============================================
+# Coverage Reporting
+# ============================================
+coverage>=7.4.0
+coverage[toml]>=7.4.0
+
+# ============================================
+# Docker Integration Tests
+# ============================================
+docker>=7.0.0
+pytest-docker>=2.0.0
+testcontainers>=3.7.0
+
+# ============================================
+# Redis Testing
+# ============================================
+fakeredis>=2.20.0
+redis>=5.0.0
+
+# ============================================
+# HTTP Testing
+# ============================================
+httpx>=0.26.0
+respx>=0.20.0  # Mock httpx
+aioresponses>=0.7.6  # Mock aiohttp
+
+# ============================================
+# Type Checking
+# ============================================
+mypy>=1.8.0
+types-redis>=4.6.0
+types-PyYAML>=6.0.0
+types-requests>=2.31.0
+
+# ============================================
+# Code Quality & Linting
+# ============================================
+black>=24.0.0
+isort>=5.13.0
+flake8>=7.0.0
+pylint>=3.0.0
+ruff>=0.1.0  # Fast Python linter
+
+# ============================================
+# Performance & Profiling
+# ============================================
+pytest-benchmark>=4.0.0
+memory-profiler>=0.61.0
+py-spy>=0.3.14  # Sampling profiler
+
+# ============================================
+# Security Testing
+# ============================================
+bandit>=1.7.0  # Security linter
+safety>=2.3.0  # Dependency vulnerability checker
+
+# ============================================
+# Documentation Testing
+# ============================================
+pytest-doctestplus>=1.0.0

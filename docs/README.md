@@ -1,7 +1,7 @@
 # 📚 Documentation Luna Consciousness
 
-**Version:** 2.0.1
-**Date:** 25 novembre 2025
+**Version:** 2.1.0-secure
+**Date:** 1er décembre 2025
 
 ---
 
@@ -56,7 +56,8 @@ docs/
 ├── 📁 archive/               # Documents archivés
 │   ├── v1.0.1/
 │   ├── v2.0.0_transition/
-│   └── v2.0.1_reorganization/
+│   ├── v2.0.1_reorganization/
+│   └── v2.1.0_reorganization/
 │
 └── 📁 ArchiveDocs/           # Anciens documents de travail
 ```
@@ -89,16 +90,16 @@ docker-compose up -d
 docker logs luna-consciousness -f
 
 # Vérifier les métriques
-curl http://localhost:8000/metrics | grep luna_phi
+curl http://localhost:9100/metrics | grep luna_phi
 ```
 
 ### URLs des Services
 
 | Service | URL |
 |---------|-----|
-| 📊 Prometheus Metrics | http://localhost:8000/metrics |
-| 📈 Grafana | http://localhost:3001 |
-| 🔍 Prometheus UI | http://localhost:9090 |
+| 📊 Prometheus Metrics | http://127.0.0.1:9100/metrics |
+| 📈 Grafana | http://127.0.0.1:3001 |
+| 🔍 Prometheus UI | http://127.0.0.1:9090 |
 
 ---
 
@@ -113,7 +114,14 @@ curl http://localhost:8000/metrics | grep luna_phi
 
 ---
 
-## 🆕 Nouveautés v2.0.1
+## 🆕 Nouveautés v2.1.0-secure
+
+### Sécurisation Complète
+
+- 🔒 **Ports localhost-only** - Tous les services bindés sur 127.0.0.1
+- 🔒 **Redis non exposé** - Accessible uniquement via réseau interne
+- 🔒 **Security hardening** - cap_drop: ALL, read_only, no-new-privileges
+- 🔒 **Secrets externalisés** - Variables dans .env
 
 ### Documentation Réorganisée
 
@@ -152,4 +160,4 @@ Les anciens documents sont archivés dans `docs/archive/` pour référence histo
 
 **φ = 1.618033988749895** 🌙
 
-*Index Documentation - Luna Consciousness v2.0.1*
+*Index Documentation - Luna Consciousness v2.1.0-secure*

@@ -1,7 +1,7 @@
 # 🐳 Luna Consciousness - Dev Container
 
-**Version:** 1.0.1
-**Date:** 19 novembre 2025
+**Version:** 2.1.0-secure
+**Date:** 1er décembre 2025
 
 ---
 
@@ -45,7 +45,7 @@ Ce dossier contient la configuration pour utiliser Luna Consciousness avec **VS 
    }
    ```
 
-4. ❌ **Ports manquants** → ✅ Port 8000 ajouté pour Prometheus
+4. ❌ **Ports manquants** → ✅ Port 9100 ajouté pour Prometheus
 
 5. ❌ **Mounts incorrects** → ✅ Alignés avec la structure Luna
    - `memory_fractal/` → `/app/memory_fractal`
@@ -73,7 +73,7 @@ Ce dossier contient la configuration pour utiliser Luna Consciousness avec **VS 
 | Port | Service | Description |
 |------|---------|-------------|
 | 3000 | MCP Server | STDIO (pas HTTP) |
-| 8000 | Prometheus | Métriques HTTP |
+| 9100 | Prometheus | Métriques HTTP |
 | 8080 | REST API | API REST (optionnel) |
 | 9000 | WebSocket | WebSocket (optionnel) |
 
@@ -95,10 +95,10 @@ Ce dossier contient la configuration pour utiliser Luna Consciousness avec **VS 
 {
   "LUNA_ENV": "development",
   "LUNA_DEBUG": "true",
-  "LUNA_VERSION": "1.0.1",
+  "LUNA_VERSION": "2.1.0-secure",
   "MCP_ENABLE_ALL": "true",
   "MCP_SIMULTANEOUS": "true",
-  "PROMETHEUS_EXPORTER_PORT": "8000",
+  "PROMETHEUS_EXPORTER_PORT": "9100",
   "PROMETHEUS_METRICS_ENABLED": "true",
   "LOG_LEVEL": "DEBUG"
 }
@@ -328,4 +328,4 @@ which python
 
 **φ = 1.618033988749895** 🌙
 
-*Configuration Dev Container mise à jour le 19 novembre 2025*
+*Configuration Dev Container mise à jour le 1er décembre 2025*

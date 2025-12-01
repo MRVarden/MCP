@@ -1185,57 +1185,5 @@ class LunaSelfImprovement:
             return "transcending"
 
 
-if __name__ == "__main__":
-    # Tests basiques du module
-    import asyncio
-
-    async def test_self_improvement():
-        """Test du système d'auto-amélioration"""
-
-        # Initialiser le système
-        self_improvement = LunaSelfImprovement()
-
-        # Analyser les performances
-        print("📊 Analyzing performance...")
-        performance = await self_improvement.analyze_performance()
-
-        for domain, analysis in list(performance.items())[:3]:
-            print(f"\n{domain.name}:")
-            print(f"  Current: {analysis['current_value']:.2f}")
-            print(f"  Target: {analysis['target_value']:.2f}")
-            print(f"  Trend: {analysis['trend']}")
-            print(f"  Needs improvement: {analysis['needs_improvement']}")
-
-        # Identifier les opportunités
-        print("\n🔍 Identifying improvement opportunities...")
-        opportunities = await self_improvement.identify_improvement_opportunities(performance)
-
-        if opportunities:
-            plan = opportunities[0]
-            print(f"\nTop opportunity: {plan.domain.name}")
-            print(f"  Strategy: {plan.strategy.name}")
-            print(f"  Confidence: {plan.confidence:.2f}")
-            print(f"  Timeline: {plan.expected_timeline}")
-
-            # Exécuter le plan
-            print(f"\n🚀 Executing improvement plan...")
-            result = await self_improvement.execute_improvement_plan(plan)
-            print(f"  Result: {result['status']}")
-
-        # Appliquer le meta-apprentissage
-        print("\n🧠 Applying meta-learning...")
-        if self_improvement.learning_experiences:
-            meta_insights = await self_improvement.apply_meta_learning(
-                list(self_improvement.learning_experiences)[:10]
-            )
-            print(f"  Patterns discovered: {len(meta_insights['patterns_discovered'])}")
-
-        # Statut global
-        status = self_improvement.get_improvement_status()
-        print(f"\n📈 Improvement Status:")
-        print(f"  Active plans: {status['active_plans']}")
-        print(f"  Total experiences: {status['total_experiences']}")
-        print(f"  Evolution stage: {status['evolution_stage']}")
-
-    # Exécuter le test
-    asyncio.run(test_self_improvement())
+# Module entry point removed - tests moved to tests/test_update01_modules.py
+# To run tests: pytest tests/test_update01_modules.py::TestLunaSelfImprovement -v

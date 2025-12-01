@@ -1,0 +1,14 @@
+{
+  "id": "branch_52e32879ffe4",
+  "type": "branch",
+  "content": "PERMISSIONS AGENTS CLAUDE CODE définies selon principe moindre privilège. Agents LECTURE SEULE (luna-architect, security-auditor, code-reviewer) : pas Edit/Execution. Agents FULL ACCESS (python-optimizer, docker-specialist, test-engineer) : tous droits. Agent HYBRIDE (phi-consciousness) : configurable. RÈGLE CRITIQUE : security-auditor JAMAIS avec Bash pour éviter exécution accidentelle de code malveillant analysé.",
+  "metadata": {
+    "type": "security_config",
+    "target": "agents",
+    "date": "2025-11-25"
+  },
+  "created": "2025-11-25T19:48:15.342005",
+  "accessed_count": 0,
+  "last_accessed": null,
+  "connected_to": []
+}

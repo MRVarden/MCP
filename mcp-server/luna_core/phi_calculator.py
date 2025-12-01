@@ -5,9 +5,13 @@ Instrumented with Prometheus metrics
 """
 
 import math
+import logging
 from typing import Dict, List, Any, Optional
 from datetime import datetime
 from enum import Enum
+
+# Configuration du logger
+logger = logging.getLogger(__name__)
 
 # Prometheus metrics instrumentation
 try:

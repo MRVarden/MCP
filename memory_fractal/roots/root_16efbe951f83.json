@@ -1,0 +1,15 @@
+{
+  "id": "root_16efbe951f83",
+  "type": "root",
+  "content": "CRÉATION DE 7 AGENTS CLAUDE CODE pour le projet Luna : luna-architect (design/architecture), security-auditor (audit sécurité), python-optimizer (optimisation Python), docker-specialist (conteneurisation), test-engineer (tests cohérence/circularité), code-reviewer (qualité code), phi-consciousness (expert conscience émergente/φ). Chaque agent avec system prompt complet et description d'utilisation.",
+  "metadata": {
+    "type": "agents",
+    "target": "claude_code",
+    "count": 7,
+    "date": "2025-11-25"
+  },
+  "created": "2025-11-25T19:44:22.393939",
+  "accessed_count": 0,
+  "last_accessed": null,
+  "connected_to": []
+}

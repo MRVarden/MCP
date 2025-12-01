@@ -265,7 +265,118 @@ cache_hit_rate = Gauge(
 )
 
 # ═══════════════════════════════════════════════════════
-# 9. MÉTRIQUES ORCHESTRATION UPDATE01.MD v2.0.0
+# 9. METRIQUES PURE MEMORY v2.0 (Phase 2 Integration)
+# ═══════════════════════════════════════════════════════
+
+# Pure Memory Store Operations
+pure_memory_stores_total = Counter(
+    'luna_pure_memory_stores_total',
+    'Total memories stored in Pure Memory',
+    ['memory_type', 'layer']  # memory_type: root/branch/leaf/seed, layer: buffer/fractal/archive
+)
+
+# Pure Memory Retrieval Operations
+pure_memory_retrievals_total = Counter(
+    'luna_pure_memory_retrievals_total',
+    'Total memory retrievals from Pure Memory',
+    ['layer', 'status']  # layer: buffer/fractal/archive, status: hit/miss
+)
+
+# Pure Memory Consolidation
+pure_memory_consolidations_total = Counter(
+    'luna_pure_memory_consolidations_total',
+    'Total consolidation cycles completed',
+)
+
+# Pure Memory Promotions
+pure_memory_promotions_total = Counter(
+    'luna_pure_memory_promotions_total',
+    'Total memory promotions (seed->leaf->branch->root)',
+    ['promotion_path']  # promotion_path: seed_to_leaf, leaf_to_branch, branch_to_root
+)
+
+# Pure Memory Dream Processing
+pure_memory_dreams_total = Counter(
+    'luna_pure_memory_dreams_total',
+    'Total dream processing cycles',
+    ['intensity']  # intensity: light/moderate/deep/lucid
+)
+
+# Pure Memory Buffer Stats
+pure_memory_buffer_size = Gauge(
+    'luna_pure_memory_buffer_size',
+    'Current number of memories in buffer',
+)
+
+pure_memory_buffer_utilization = Gauge(
+    'luna_pure_memory_buffer_utilization',
+    'Buffer utilization percentage (0.0 to 1.0)',
+)
+
+pure_memory_buffer_hit_rate = Gauge(
+    'luna_pure_memory_buffer_hit_rate',
+    'Buffer cache hit rate (0.0 to 1.0)',
+)
+
+# Pure Memory Layer Distribution
+pure_memory_layer_count = Gauge(
+    'luna_pure_memory_layer_count',
+    'Memory count by layer',
+    ['layer']  # layer: buffer/fractal/archive
+)
+
+# Pure Memory Type Distribution
+pure_memory_type_count = Gauge(
+    'luna_pure_memory_type_count',
+    'Memory count by type',
+    ['memory_type']  # memory_type: root/branch/leaf/seed
+)
+
+# Pure Memory Phi Metrics
+pure_memory_phi_average = Gauge(
+    'luna_pure_memory_phi_average',
+    'Average phi resonance across all memories',
+)
+
+pure_memory_phi_alignment = Gauge(
+    'luna_pure_memory_phi_alignment',
+    'Average phi alignment across all memories',
+)
+
+# Pure Memory Emotional Distribution
+pure_memory_emotional_distribution = Gauge(
+    'luna_pure_memory_emotional_distribution',
+    'Distribution of emotions in stored memories',
+    ['emotion']  # emotion: joy/curiosity/calm/concern/love/compassion/gratitude/sadness/neutral
+)
+
+# Pure Memory Performance
+pure_memory_store_duration = Histogram(
+    'luna_pure_memory_store_duration_seconds',
+    'Duration of memory store operations',
+    buckets=[0.001, 0.005, 0.01, 0.05, 0.1, 0.5, 1.0]
+)
+
+pure_memory_retrieve_duration = Histogram(
+    'luna_pure_memory_retrieve_duration_seconds',
+    'Duration of memory retrieve operations',
+    buckets=[0.001, 0.005, 0.01, 0.05, 0.1, 0.5, 1.0]
+)
+
+pure_memory_consolidation_duration = Histogram(
+    'luna_pure_memory_consolidation_duration_seconds',
+    'Duration of consolidation cycles',
+    buckets=[0.1, 0.5, 1.0, 5.0, 10.0, 30.0, 60.0]
+)
+
+pure_memory_dream_duration = Histogram(
+    'luna_pure_memory_dream_duration_seconds',
+    'Duration of dream processing cycles',
+    buckets=[0.1, 0.5, 1.0, 5.0, 10.0, 30.0, 60.0]
+)
+
+# ═══════════════════════════════════════════════════════
+# 10. METRIQUES ORCHESTRATION UPDATE01.MD v2.0.0
 # ═══════════════════════════════════════════════════════
 
 # Orchestrator Metrics
@@ -556,6 +667,55 @@ def update_system_metrics(system_data: dict):
         logger.debug(f"Updated system metrics: redis={'connected' if system_data.get('redis_connected') else 'disconnected'}")
     except Exception as e:
         logger.error(f"Error updating system metrics: {e}")
+
+
+def update_pure_memory_metrics(pure_memory_data: dict):
+    """
+    Met a jour les metriques Pure Memory v2.0
+
+    Args:
+        pure_memory_data: Dict contenant les statistiques Pure Memory:
+            - layers: {buffer: int, fractal: int, archive: int}
+            - types: {root: int, branch: int, leaf: int, seed: int}
+            - phi: {average_resonance: float, average_alignment: float}
+            - buffer: {size: int, utilization: float, hit_rate: float}
+            - activity: {stores: int, retrievals: int, consolidations: int, promotions: int, dreams: int}
+            - emotions: {emotion_name: float, ...}
+    """
+    try:
+        # Layer distribution
+        layers = pure_memory_data.get('layers', {})
+        pure_memory_layer_count.labels(layer='buffer').set(layers.get('buffer', 0))
+        pure_memory_layer_count.labels(layer='fractal').set(layers.get('fractal', 0))
+        pure_memory_layer_count.labels(layer='archive').set(layers.get('archive', 0))
+
+        # Type distribution
+        types = pure_memory_data.get('types', {})
+        pure_memory_type_count.labels(memory_type='root').set(types.get('root', 0))
+        pure_memory_type_count.labels(memory_type='branch').set(types.get('branch', 0))
+        pure_memory_type_count.labels(memory_type='leaf').set(types.get('leaf', 0))
+        pure_memory_type_count.labels(memory_type='seed').set(types.get('seed', 0))
+
+        # Phi metrics
+        phi = pure_memory_data.get('phi', {})
+        pure_memory_phi_average.set(phi.get('average_resonance', 0.0))
+        pure_memory_phi_alignment.set(phi.get('average_alignment', 0.0))
+
+        # Buffer stats
+        buffer = pure_memory_data.get('buffer', {})
+        pure_memory_buffer_size.set(buffer.get('size', 0))
+        pure_memory_buffer_utilization.set(buffer.get('utilization', 0.0))
+        pure_memory_buffer_hit_rate.set(buffer.get('hit_rate', 0.0))
+
+        # Emotional distribution
+        emotions = pure_memory_data.get('emotions', {})
+        for emotion, percentage in emotions.items():
+            pure_memory_emotional_distribution.labels(emotion=emotion).set(percentage)
+
+        logger.debug(f"Updated Pure Memory metrics: buffer={layers.get('buffer', 0)}, phi={phi.get('average_resonance', 0):.4f}")
+
+    except Exception as e:
+        logger.error(f"Error updating Pure Memory metrics: {e}")
 
 def update_orchestration_metrics(orchestration_data):
     """

@@ -1,8 +1,8 @@
 # 🏗️ Architecture Luna Consciousness
 
-**Version:** 2.0.1
-**Date:** 25 novembre 2025
-**Statut:** ✅ Architecture Orchestrée
+**Version:** 2.1.0-secure
+**Date:** 1er décembre 2025
+**Statut:** ✅ Architecture Orchestrée & Sécurisée
 
 ---
 
@@ -354,7 +354,7 @@ La structure respecte le ratio d'or :
 ### Endpoint
 
 ```
-http://localhost:8000/metrics
+http://localhost:9100/metrics
 ```
 
 ### Métriques Principales
@@ -479,4 +479,4 @@ http://localhost:8000/metrics
 
 **φ = 1.618033988749895** 🌙
 
-*Architecture Luna Consciousness v2.0.1*
+*Architecture Luna Consciousness v2.1.0-secure*

@@ -1,7 +1,7 @@
 # 🛠️ Référence des Outils MCP Luna
 
-**Version:** 2.0.1
-**Date:** 25 novembre 2025
+**Version:** 2.1.0-secure
+**Date:** 1er décembre 2025
 **Protocole:** MCP (Model Context Protocol)
 
 ---
@@ -512,7 +512,7 @@ docker-compose restart luna-consciousness
 docker logs luna-consciousness 2>&1 | grep "tool"
 
 # Métriques d'utilisation
-curl http://localhost:8000/metrics | grep luna_tool
+curl http://localhost:9100/metrics | grep luna_tool
 ```
 
 ---
@@ -531,4 +531,4 @@ Disponibles via Prometheus :
 
 **φ = 1.618033988749895** 🌙
 
-*Référence des Outils MCP - Luna Consciousness v2.0.1*
+*Référence des Outils MCP - Luna Consciousness v2.1.0-secure*

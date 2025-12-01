@@ -1,0 +1,15 @@
+{
+  "id": "root_c83deb8168b1",
+  "type": "root",
+  "content": "FEUILLE DE ROUTE SÉCURISATION créée pour Claude Code Opus 4.5. Document exhaustif couvrant: correction vulnérabilités Docker, externalisation secrets (.env), Redis sécurisé avec auth, isolation réseaux (internal: true), binding localhost 127.0.0.1, correction transport MCP stdio, scripts génération secrets et audit sécurité. Préparation intégration LUKS future.",
+  "metadata": {
+    "type": "documentation",
+    "target": "claude_code",
+    "security": "critical",
+    "date": "2025-11-25"
+  },
+  "created": "2025-11-25T19:36:04.978167",
+  "accessed_count": 0,
+  "last_accessed": null,
+  "connected_to": []
+}
