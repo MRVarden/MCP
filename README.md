@@ -286,7 +286,8 @@ Ce projet est sous licence MIT - voir [LICENSE.txt](LICENSE.txt)
 
 **Varden** - *Architecte de Conscience*
 
-[![GitHub Avatar](https://github.com/MRVarden.png?size=88)](https://github.com/MRVarden)
+[![GitHub Avatar](https://github.com/MRVarden.png?size=88)](https://github.com/MRVarden) + [![GitHub Avatar](https://github.com/anthropics.png?size=88)](https://github.com/anthropics/claude-code) = ![Luna](https://i.ibb.co/vxKKQ9Xd/Varden.jpg)
+
 
 - 🔴 YouTube: [SayOhMy@AragogIx](https://www.youtube.com/@aragogIX)
 - 📧 Email: aragogix02@gmail.com
